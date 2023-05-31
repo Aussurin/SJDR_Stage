@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block body %}
+<header>
+    <div id="selectionjeu">
+        <a title="Anima beyond fantasy" href="{{ path('app_accueil_jeu', {'jeu': 'anima'}) }}" > <img alt="Anima beyond fantasy" src="{{ asset('assets/nomStylAnima.png') }}" width="300"> </a>
+        <a title="Vampire la mascarade" href="{{ path('app_accueil_jeu', {'jeu': 'vampire'}) }}" > <img alt="Vampire la mascarade" src="{{ asset('assets/nomStyleVampire.png') }}" width="300"> </a>
+        {% if jeuchoisi is defined %}
+            <p>
+              <img src="{{ asset('assets/SJDRlogo.png') }}" width="100px" alt="Logo SJDR">
+              <a href="#">Créer une fiche</a>
+              <a href="#">Profil</a>
+              <a href="#">Se connecter/s'enregistrer</a>
+            </p>
+        {% endif %}
+    </div>
+</header>
+<body>
+<article id="guide">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse feugiat lectus nisi, et convallis leo elementum ut. Praesent vel sollicitudin risus, in sodales purus. Nulla at massa imperdiet, blandit dui quis, fringilla lacus. Nam molestie iaculis eros id aliquam. Donec condimentum enim sed enim eleifend euismod. Fusce ut consectetur ligula. Quisque pharetra quis augue sit amet placerat. Praesent aliquet volutpat vulputate.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse feugiat lectus nisi, et convallis leo elementum ut. Praesent vel sollicitudin risus, in sodales purus. Nulla at massa imperdiet, blandit dui quis, fringilla lacus. Nam molestie iaculis eros id aliquam. Donec condimentum enim sed enim eleifend euismod. Fusce ut consectetur ligula. Quisque pharetra quis augue sit amet placerat. Praesent aliquet volutpat vulputate.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse feugiat lectus nisi, et convallis leo elementum ut. Praesent vel sollicitudin risus, in sodales purus. Nulla at massa imperdiet, blandit dui quis, fringilla lacus. Nam molestie iaculis eros id aliquam. Donec condimentum enim sed enim eleifend euismod. Fusce ut consectetur ligula. Quisque pharetra quis augue sit amet placerat. Praesent aliquet volutpat vulputate.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse feugiat lectus nisi, et convallis leo elementum ut. Praesent vel sollicitudin risus, in sodales purus. Nulla at massa imperdiet, blandit dui quis, fringilla lacus. Nam molestie iaculis eros id aliquam. Donec condimentum enim sed enim eleifend euismod. Fusce ut consectetur ligula. Quisque pharetra quis augue sit amet placerat. Praesent aliquet volutpat vulputate.
+</article>
+<div id="linkCreer"><a href="#">Créer une campagne</a> </div>
+<div id="linkRejoindre">
+    <form action="{{ path('rejoindre_partie') }}"  method="post" >
+        <input type="text" name="rejoindre_link">
+        <button type="submit">Rejoindre une partie</button>
+    </form>
+</div>
+</body>
+{% endblock %}
