@@ -3,6 +3,7 @@
 {% block title %}Accueil{% endblock %}
 
 {% block stylesheets %}
+
 {% endblock %}
 
 {% block body %}
@@ -13,9 +14,12 @@
         {% if jeuchoisi is defined %}
             <p>
               <img src="{{ asset('assets/SJDRlogo.png') }}" width="100px" alt="Logo SJDR">
-              <a href="#">Créer une fiche</a>
-              <a href="#">Profil</a>
-              <a href="#">Se connecter/s'enregistrer</a>
+              <a href="#">{{constant('CREERFICHE', contexte)}}</a>
+              {% if app.user %}
+                  <a href="#">{{constant('PROFIL', contexte)}}</a>
+              {% else %}
+                  <a href="#">{{constant('CONNECT', contexte)}}</a>
+              {% endif %}
             </p>
         {% endif %}
     </div>
@@ -27,11 +31,11 @@
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse feugiat lectus nisi, et convallis leo elementum ut. Praesent vel sollicitudin risus, in sodales purus. Nulla at massa imperdiet, blandit dui quis, fringilla lacus. Nam molestie iaculis eros id aliquam. Donec condimentum enim sed enim eleifend euismod. Fusce ut consectetur ligula. Quisque pharetra quis augue sit amet placerat. Praesent aliquet volutpat vulputate.
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse feugiat lectus nisi, et convallis leo elementum ut. Praesent vel sollicitudin risus, in sodales purus. Nulla at massa imperdiet, blandit dui quis, fringilla lacus. Nam molestie iaculis eros id aliquam. Donec condimentum enim sed enim eleifend euismod. Fusce ut consectetur ligula. Quisque pharetra quis augue sit amet placerat. Praesent aliquet volutpat vulputate.
 </article>
-<div id="linkCreer"><a href="#">Créer une campagne</a> </div>
+<div id="linkCreer"><a href="#">{{constant('CREERCAMPAGNE', contexte)}}</a> </div>
 <div id="linkRejoindre">
     <form action="{{ path('rejoindre_partie') }}"  method="post" >
         <input type="text" name="rejoindre_link">
-        <button type="submit">Rejoindre une partie</button>
+        <button type="submit">{{constant('REJOINDREPARTIE', contexte)}}</button>
     </form>
 </div>
 </body>

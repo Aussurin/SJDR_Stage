@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\RecuperateurContexte;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -9,19 +10,29 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AccueilController extends AbstractController
 {
-    #[Route('/', name: 'app_accueil')]
-    public function index(): Response
+
+    public function __construct(Private RecuperateurContexte $recuperateurContexte)
     {
-        return $this->render('accueil/index.html.twig', [
+
+    }
+
+    #[Route('/', name: 'app_accueil')]
+    public function index(Request $request): Response
+    {
+        $contexte = $this->recuperateurContexte->recupContexte($request);
+         return $this->render('accueil/index.html.twig', [
             'controller_name' => 'AccueilController',
+            'contexte' => $contexte
         ]);
     }
     #[Route('/{jeu}', name: 'app_accueil_jeu')]
-    public function indexJeu($jeu): Response
+    public function indexJeu($jeu, Request $request): Response
     {
+        $contexte = $this->recuperateurContexte->recupContexte($request);
         return $this->render('accueil/index.html.twig', [
             'controller_name' => 'AccueilController',
-            'jeuchoisi' => $jeu
+            'jeuchoisi' => $jeu,
+            'contexte' => $contexte
         ]);
     }
 }
