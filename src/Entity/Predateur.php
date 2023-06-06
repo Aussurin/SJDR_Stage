@@ -31,6 +31,9 @@ class Predateur
     #[ORM\ManyToMany(targetEntity: AvantageInconvenient::class, inversedBy: 'predateurs')]
     private Collection $avantageInconvenient;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $specialisation = null;
+
     public function __construct()
     {
         $this->discipline = new ArrayCollection();
@@ -122,6 +125,18 @@ class Predateur
     public function removeAvantageInconvenient(AvantageInconvenient $avantageInconvenient): self
     {
         $this->avantageInconvenient->removeElement($avantageInconvenient);
+
+        return $this;
+    }
+
+    public function getSpecialisation(): ?string
+    {
+        return $this->specialisation;
+    }
+
+    public function setSpecialisation(?string $specialisation): self
+    {
+        $this->specialisation = $specialisation;
 
         return $this;
     }

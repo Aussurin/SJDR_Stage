@@ -1,0 +1,76 @@
+@font-face {
+    font-family: "DreamOrphans";
+    src: local("DreamOrphans.otf");
+}
+*{
+    padding: 0;
+    margin: 0;
+    font-family: "DreamOrphans";
+    font-size: 40px;
+}
+body{
+    background: linear-gradient(0.25turn,#343292,#650000);
+}
+header{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    border: none;
+}
+.form{
+    display: flex;
+    justify-content: center;
+}
+table{
+    display: block;
+    height: auto;
+    width: 100%;
+    padding: 10px 20px 10px 20px;
+    border: solid black;
+    border-radius: 10px;
+    background: #b9b9b9;
+}
+
+td{
+    display: flex;
+    text-align: left;
+    margin-bottom: 10px;
+    align-items: flex-start;
+}
+.endformbuttons{
+    display: flex;
+    justify-content: left;
+}
+.tdbuttonright{
+    padding-top: 20px;
+    margin-left: 5px;
+}
+.tdbuttonleft{
+    padding-top: 20px;
+    margin-right: 5px;
+}
+button{
+    padding-right: 5px;
+    padding-left: 5px;
+    border-radius: 10px;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+.souvenir{
+    display: flex;
+    padding-top: 30px;
+    padding-bottom: 0;
+}
+.souvenirlabel{
+    display: flex;
+    justify-content: end;
+    font-size: 24px;
+    align-items: center;
+}
+.checkbox{
+    width: 20px;
+    height: 20px;
+}

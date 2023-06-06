@@ -23,8 +23,10 @@
                    <a class="navlien {{ jeuchoisi }}" href="#">{{constant('CREERFICHE', contexte)}}</a>
                    {% if app.user %}
                        <a class="navlien {{ jeuchoisi }}" href="#">{{constant('PROFIL', contexte)}}</a>
+                       <a class="navlien {{ jeuchoisi }}" href="{{ path('app_deconnecter') }}">{{constant('DECONNECTER', contexte)}}</a>
                    {% else %}
-                       <a class="navlien {{ jeuchoisi }}" href="#">{{constant('CONNECT', contexte)}}</a>
+                       <a class="navlien {{ jeuchoisi }}" href="{{ path('app_connecter') }}">{{constant('CONNECT', contexte)}}</a>
+                       <a class="navlien {{ jeuchoisi }}" href="{{ path('app_enregistrer') }}">{{constant('ENREGISTRER', contexte)}}</a>
                    {% endif %}
             </div>
         {% endif %}

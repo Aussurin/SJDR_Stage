@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    {{constant('ENREGISTRER', contexte)}}
+{% endblock %}
+{% block stylesheets %}
+    {% if ismobile %}
+        <link rel="stylesheet" href="{{ asset('css/enregistrerMobile.css') }}">
+    {% else %}
+        <link rel="stylesheet" href="{{ asset('css/enregistrer.css') }}">
+    {% endif %}
+{% endblock %}
+{% block body %}
+<body>
+    <header class="selectionjeu">
+        <a href="{{ path('app_accueil') }}"><img class="navlien" src="{{ asset('assets/SJDRlogo.png') }}" width="100px" alt="Logo SJDR"></a>
+    </header>
+
+    <div class="form">
+        {{ form_start(creermembreForm) }}
+        <table>
+            <tr>
+                <td><label for="membre_pseudo">{{constant('PSEUDO', contexte)}}</label></td>
+                <td>{{ form_row(creermembreForm.pseudo) }}</td>
+            </tr>
+            <tr><td><label for="membre_email">{{constant('EMAIL', contexte)}}</label></td>
+                <td>{{ form_row(creermembreForm.email) }}</td>
+            </tr>
+            <tr><td><label for="membre_password">{{constant('MDP', contexte)}}</label></td>
+                <td>{{ form_row(creermembreForm.password) }}</td>
+            </tr>
+            <tr>
+                <td><label for="membre_dateNaissance">{{constant('DATENAISSANCE', contexte)}}</label></td>
+                <td>{{ form_row(creermembreForm.dateNaissance)}}</td>
+            </tr>
+            <tr class="endformbuttons"><td class="tdbuttonleft" colspan="2"><button type="submit">{{constant('ENREGISTRER', contexte)}}</button></td>
+            {{ form_end(creermembreForm) }}
+                <td class="tdbuttonright">
+                    <form class="connectbutton"><button><a href="{{ path('app_connecter') }}">{{constant('DEJACOMPTE', contexte)}}</a></button></form>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</body>
+{% endblock %}
+
+
+
