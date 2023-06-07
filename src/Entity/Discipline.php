@@ -28,6 +28,9 @@ class Discipline
     #[ORM\ManyToMany(targetEntity: Predateur::class, mappedBy: 'discipline')]
     private Collection $predateurs;
 
+    #[ORM\Column(length: 100)]
+    private ?string $nom = null;
+
     public function __construct()
     {
         $this->clans = new ArrayCollection();
@@ -129,6 +132,18 @@ class Discipline
         if ($this->predateurs->removeElement($predateur)) {
             $predateur->removeDiscipline($this);
         }
+
+        return $this;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
 
         return $this;
     }

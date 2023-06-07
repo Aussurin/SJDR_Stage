@@ -16,6 +16,15 @@ security:
         main:
             lazy: true
             provider: app_user_provider
+            form_login:
+                # "app_login" is the name of the route created previously
+                login_path: app_connecter
+                check_path: app_connecter
+            logout:
+                path: app_deconnecter
+            remember_me:
+                secret: '%kernel.secret%' # required
+                lifetime: 2629800
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
