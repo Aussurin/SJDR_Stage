@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Membre;
 use App\Form\MembreType;
+use App\Form\ModifierMembreType;
 use App\Service\RecuperateurContexte;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use function PHPUnit\Framework\isNull;
 
 class MembreController extends AbstractController
 {
@@ -72,5 +74,68 @@ class MembreController extends AbstractController
     {
 
        return $this->redirectToRoute('app_accueil');
+    }
+
+    #[Route('/profil', name: 'app_profil')]
+    public function profil(Request $request): Response
+    {
+        if(!$this->isGranted('IS_AUTHENTICATED')){
+            return $this->redirectToRoute('app_connecter');
+        }
+
+        $membre = $this->getUser();
+        $modifierMembreForm = $this->createForm(ModifierMembreType::class, $membre);
+        $modifierMembreForm->handleRequest($request);
+
+
+        if ($modifierMembreForm->isSubmitted() && $modifierMembreForm->isValid()){
+
+
+            $this->entityManager->persist($membre);
+            $this->entityManager->flush();
+            return $this->redirectToRoute('app_profil');
+        }
+
+
+        $ismobile = $this->recuperateurContexte->isMobile($request);
+        $contexte = $this->recuperateurContexte->recupContexte($request);
+        return $this->render('membre/profil.html.twig', [
+            'controller_name' => 'MembreController',
+            'jeuchoisi' => 'vampire',
+            'ismobile' => $ismobile,
+            'contexte' => $contexte,
+            'modifierMembreForm' => $modifierMembreForm->createView(),
+        ]);
+    }
+    #[Route('/profil/{jeu}', name: 'app_profil_jeu')]
+    public function profilJeu(Request $request, $jeu): Response
+    {
+        if(!$this->isGranted('IS_AUTHENTICATED')){
+            return $this->redirectToRoute('app_connecter');
+        }
+
+        $membre = $this->getUser();
+        $modifierMembreForm = $this->createForm(ModifierMembreType::class, $membre);
+        $modifierMembreForm->handleRequest($request);
+
+
+        if ($modifierMembreForm->isSubmitted() && $modifierMembreForm->isValid()){
+
+
+            $this->entityManager->persist($membre);
+            $this->entityManager->flush();
+            return $this->redirectToRoute('app_profil');
+        }
+
+
+        $ismobile = $this->recuperateurContexte->isMobile($request);
+        $contexte = $this->recuperateurContexte->recupContexte($request);
+        return $this->render('membre/profil.html.twig', [
+            'controller_name' => 'MembreController',
+            'jeuchoisi' => $jeu,
+            'ismobile' => $ismobile,
+            'contexte' => $contexte,
+            'modifierMembreForm' => $modifierMembreForm->createView(),
+        ]);
     }
 }

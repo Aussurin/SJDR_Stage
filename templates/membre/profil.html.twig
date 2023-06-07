@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {% if ismobile %}
+        <link rel="stylesheet" href="{{ asset('css/profilBureau.css') }}">
+    {% else %}
+        <link rel="stylesheet" href="{{ asset('css/profilBureau.css') }}">
+    {% endif %}
+    {% if jeuchoisi == 'vampire' %}
+        <link rel="stylesheet" href="{{ asset('css/profilVampire.css') }}">
+    {% endif %}
+
+{% endblock %}
+{% block body %}
+<body>
+    <header>
+        <div class="selectionjeu">
+            <a href="{{ path('app_accueil') }}"><img class="navlien" src="{{ asset('assets/SJDRlogo.png') }}" width="100px" alt="Logo SJDR"></a>
+            <a class="lien_image inactifanima" title="Anima beyond fantasy" href="{{ path('app_profil_jeu', {'jeu': 'anima'}) }}" id="anima"> <img alt="Anima beyond fantasy" src="{{ asset('assets/nomStyleAnima.webp') }}" width="300"> </a>
+            <a class="lien_image inactifvampire" title="Vampire la mascarade" href="{{ path('app_profil_jeu', {'jeu': 'vampire'}) }}" id="vampire"> <img alt="Vampire la mascarade" src="{{ asset('assets/nomStyleVampire.webp') }}" width="300"> </a>
+        </div>
+    </header>
+    <div class="contenu">
+        <aside class="infoperso">
+            <h1>{{constant('PROFIL', contexte)}}</h1>
+            <div class="imgprofil">
+                <img src="{{ asset('assets/SJDRlogo.png') }}" alt="{{constant('IMAGEPROFIL', contexte)}}">
+                <button class="btnimg">{{constant('MODIFIER', contexte)}}</button>
+            </div>
+
+                <table>
+                    {{ form_start(modifierMembreForm) }}
+                    <tr>
+                        <td>{{constant('EMAIL', contexte)}}</td>
+                        <td>{{ form_row(modifierMembreForm.email) }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{constant('DATENAISSANCE', contexte)}}</td>
+                        <td>{{ form_row(modifierMembreForm.dateNaissance) }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{constant('PSEUDO', contexte)}}</td>
+                        <td>{{ form_row(modifierMembreForm.pseudo) }}</td>
+                    </tr>
+                    <tr class="trbutton">
+                        <td><button type="submit">{{constant('CONFIRMMODIF', contexte)}}</button></td>
+                    </tr>
+                    {{ form_end(modifierMembreForm) }}
+                    <tr class="trbutton">
+                        <td>
+                            <form action="#"  method="post" ><button type="submit">{{constant('MODIFMDP', contexte)}}</button></form>
+                        </td>
+                    </tr>
+
+                </table>
+        </aside>
+        <main class="infosjdr">
+        <div class="fiche_cmapagne"></div>
+        <div class="fiche_campagne"></div>
+        </main>
+    </div>
+</body>
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+

@@ -32,10 +32,10 @@
                 <td><label for="membre_dateNaissance">{{constant('DATENAISSANCE', contexte)}}</label></td>
                 <td>{{ form_row(creermembreForm.dateNaissance)}}</td>
             </tr>
-            <tr class="endformbuttons"><td class="tdbuttonleft" colspan="2"><button type="submit">{{constant('ENREGISTRER', contexte)}}</button></td>
+            <tr class="endformbuttons"><td class="tdbuttonleft" ><button type="submit">{{constant('ENREGISTRER', contexte)}}</button></td>
             {{ form_end(creermembreForm) }}
                 <td class="tdbuttonright">
-                    <form class="connectbutton"><button><a href="{{ path('app_connecter') }}">{{constant('DEJACOMPTE', contexte)}}</a></button></form>
+                    <form class="connectbutton"><button type="reset"><a href="{{ path('app_connecter') }}">{{constant('DEJACOMPTE', contexte)}}</a></button></form>
                 </td>
             </tr>
 

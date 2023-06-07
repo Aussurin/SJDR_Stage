@@ -23,5 +23,13 @@ class Contextefr
     const NOUVEAUCOMPTE = 'Nouveau compte';
     const DECONNECTER = 'Se déconnecter';
     const SOUVENIRDEMOI = 'Se souvenir de moi';
+    const OUBLIMOTDEPASS = 'Mot de passe oublié ?';
+    const REINITIALISERMDP = "Réinitialisation de mot de passe";
+    const MESSAGESMALLRESETPASS = 'Entrez votre email et vous recevrez un email de réinitialisation de mot de passe';
+    const ENVOIMAIL = 'Envoyer l\'email';
+    const IMAGEPROFIL = 'Image de profil';
+    const MODIFIER = 'Modifier';
+    const MODIFMDP = 'Modifier le mot de passe';
+    const CONFIRMMODIF = 'Valider les modifications';
 
 }

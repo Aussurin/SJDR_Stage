@@ -30,10 +30,11 @@
                     <td class="tdbuttonleft"><button type="submit">{{constant('CONNECT', contexte)}}</button></td></form>
                     <td class="souvenir"><label class="souvenirlabel"><input class="souvenirlabel checkbox" type="checkbox" name="_remember_me"/>{{constant('SOUVENIRDEMOI', contexte)}}</label></td>
                 </tr>
-                <tr>
+                <tr class="endformbuttons">
                     <td class="tdbuttonright">
                         <form class="connectbutton" action="{{ path('app_enregistrer') }}"  method="post" ><button type="submit">{{constant('NOUVEAUCOMPTE', contexte)}}</button></form>
                     </td>
+                    <td class="souvenir" ><a class="souvenirlabel" href="{{ path('app_forgot_password_request') }}">{{constant('OUBLIMOTDEPASS', contexte)}}</a></td>
                 </tr>
                 {# If you want to control the URL the user is redirected to on success
                     <input type="hidden" name="_target_path" value="/account"> #}

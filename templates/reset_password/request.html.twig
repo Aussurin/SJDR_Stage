@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reset your password{% endblock %}
+{% block stylesheets %}
+    {% if ismobile %}
+        <link rel="stylesheet" href="{{ asset('css/enregistrerMobile.css') }}">
+    {% else %}
+        <link rel="stylesheet" href="{{ asset('css/enregistrer.css') }}">
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <body>
+        <header class="selectionjeu">
+            <a href="{{ path('app_accueil') }}"><img class="navlien" src="{{ asset('assets/SJDRlogo.png') }}" width="100px" alt="Logo SJDR"></a>
+        </header>
+        {% for flash_error in app.flashes('reset_password_error') %}
+            <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+        {% endfor %}
+        <h1>{{constant('REINITIALISERMDP', contexte)}}</h1>
+        <div class="form">
+        {{ form_start(requestForm) }}
+            <table>
+                <tr>
+                    <td><label for="email">{{constant('EMAIL', contexte)}}</label></td>
+                    <td>{{ form_row(requestForm.email) }}</td>
+                </tr>
+                <tr>
+                    <td><small>{{constant('MESSAGESMALLRESETPASS', contexte)}}</small></td>
+                </tr>
+                <tr class="endformbuttons">
+                    <td class="tdbuttonleft" ><button>{{constant('ENVOIMAIL', contexte)}}</button>
+                        {{ form_end(requestForm) }}</td>
+                </tr>
+
+
+            </table>
+        </div>
+    </body>
+{% endblock %}

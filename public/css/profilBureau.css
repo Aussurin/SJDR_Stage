@@ -1,0 +1,71 @@
+@font-face {
+    font-family: "DreamOrphans";
+    src: local("DreamOrphans.otf");
+}
+*{
+    padding: 0;
+    margin: 0;
+    font-family: "DreamOrphans";
+    font-size: 16px;
+}
+body{
+}
+header{
+    border-bottom: solid black;
+    height: 20%;
+    width: 100%;
+}
+.contenu{
+    display: flex;
+    justify-content: space-between;
+}
+.selectionjeu{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+aside{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 24%;
+    margin: 5px;
+    padding: 5px;
+    border: solid black;
+    border-radius: 10px;
+    max-width: content-box;
+}
+.imgprofil{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 20px;
+    padding-left: 20px;
+    margin-right: 5px;
+}
+.btnimg{
+    margin-left: 5px;
+}
+tr{
+    display: flex;
+    justify-content: space-between;
+
+    margin: 10px;
+}
+td{
+}
+.trbutton{
+    justify-content: center;
+}
+main{
+    width: 74%;
+}
+button{
+    height: 35px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+    border: solid black 2px;
+}
