@@ -54,6 +54,8 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'maitreDeJeu', targetEntity: Campagne::class)]
     private Collection $campagnesMJ;
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updatedAt = null;
 
     public function __construct()
     {
@@ -251,7 +253,7 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
         if (null !== $imageFile) {
             // It is required that at least one field changes if you are using doctrine
             // otherwise the event listeners won't be called and the file is lost
-            $this->roles=['ROLE_USER'];
+            $this->updatedAt = new \DateTimeImmutable();
         }
     }
 

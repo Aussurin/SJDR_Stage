@@ -23,9 +23,13 @@
         <aside class="infoperso">
             <h1>{{constant('PROFIL', contexte)}}</h1>
             <div class="imgprofil">
-                <div>{{ form_start(imgform) }}{{ form_end() }}</div>
-                <img src="{{ asset('assets/SJDRlogo.png') }}" alt="{{constant('IMAGEPROFIL', contexte)}}">
-                <button class="btnimg">{{constant('MODIFIER', contexte)}}</button>
+                <div>{{ form_start(imgform) }}{{ form_widget(imgform) }}
+                    {% if app.user.imageName %}
+                        <img src="{{ asset('images/image_profil/'~app.user.imageName) }}" width="100px" height="100px" alt="Image de profil">
+                    {% endif %}
+                    <button>{{constant('MODIFIER', contexte)}}</button>{{ form_end(imgform) }}
+                </div>
+
             </div>
 
                 <table>
@@ -56,6 +60,7 @@
         </aside>
         <main class="infosjdr">
         <div class="fiche_cmapagne"></div>
+            
         <div class="fiche_campagne"></div>
         </main>
     </div>

@@ -6,6 +6,7 @@ use App\Entity\Membre;
 use App\Form\ImgProfilType;
 use App\Form\MembreType;
 use App\Form\ModifierMembreType;
+use App\Service\ImageOptimizer;
 use App\Service\RecuperateurContexte;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use function PHPUnit\Framework\isInstanceOf;
 use function PHPUnit\Framework\isNull;
 
 class MembreController extends AbstractController
@@ -80,42 +82,7 @@ class MembreController extends AbstractController
     #[Route('/profil', name: 'app_profil')]
     public function profil(Request $request): Response
     {
-        if(!$this->isGranted('IS_AUTHENTICATED')){
-            return $this->redirectToRoute('app_connecter');
-        }
-
-        $membre = $this->getUser();
-        $modifierMembreForm = $this->createForm(ModifierMembreType::class, $membre);
-        $modifierMembreForm->handleRequest($request);
-        $imgForm =$this->createForm(ImgProfilType::class,$membre);
-        $imgForm->handleRequest($request);
-
-
-        if ($modifierMembreForm->isSubmitted() && $modifierMembreForm->isValid()){
-
-
-            $this->entityManager->persist($membre);
-            $this->entityManager->flush();
-            return $this->redirectToRoute('app_profil');
-        }
-        if ($imgForm->isSubmitted() && $imgForm->isValid()){
-
-
-        $this->entityManager->persist($membre);
-        $this->entityManager->flush();
-    }
-
-
-        $ismobile = $this->recuperateurContexte->isMobile($request);
-        $contexte = $this->recuperateurContexte->recupContexte($request);
-        return $this->render('membre/profil.html.twig', [
-            'controller_name' => 'MembreController',
-            'jeuchoisi' => 'vampire',
-            'ismobile' => $ismobile,
-            'contexte' => $contexte,
-            'modifierMembreForm' => $modifierMembreForm->createView(),
-            'imgform'=> $imgForm->createView(),
-        ]);
+        return $this->redirectToRoute('app_profil_jeu', array('jeu'=>'vampire'));
     }
     #[Route('/profil/{jeu}', name: 'app_profil_jeu')]
     public function profilJeu(Request $request, $jeu): Response
@@ -124,10 +91,13 @@ class MembreController extends AbstractController
             return $this->redirectToRoute('app_connecter');
         }
 
+
         $membre = $this->getUser();
+        assert($membre instanceof Membre);
+
         $modifierMembreForm = $this->createForm(ModifierMembreType::class, $membre);
         $modifierMembreForm->handleRequest($request);
-        $imgForm =$this->createForm(ImgProfilType::class,$membre);
+        $imgForm = $this->createForm(ImgProfilType::class,$membre);
         $imgForm->handleRequest($request);
 
 
@@ -136,15 +106,22 @@ class MembreController extends AbstractController
 
             $this->entityManager->persist($membre);
             $this->entityManager->flush();
+            dd($membre);
+
         }
         if ($imgForm->isSubmitted() && $imgForm->isValid()){
 
 
             $this->entityManager->persist($membre);
+
             $this->entityManager->flush();
+
+
+            // $imageOptimizer = new ImageOptimizer();
+           // $imageOptimizer->resize($membre->getImageName());
         }
 
-
+        $membre->setImageFile(null);
 
         $ismobile = $this->recuperateurContexte->isMobile($request);
         $contexte = $this->recuperateurContexte->recupContexte($request);
