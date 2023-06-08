@@ -23,6 +23,7 @@
         <aside class="infoperso">
             <h1>{{constant('PROFIL', contexte)}}</h1>
             <div class="imgprofil">
+                <div>{{ form_start(imgform) }}{{ form_end() }}</div>
                 <img src="{{ asset('assets/SJDRlogo.png') }}" alt="{{constant('IMAGEPROFIL', contexte)}}">
                 <button class="btnimg">{{constant('MODIFIER', contexte)}}</button>
             </div>
