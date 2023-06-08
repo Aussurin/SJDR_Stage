@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Membre;
+use App\Form\ImgProfilType;
 use App\Form\MembreType;
 use App\Form\ModifierMembreType;
 use App\Service\RecuperateurContexte;
@@ -86,6 +87,8 @@ class MembreController extends AbstractController
         $membre = $this->getUser();
         $modifierMembreForm = $this->createForm(ModifierMembreType::class, $membre);
         $modifierMembreForm->handleRequest($request);
+        $imgForm =$this->createForm(ImgProfilType::class,$membre);
+        $imgForm->handleRequest($request);
 
 
         if ($modifierMembreForm->isSubmitted() && $modifierMembreForm->isValid()){
@@ -95,6 +98,12 @@ class MembreController extends AbstractController
             $this->entityManager->flush();
             return $this->redirectToRoute('app_profil');
         }
+        if ($imgForm->isSubmitted() && $imgForm->isValid()){
+
+
+        $this->entityManager->persist($membre);
+        $this->entityManager->flush();
+    }
 
 
         $ismobile = $this->recuperateurContexte->isMobile($request);
@@ -105,6 +114,7 @@ class MembreController extends AbstractController
             'ismobile' => $ismobile,
             'contexte' => $contexte,
             'modifierMembreForm' => $modifierMembreForm->createView(),
+            'imgform'=> $imgForm->createView(),
         ]);
     }
     #[Route('/profil/{jeu}', name: 'app_profil_jeu')]
@@ -117,6 +127,8 @@ class MembreController extends AbstractController
         $membre = $this->getUser();
         $modifierMembreForm = $this->createForm(ModifierMembreType::class, $membre);
         $modifierMembreForm->handleRequest($request);
+        $imgForm =$this->createForm(ImgProfilType::class,$membre);
+        $imgForm->handleRequest($request);
 
 
         if ($modifierMembreForm->isSubmitted() && $modifierMembreForm->isValid()){
@@ -124,8 +136,14 @@ class MembreController extends AbstractController
 
             $this->entityManager->persist($membre);
             $this->entityManager->flush();
-            return $this->redirectToRoute('app_profil');
         }
+        if ($imgForm->isSubmitted() && $imgForm->isValid()){
+
+
+            $this->entityManager->persist($membre);
+            $this->entityManager->flush();
+        }
+
 
 
         $ismobile = $this->recuperateurContexte->isMobile($request);
@@ -136,6 +154,7 @@ class MembreController extends AbstractController
             'ismobile' => $ismobile,
             'contexte' => $contexte,
             'modifierMembreForm' => $modifierMembreForm->createView(),
+            'imgform'=> $imgForm->createView(),
         ]);
     }
 }
