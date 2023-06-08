@@ -22,11 +22,11 @@ class AvantageInconvenient
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-    #[ORM\Column(type: Types::SMALLINT)]
-    private ?int $prix = null;
-
     #[ORM\ManyToMany(targetEntity: Predateur::class, mappedBy: 'avantageInconvenient')]
     private Collection $predateurs;
+
+    #[ORM\Column]
+    private ?int $type = null;
 
     public function __construct()
     {
@@ -62,17 +62,6 @@ class AvantageInconvenient
         return $this;
     }
 
-    public function getPrix(): ?int
-    {
-        return $this->prix;
-    }
-
-    public function setPrix(int $prix): self
-    {
-        $this->prix = $prix;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Predateur>
@@ -97,6 +86,18 @@ class AvantageInconvenient
         if ($this->predateurs->removeElement($predateur)) {
             $predateur->removeAvantageInconvenient($this);
         }
+
+        return $this;
+    }
+
+    public function getType(): ?int
+    {
+        return $this->type;
+    }
+
+    public function setType(int $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }
