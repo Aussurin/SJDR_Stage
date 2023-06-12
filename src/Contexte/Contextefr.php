@@ -30,6 +30,8 @@ class Contextefr
     const IMAGEPROFIL = 'Image de profil';
     const MODIFIER = 'Modifier';
     const MODIFMDP = 'Modifier le mot de passe';
+    const REPETERMDP = 'Répéter le mot de passe';
     const CONFIRMMODIF = 'Valider les modifications';
+    const GERERFICHES = 'Gérer les fiches';
 
 }

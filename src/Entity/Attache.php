@@ -23,6 +23,10 @@ class Attache
     #[ORM\Column(length: 255)]
     private ?string $conviction = null;
 
+    #[ORM\ManyToOne(inversedBy: 'attaches')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?FicheVampire $ficheVampire = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +64,18 @@ class Attache
     public function setConviction(string $conviction): self
     {
         $this->conviction = $conviction;
+
+        return $this;
+    }
+
+    public function getFicheVampire(): ?FicheVampire
+    {
+        return $this->ficheVampire;
+    }
+
+    public function setFicheVampire(?FicheVampire $ficheVampire): self
+    {
+        $this->ficheVampire = $ficheVampire;
 
         return $this;
     }

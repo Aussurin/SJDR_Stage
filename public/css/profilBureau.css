@@ -8,6 +8,10 @@
     font-family: "DreamOrphans";
     font-size: 16px;
 }
+a{
+    color: black;
+    text-decoration: none;
+}
 body{
 }
 header{

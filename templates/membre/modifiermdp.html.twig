@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{constant('MODIFMDP', contexte)}}
+{% endblock %}
+
+{% block stylesheets %}
+    {% if ismobile %}
+        <link rel="stylesheet" href="{{ asset('css/enregistrerMobile.css') }}">
+    {% else %}
+        <link rel="stylesheet" href="{{ asset('css/enregistrer.css') }}">
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+<body>
+    <header class="selectionjeu">
+        <a href="{{ path('app_accueil') }}"><img class="navlien" src="{{ asset('assets/SJDRlogo.png') }}" width="100px" alt="Logo SJDR"></a>
+    </header>
+
+    <div class="form">
+        {{ form_start(form) }}
+        <table>
+            <tr>
+                <td><label for="form_password_first">{{constant('MDP', contexte)}}</label></td>
+                <td>{{ form_row(form.password.first) }}</td>
+            </tr>
+            <tr>
+                <td><label for="form_password_second">{{constant('REPETERMDP', contexte)}}</label></td>
+                <td>{{ form_widget(form.password.second)}}</td>
+            </tr>
+            <tr class="endformbuttons"><td class="tdbuttonleft" ><button>{{constant('MODIFIER', contexte)}}</button></td>
+                {{ form_end(form) }}
+            </tr>
+        </table>
+    </div>
+</body>
+{% endblock %}
+

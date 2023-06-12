@@ -30,6 +30,10 @@ class Progression
     #[ORM\ManyToOne]
     private ?Predateur $predateur = null;
 
+    #[ORM\OneToOne(inversedBy: 'progression', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?FicheVampire $ficheVampire = null;
+
     public function __construct()
     {
         $this->attributs = new ArrayCollection();
@@ -165,6 +169,18 @@ class Progression
     public function setPredateur(?Predateur $predateur): self
     {
         $this->predateur = $predateur;
+
+        return $this;
+    }
+
+    public function getFicheVampire(): ?FicheVampire
+    {
+        return $this->ficheVampire;
+    }
+
+    public function setFicheVampire(FicheVampire $ficheVampire): self
+    {
+        $this->ficheVampire = $ficheVampire;
 
         return $this;
     }

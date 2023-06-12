@@ -1690,7 +1690,7 @@ class AppFixtures extends Fixture
 
         $reinenuit = new Predateur();
         $reinenuit->setNom('Reine de la nuit');
-        $reinenuit->setDescription('Le personnage compte sur sa connaissance intime d’une sous-culture en particulier et sur une posture soigneusement travaillée pour se nourrir sur les membres de cette sousculture exclusive.');
+        $reinenuit->setDescription('Le personnage compte sur sa connaissance intime d’une sous-culture en particulier et sur une posture soigneusement travaillée pour se nourrir sur les membres de cette sousculture exclusive.');
         $reinenuit->setSpecialisation('Etiquette/Commandement/Expérience de la rue (une sous culture spécifique).');
         $reinenuit->addDiscipline($domination);
         $reinenuit->addDiscipline($puissance);

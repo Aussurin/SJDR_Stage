@@ -52,15 +52,19 @@
                     {{ form_end(modifierMembreForm) }}
                     <tr class="trbutton">
                         <td>
-                            <form action="#"  method="post" ><button type="submit">{{constant('MODIFMDP', contexte)}}</button></form>
+                            <button><a href="{{ path('app_modifiermdp') }} ">{{constant('MODIFMDP', contexte)}}</a></button>
                         </td>
                     </tr>
-
                 </table>
         </aside>
         <main class="infosjdr">
-        <div class="fiche_cmapagne"></div>
-            
+        <div class="fiche_campagne">
+            <h1>{{constant('MODIFMDP', contexte)}}</h1>
+            <table>
+                {% for fiche in app.user. %}
+            </table>
+        </div>
+
         <div class="fiche_campagne"></div>
         </main>
     </div>

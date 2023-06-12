@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block body %}
+    <body>
+        {{ form_start(ficheform) }}
+        {{ form_widget(ficheform) }}
+        <button>valider</button>
+        {{ form_end(ficheform) }}
+    </body>
+{% endblock %}
