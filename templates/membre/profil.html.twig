@@ -58,14 +58,27 @@
                 </table>
         </aside>
         <main class="infosjdr">
-        <div class="fiche_campagne">
-            <h1>{{constant('MODIFMDP', contexte)}}</h1>
-            <table>
-                {% for fiche in app.user. %}
-            </table>
-        </div>
-
-        <div class="fiche_campagne"></div>
+            <div class="fiche_campagne">
+                <h1>{{constant('GERERFICHES', contexte)}}</h1>
+                <table>
+                    {% for fiche in app.user.fiches %}
+                        <tr>
+                            <td class="perso card">
+                                {% if fiche.nom %}{{ fiche.nom }}{% endif %}<br>
+                                {% if fiche.concept %}{{ fiche.concept }}{% endif %}
+                            </td>
+                            <td class="cardlink">
+                                <a href="{{ path('app_fiche_vampire_suppression_id', {'id': fiche.id}) }}" >{{constant('SUPPRIMER', contexte)}}</a><br>
+                                <a href="{{ path('app_fiche_vampire_modifier_id', {'id': fiche.id}) }}">{{constant('MODIFIER', contexte)}}</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="fiche_campagne"></div>
+            <div>
+                <a class="card" href="{{ path('app_fiche_vampire_creer') }}">{{constant('CREERFICHE', contexte)}}</a>
+            </div>
         </main>
     </div>
 </body>

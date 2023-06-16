@@ -1595,6 +1595,11 @@ class AppFixtures extends Fixture
         $occult->setDescription('Les connaissances liées au surnaturel.');
         $manager->persist($occult);
 
+        $politique = new Skill();
+        $politique->setNom('Politique');
+        $politique->setDescription('Les connaissances et l\'aisance avec le monde politique.');
+        $manager->persist($politique);
+
         $science = new Skill();
         $science->setNom('Sciences');
         $science->setDescription('Les connaissances et capacités scientifiques.');

@@ -56,6 +56,10 @@ class FicheVampire
     #[ORM\OneToOne(mappedBy: 'ficheVampire', cascade: ['persist', 'remove'])]
     private ?Progression $progression = null;
 
+    #[ORM\ManyToOne(inversedBy: 'fiches')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Membre $membre = null;
+
     public function __construct()
     {
         $this->attaches = new ArrayCollection();
@@ -261,6 +265,18 @@ class FicheVampire
         }
 
         $this->progression = $progression;
+
+        return $this;
+    }
+
+    public function getMembre(): ?Membre
+    {
+        return $this->membre;
+    }
+
+    public function setMembre(?Membre $membre): self
+    {
+        $this->membre = $membre;
 
         return $this;
     }

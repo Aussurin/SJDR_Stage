@@ -1,0 +1,190 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block stylesheets %}
+{% if ismobile %}
+    <link rel="stylesheet" href="{{ asset('css/profilBureau.css') }}">
+{% else %}
+    <link rel="stylesheet" href="{{ asset('css/profilBureau.css') }}">
+{% endif %}
+{% endblock %}
+
+
+{% block body %}
+    <body>
+
+        {{ form_start(ficheForm) }}
+        <div>
+            <table class="base">
+                <tr>
+                    <td class="tsbase">{{ form_row(ficheForm.nom) }}</td>
+                    <td class="tsbase">{{ form_row(ficheForm.concept) }}</td>
+                    <td class="tsbase">{{ form_row(ficheForm.predateur) }}</td>
+                </tr>
+                <tr>
+                    <td class="tsbase">{{ form_row(ficheForm.experience) }}</td>
+                    <td class="tsbase">{{ form_row(ficheForm.ambition) }}</td>
+                    <td class="tsbase">{{ form_row(ficheForm.clan) }}</td>
+                </tr>
+                <tr>
+                    <td class="tsbase">{{ form_row(ficheForm.sire) }}</td>
+                    <td class="tsbase">{{ form_row(ficheForm.desire) }}</td>
+                    <td class="tsbase">{{ form_row(ficheForm.generation) }}</td>
+                </tr>
+            </table>
+        </div>
+        <h2>{{constant('ATTRIBUTS', contexte)}}</h2>
+        <div>
+            <table class="attribut">
+                <tr>
+                    <td class="attrcol1">{{ form_row(ficheForm.Force) }}</td>
+                    <td class="attrcol1">{{ form_row(ficheForm.Dexterite) }}</td>
+                    <td class="attrcol1">{{ form_row(ficheForm.Vigueur) }}</td>
+                </tr>
+                <tr>
+                    <td class="attrcol2">{{ form_row(ficheForm.Charisme) }}</td>
+                    <td class="attrcol2">{{ form_row(ficheForm.Manipulation) }}</td>
+                    <td class="attrcol2">{{ form_row((ficheForm.Sang_froid)) }}</td>
+                </tr>
+                <tr>
+                    <td class="attrcol3">{{ form_row(ficheForm.Intelligence) }}</td>
+                    <td class="attrcol3">{{ form_row(ficheForm.Astuce) }}</td>
+                    <td class="attrcol3">{{ form_row(ficheForm.Resolution) }}</td>
+                </tr>
+            </table>
+        </div>
+        <h2>{{constant('COMPETENCES', contexte)}}</h2>
+        <div>
+            <table class="competences">
+                <tr>
+                    <td class="compcol1">{{ form_row(ficheForm.Armes_a_feu) }}</td>
+                    <td class="compcol1">{{ form_row(ficheForm.Artisanat) }}</td>
+                    <td class="compcol1">{{ form_row(ficheForm.Athletisme) }}</td>
+                    <td class="compcol1">{{ form_row(ficheForm.Bagarre) }}</td>
+                    <td class="compcol1">{{ form_row(ficheForm.Conduite) }}</td>
+                    <td class="compcol1">{{ form_row(ficheForm.Furtivite) }}</td>
+                    <td class="compcol1">{{ form_row(ficheForm.Larcin) }}</td>
+                    <td class="compcol1">{{ form_row(ficheForm.Melee) }}</td>
+                    <td class="compcol1">{{ form_row(ficheForm.Survie) }}</td>
+                </tr>
+                <tr>
+                    <td class="compcol2">{{ form_row(ficheForm.Animaux) }}</td>
+                    <td class="compcol2">{{ form_row(ficheForm.Commandement) }}</td>
+                    <td class="compcol2">{{ form_row(ficheForm.Empathie) }}</td>
+                    <td class="compcol2">{{ form_row(ficheForm.Etiquette) }}</td>
+                    <td class="compcol2">{{ form_row(ficheForm.Experience_de_la_rue) }}</td>
+                    <td class="compcol2">{{ form_row(ficheForm.Intimidation) }}</td>
+                    <td class="compcol2">{{ form_row(ficheForm.Persuasion) }}</td>
+                    <td class="compcol2">{{ form_row(ficheForm.Representation) }}</td>
+                    <td class="compcol2">{{ form_row(ficheForm.Subterfuge) }}</td>
+                </tr>
+                <tr>
+                    <td class="compcol3">{{ form_row(ficheForm.Erudition) }}</td>
+                    <td class="compcol3">{{ form_row(ficheForm.Finance) }}</td>
+                    <td class="compcol3">{{ form_row(ficheForm.Investigation) }}</td>
+                    <td class="compcol3">{{ form_row(ficheForm.Medecine) }}</td>
+                    <td class="compcol3">{{ form_row(ficheForm.Occultisme) }}</td>
+                    <td class="compcol3">{{ form_row(ficheForm.Politique) }}</td>
+                    <td class="compcol3">{{ form_row(ficheForm.Sciences) }}</td>
+                    <td class="compcol3">{{ form_row(ficheForm.Technologie) }}</td>
+                    <td class="compcol3">{{ form_row(ficheForm.Vigilance) }}</td>
+                </tr>
+            </table>
+        </div>
+        <table class="pouvoir">
+            <tr>
+                <td class="disc">{{ form_row(ficheForm.discipline1) }}</td>
+                <td class="disc">{{ form_row(ficheForm.discipline2) }}</td>
+                <td class="disc">{{ form_row(ficheForm.discipline3) }}</td>
+            </tr>
+            <tr>
+                <td class="pouv">{{ form_row(ficheForm.pouvoir11) }}</td>
+                <td class="pouv">{{ form_row(ficheForm.pouvoir21) }}</td>
+                <td class="pouv">{{ form_row(ficheForm.pouvoir31) }}</td>
+            </tr>
+            <tr>
+                <td class="pouv">{{ form_row(ficheForm.pouvoir12) }}</td>
+                <td class="pouv">{{ form_row(ficheForm.pouvoir22) }}</td>
+                <td class="pouv">{{ form_row(ficheForm.pouvoir32) }}</td>
+            </tr>
+            <tr>
+                <td class="pouv">{{ form_row(ficheForm.pouvoir13) }}</td>
+                <td class="pouv">{{ form_row(ficheForm.pouvoir23) }}</td>
+                <td class="pouv">{{ form_row(ficheForm.pouvoir33) }}</td>
+            </tr>
+            <tr>
+                <td class="pouv">{{ form_row(ficheForm.pouvoir14) }}</td>
+                <td class="pouv">{{ form_row(ficheForm.pouvoir24) }}</td>
+                <td class="pouv">{{ form_row(ficheForm.pouvoir34) }}</td>
+            </tr>
+            <tr>
+                <td class="pouv">{{ form_row(ficheForm.pouvoir15) }}</td>
+                <td class="pouv">{{ form_row(ficheForm.pouvoir25) }}</td>
+                <td class="pouv">{{ form_row(ficheForm.pouvoir35) }}</td>
+            </tr>
+            <tr>
+                <td class="disc">{{ form_row(ficheForm.discipline4) }}</td>
+                <td class="disc">{{ form_row(ficheForm.discipline5) }}</td>
+                <td class="disc">{{ form_row(ficheForm.discipline6) }}</td>
+            </tr>
+            <tr>
+                <td class="pouv">{{ form_row(ficheForm.pouvoir41) }}</td>
+                <td class="pouv">{{ form_row(ficheForm.pouvoir51) }}</td>
+                <td class="pouv">{{ form_row(ficheForm.pouvoir61) }}</td>
+            </tr>
+            <tr>
+                <td class="pouv">{{ form_row(ficheForm.pouvoir42) }}</td>
+                <td class="pouv">{{ form_row(ficheForm.pouvoir52) }}</td>
+                <td class="pouv">{{ form_row(ficheForm.pouvoir62) }}</td>
+            </tr>
+            <tr>
+                <td class="pouv">{{ form_row(ficheForm.pouvoir43) }}</td>
+                <td class="pouv">{{ form_row(ficheForm.pouvoir53) }}</td>
+                <td class="pouv">{{ form_row(ficheForm.pouvoir63) }}</td>
+            </tr>
+            <tr>
+                <td class="pouv">{{ form_row(ficheForm.pouvoir44) }}</td>
+                <td class="pouv">{{ form_row(ficheForm.pouvoir54) }}</td>
+                <td class="pouv">{{ form_row(ficheForm.pouvoir64) }}</td>
+            </tr>
+            <tr>
+                <td class="pouv">{{ form_row(ficheForm.pouvoir45) }}</td>
+                <td class="pouv">{{ form_row(ficheForm.pouvoir55) }}</td>
+                <td class="pouv">{{ form_row(ficheForm.pouvoir65) }}</td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td class="histo">{{ form_row(ficheForm.historique1) }}</td>
+                <td class="histopt">{{ form_row(ficheForm.historique1pts)}} </td>
+                <td class="histo">{{ form_row(ficheForm.historique2) }}</td>
+                <td class="histopt">{{ form_row(ficheForm.historique2pts)}} </td>
+                <td class="histo">{{ form_row(ficheForm.historique3) }}</td>
+                <td class="histopt">{{ form_row(ficheForm.historique3pts)}} </td>
+            </tr>
+            <tr>
+                <td class="histo">{{ form_row(ficheForm.historique4) }}</td>
+                <td class="histopt">{{ form_row(ficheForm.historique4pts)}} </td>
+                <td class="histo">{{ form_row(ficheForm.historique5) }}</td>
+                <td class="histopt">{{ form_row(ficheForm.historique5pts)}} </td>
+                <td class="histo">{{ form_row(ficheForm.historique6) }}</td>
+                <td class="histopt">{{ form_row(ficheForm.historique6pts)}} </td>
+            </tr>
+            <tr>
+                <td class="histo">{{ form_row(ficheForm.historique7) }}</td>
+                <td class="histopt">{{ form_row(ficheForm.historique7pts)}} </td>
+                <td class="histo">{{ form_row(ficheForm.historique8) }}</td>
+                <td class="histopt">{{ form_row(ficheForm.historique8pts)}} </td>
+                <td class="histo">{{ form_row(ficheForm.historique9) }}</td>
+                <td class="histopt">{{ form_row(ficheForm.historique9pts)}} </td>
+            </tr>
+        </table>
+
+        <button>{{constant('MODIFIER', contexte)}}</button>
+        {{ form_end(ficheForm) }}
+    </body>
+
+{% endblock %}

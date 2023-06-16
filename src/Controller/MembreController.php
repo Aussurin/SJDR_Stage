@@ -6,6 +6,7 @@ use App\Entity\Membre;
 use App\Form\ImgProfilType;
 use App\Form\MembreType;
 use App\Form\ModifierMembreType;
+use App\Repository\FicheVampireRepository;
 use App\Service\RecuperateurContexte;
 use Doctrine\ORM\EntityManagerInterface;
 use JetBrains\PhpStorm\NoReturn;
@@ -93,7 +94,6 @@ class MembreController extends AbstractController
         $modifierMembreForm->handleRequest($request);
         $imgForm = $this->createForm(ImgProfilType::class,$membre);
         $imgForm->handleRequest($request);
-
 
         if ($modifierMembreForm->isSubmitted() && $modifierMembreForm->isValid()){
 

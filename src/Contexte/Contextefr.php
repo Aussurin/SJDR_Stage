@@ -33,5 +33,9 @@ class Contextefr
     const REPETERMDP = 'Répéter le mot de passe';
     const CONFIRMMODIF = 'Valider les modifications';
     const GERERFICHES = 'Gérer les fiches';
+    const SUPPRIMER = 'Supprimer';
+    const ATTRIBUTS = 'Attributs';
+    const COMPETENCES = 'Compétences';
+
 
 }

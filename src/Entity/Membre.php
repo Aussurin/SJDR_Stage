@@ -57,10 +57,14 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
+    #[ORM\OneToMany(mappedBy: 'membre', targetEntity: FicheVampire::class, orphanRemoval: true)]
+    private Collection $fiches;
+
     public function __construct()
     {
         $this->campagnes = new ArrayCollection();
         $this->campagnesMJ = new ArrayCollection();
+        $this->fiches = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -280,5 +284,35 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     public function getImageSize(): ?int
     {
         return $this->imageSize;
+    }
+
+    /**
+     * @return Collection<int, FicheVampire>
+     */
+    public function getFiches(): Collection
+    {
+        return $this->fiches;
+    }
+
+    public function addFiche(FicheVampire $fiche): self
+    {
+        if (!$this->fiches->contains($fiche)) {
+            $this->fiches->add($fiche);
+            $fiche->setMembre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFiche(FicheVampire $fiche): self
+    {
+        if ($this->fiches->removeElement($fiche)) {
+            // set the owning side to null (unless already changed)
+            if ($fiche->getMembre() === $this) {
+                $fiche->setMembre(null);
+            }
+        }
+
+        return $this;
     }
 }

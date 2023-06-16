@@ -24,8 +24,6 @@ class Progression
     #[ORM\OneToMany(mappedBy: 'progression', targetEntity: PointCreation::class, orphanRemoval: true)]
     private Collection $pointsCreation;
 
-    #[ORM\ManyToMany(targetEntity: Pouvoir::class)]
-    private Collection $pouvoirs;
 
     #[ORM\ManyToOne]
     private ?Predateur $predateur = null;
@@ -34,12 +32,14 @@ class Progression
     #[ORM\JoinColumn(nullable: false)]
     private ?FicheVampire $ficheVampire = null;
 
+    #[ORM\OneToOne(mappedBy: 'progression', cascade: ['persist', 'remove'])]
+    private ?PouvoirPerso $pouvoirPerso = null;
+
     public function __construct()
     {
         $this->attributs = new ArrayCollection();
         $this->skills = new ArrayCollection();
         $this->pointsCreation = new ArrayCollection();
-        $this->pouvoirs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -137,29 +137,6 @@ class Progression
         return $this;
     }
 
-    /**
-     * @return Collection<int, Pouvoir>
-     */
-    public function getPouvoirs(): Collection
-    {
-        return $this->pouvoirs;
-    }
-
-    public function addPouvoir(Pouvoir $pouvoir): self
-    {
-        if (!$this->pouvoirs->contains($pouvoir)) {
-            $this->pouvoirs->add($pouvoir);
-        }
-
-        return $this;
-    }
-
-    public function removePouvoir(Pouvoir $pouvoir): self
-    {
-        $this->pouvoirs->removeElement($pouvoir);
-
-        return $this;
-    }
 
     public function getPredateur(): ?Predateur
     {
@@ -181,6 +158,23 @@ class Progression
     public function setFicheVampire(FicheVampire $ficheVampire): self
     {
         $this->ficheVampire = $ficheVampire;
+
+        return $this;
+    }
+
+    public function getPouvoirPerso(): ?PouvoirPerso
+    {
+        return $this->pouvoirPerso;
+    }
+
+    public function setPouvoirPerso(PouvoirPerso $pouvoirPerso): self
+    {
+        // set the owning side of the relation if necessary
+        if ($pouvoirPerso->getProgression() !== $this) {
+            $pouvoirPerso->setProgression($this);
+        }
+
+        $this->pouvoirPerso = $pouvoirPerso;
 
         return $this;
     }
