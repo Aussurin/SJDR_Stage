@@ -13,7 +13,12 @@ class ImgProfilType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('imageFile', VichImageType::class)
+            ->add('imageFile', VichImageType::class,[
+                'label'=>false,
+                'allow_delete'=>false,
+                'download_label'=>false,
+                'download_uri'=>false,
+            ])
         ;
     }
 

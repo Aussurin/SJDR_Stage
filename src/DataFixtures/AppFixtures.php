@@ -1595,6 +1595,11 @@ class AppFixtures extends Fixture
         $occult->setDescription('Les connaissances liées au surnaturel.');
         $manager->persist($occult);
 
+        $politique = new Skill();
+        $politique->setNom('Politique');
+        $politique->setDescription('Les connaissances et l\'aisance avec le monde politique.');
+        $manager->persist($politique);
+
         $science = new Skill();
         $science->setNom('Sciences');
         $science->setDescription('Les connaissances et capacités scientifiques.');
@@ -1690,7 +1695,7 @@ class AppFixtures extends Fixture
 
         $reinenuit = new Predateur();
         $reinenuit->setNom('Reine de la nuit');
-        $reinenuit->setDescription('Le personnage compte sur sa connaissance intime d’une sous-culture en particulier et sur une posture soigneusement travaillée pour se nourrir sur les membres de cette sousculture exclusive.');
+        $reinenuit->setDescription('Le personnage compte sur sa connaissance intime d’une sous-culture en particulier et sur une posture soigneusement travaillée pour se nourrir sur les membres de cette sousculture exclusive.');
         $reinenuit->setSpecialisation('Etiquette/Commandement/Expérience de la rue (une sous culture spécifique).');
         $reinenuit->addDiscipline($domination);
         $reinenuit->addDiscipline($puissance);

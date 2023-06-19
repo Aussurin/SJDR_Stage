@@ -26,6 +26,9 @@ class Possession
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
+    #[ORM\ManyToOne(inversedBy: 'possessions')]
+    private ?FicheVampire $ficheVampire = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +78,18 @@ class Possession
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getFicheVampire(): ?FicheVampire
+    {
+        return $this->ficheVampire;
+    }
+
+    public function setFicheVampire(?FicheVampire $ficheVampire): self
+    {
+        $this->ficheVampire = $ficheVampire;
 
         return $this;
     }

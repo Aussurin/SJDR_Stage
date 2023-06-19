@@ -23,9 +23,13 @@
         <aside class="infoperso">
             <h1>{{constant('PROFIL', contexte)}}</h1>
             <div class="imgprofil">
-                <div>{{ form_start(imgform) }}{{ form_end() }}</div>
-                <img src="{{ asset('assets/SJDRlogo.png') }}" alt="{{constant('IMAGEPROFIL', contexte)}}">
-                <button class="btnimg">{{constant('MODIFIER', contexte)}}</button>
+                <div>{{ form_start(imgform) }}{{ form_widget(imgform) }}
+                    {% if app.user.imageName %}
+                        <img src="{{ asset('images/image_profil/'~app.user.imageName) }}" width="100px" height="100px" alt="Image de profil">
+                    {% endif %}
+                    <button>{{constant('MODIFIER', contexte)}}</button>{{ form_end(imgform) }}
+                </div>
+
             </div>
 
                 <table>
@@ -48,15 +52,33 @@
                     {{ form_end(modifierMembreForm) }}
                     <tr class="trbutton">
                         <td>
-                            <form action="#"  method="post" ><button type="submit">{{constant('MODIFMDP', contexte)}}</button></form>
+                            <button><a href="{{ path('app_modifiermdp') }} ">{{constant('MODIFMDP', contexte)}}</a></button>
                         </td>
                     </tr>
-
                 </table>
         </aside>
         <main class="infosjdr">
-        <div class="fiche_cmapagne"></div>
-        <div class="fiche_campagne"></div>
+            <div class="fiche_campagne">
+                <h1>{{constant('GERERFICHES', contexte)}}</h1>
+                <table>
+                    {% for fiche in app.user.fiches %}
+                        <tr>
+                            <td class="perso card">
+                                {% if fiche.nom %}{{ fiche.nom }}{% endif %}<br>
+                                {% if fiche.concept %}{{ fiche.concept }}{% endif %}
+                            </td>
+                            <td class="cardlink">
+                                <a href="{{ path('app_fiche_vampire_suppression_id', {'id': fiche.id}) }}" >{{constant('SUPPRIMER', contexte)}}</a><br>
+                                <a href="{{ path('app_fiche_vampire_modifier_id', {'id': fiche.id}) }}">{{constant('MODIFIER', contexte)}}</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="fiche_campagne"></div>
+            <div>
+                <a class="card" href="{{ path('app_fiche_vampire_creer') }}">{{constant('CREERFICHE', contexte)}}</a>
+            </div>
         </main>
     </div>
 </body>
