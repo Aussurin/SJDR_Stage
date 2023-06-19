@@ -95,4 +95,9 @@ class PouvoirPerso
 
         return $this;
     }
+    public function resetDiscPouv(): self{
+        $this->pouvoirs->clear();
+        $this->Discipline->clear();
+        return $this;
+    }
 }

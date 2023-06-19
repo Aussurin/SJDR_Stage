@@ -5,186 +5,468 @@
 {% endblock %}
 
 {% block stylesheets %}
-{% if ismobile %}
-    <link rel="stylesheet" href="{{ asset('css/profilBureau.css') }}">
-{% else %}
-    <link rel="stylesheet" href="{{ asset('css/profilBureau.css') }}">
-{% endif %}
+    <link rel="stylesheet" href="{{ asset('css/modifierFicheVampire.css') }}">
 {% endblock %}
 
 
 {% block body %}
-    <body>
+    <header>
+        <div class="imgh"><a href="{{ path('app_accueil') }}"><img class="navlien" src="{{ asset('assets/SJDRlogo.png') }}" width="100px" alt="Logo SJDR"></a></div>
+    </header>
+    <div class="imgvampire"><img class="vampire" src="{{ asset('assets/Headfichevampire.png') }}" alt="Decoration fiche vampire"> </div>
+    <body onload="initialisation()">
+
 
         {{ form_start(ficheForm) }}
-        <div>
+
             <table class="base">
-                <tr>
-                    <td class="tsbase">{{ form_row(ficheForm.nom) }}</td>
-                    <td class="tsbase">{{ form_row(ficheForm.concept) }}</td>
-                    <td class="tsbase">{{ form_row(ficheForm.predateur) }}</td>
-                </tr>
-                <tr>
-                    <td class="tsbase">{{ form_row(ficheForm.experience) }}</td>
-                    <td class="tsbase">{{ form_row(ficheForm.ambition) }}</td>
-                    <td class="tsbase">{{ form_row(ficheForm.clan) }}</td>
-                </tr>
-                <tr>
-                    <td class="tsbase">{{ form_row(ficheForm.sire) }}</td>
-                    <td class="tsbase">{{ form_row(ficheForm.desire) }}</td>
-                    <td class="tsbase">{{ form_row(ficheForm.generation) }}</td>
-                </tr>
+                <tbody>
+                    <tr>
+                        <td class="tsbase"><p class="label">{{constant('NOM', contexte)}}</p>
+                            {{ form_widget(ficheForm.nom) }}</td>
+                        <td class="tsbase"><p class="label">{{constant('CONCEPT', contexte)}}</p>
+                            {{ form_widget(ficheForm.concept) }}</td>
+                        <td class="tsbase"><p class="label">{{constant('PREDATEUR', contexte)}}</p>
+                            {{ form_widget(ficheForm.predateur) }}</td>
+                    </tr>
+                    <tr>
+                        <td class="tsbase"><p class="label">{{constant('EXPERIENCE', contexte)}}</p>
+                            {{ form_widget(ficheForm.experience) }}</td>
+                        <td class="tsbase"><p class="label">{{constant('AMBITION', contexte)}}</p>
+                            {{ form_widget(ficheForm.ambition) }}</td>
+                        <td class="tsbase"><p class="label">{{constant('CLAN', contexte)}}</p>
+                            {{ form_widget(ficheForm.clan) }}</td>
+                    </tr>
+                    <tr>
+                        <td class="tsbase"><p class="label">{{constant('SIRE', contexte)}}</p>
+                            {{ form_widget(ficheForm.sire) }}</td>
+                        <td class="tsbase"><p class="label">{{constant('DESIRE', contexte)}}</p>
+                            {{ form_widget(ficheForm.desire) }}</td>
+                        <td class="tsbase"><p class="label">{{constant('GENERATION', contexte)}}</p>
+                            {{ form_widget(ficheForm.generation) }}</td>
+                    </tr>
+                </tbody>
             </table>
-        </div>
+
         <h2>{{constant('ATTRIBUTS', contexte)}}</h2>
-        <div>
+
             <table class="attribut">
-                <tr>
-                    <td class="attrcol1">{{ form_row(ficheForm.Force) }}</td>
-                    <td class="attrcol1">{{ form_row(ficheForm.Dexterite) }}</td>
-                    <td class="attrcol1">{{ form_row(ficheForm.Vigueur) }}</td>
-                </tr>
-                <tr>
-                    <td class="attrcol2">{{ form_row(ficheForm.Charisme) }}</td>
-                    <td class="attrcol2">{{ form_row(ficheForm.Manipulation) }}</td>
-                    <td class="attrcol2">{{ form_row((ficheForm.Sang_froid)) }}</td>
-                </tr>
-                <tr>
-                    <td class="attrcol3">{{ form_row(ficheForm.Intelligence) }}</td>
-                    <td class="attrcol3">{{ form_row(ficheForm.Astuce) }}</td>
-                    <td class="attrcol3">{{ form_row(ficheForm.Resolution) }}</td>
-                </tr>
+                <tbody>
+                    <tr>
+                        <td class="attrcol1">
+                            <div class="label"><p class="label">{{constant('FORCE', contexte)}}</p></div>
+                            <div class="widget">
+                                <figure><div id="Force"></div></figure>
+                            {{ form_widget(ficheForm.Force) }}</td>
+                        <td class="attrcol2">
+                            <div class="label"><p class="label">{{constant('CHARISME', contexte)}}</p></div>
+                            <div class="widget">
+                                <figure><div id="Charisme"></div></figure>
+                            {{ form_widget(ficheForm.Charisme) }}</td>
+                        <td class="attrcol3">
+                            <div class="label"><p class="label">{{constant('INTELLIGENCE', contexte)}}</p></div>
+                            <div class="widget">
+                                <figure><div id="Intelligence"></div></figure>
+                            {{ form_widget(ficheForm.Intelligence) }}</td>
+                    </tr>
+                    <tr>
+                        <td class="attrcol1">
+                            <div class="label"><p class="label">{{constant('DEXTERITE', contexte)}}</p></div>
+                            <div class="widget">
+                                <figure><div id="Dexterite"></div></figure>
+                            {{ form_widget(ficheForm.Dexterite) }}</td>
+                        <td class="attrcol2">
+                            <div class="label"><p class="label">{{constant('MANIPULATION', contexte)}}</p></div>
+                            <div class="widget">
+                                <figure><div id="Manipulation"></div></figure>
+                            {{ form_widget(ficheForm.Manipulation) }}</td>
+                        <td class="attrcol3">
+                            <div class="label"><p class="label">{{constant('ASTUCE', contexte)}}</p></div>
+                            <div class="widget">
+                                <figure><div id="Astuce"></div></figure>
+                            {{ form_widget((ficheForm.Astuce)) }}</td>
+                    </tr>
+                    <tr>
+                        <td class="attrcol1">
+                            <div class="label"><p class="label">{{constant('VIGUEUR', contexte)}}</p></div>
+                            <div class="widget">
+                                <figure><div id="Vigueur"></div></figure>
+                            {{ form_widget(ficheForm.Vigueur) }}</td>
+                        <td class="attrcol2">
+                            <div class="label"><p class="label">{{constant('SANG_FROID', contexte)}}</p></div>
+                            <div class="widget">
+                                <figure><div id="Sang_froid"></div></figure>
+                            {{ form_widget(ficheForm.Sang_froid) }}</td>
+                        <td class="attrcol3">
+                            <div class="label"><p class="label">{{constant('RESOLUTION', contexte)}}</p></div>
+                            <div class="widget">
+                                <figure><div id="Resolution"></div></figure>
+                                {{ form_widget(ficheForm.Resolution) }}
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
             </table>
-        </div>
+
         <h2>{{constant('COMPETENCES', contexte)}}</h2>
-        <div>
+
             <table class="competences">
-                <tr>
-                    <td class="compcol1">{{ form_row(ficheForm.Armes_a_feu) }}</td>
-                    <td class="compcol1">{{ form_row(ficheForm.Artisanat) }}</td>
-                    <td class="compcol1">{{ form_row(ficheForm.Athletisme) }}</td>
-                    <td class="compcol1">{{ form_row(ficheForm.Bagarre) }}</td>
-                    <td class="compcol1">{{ form_row(ficheForm.Conduite) }}</td>
-                    <td class="compcol1">{{ form_row(ficheForm.Furtivite) }}</td>
-                    <td class="compcol1">{{ form_row(ficheForm.Larcin) }}</td>
-                    <td class="compcol1">{{ form_row(ficheForm.Melee) }}</td>
-                    <td class="compcol1">{{ form_row(ficheForm.Survie) }}</td>
-                </tr>
-                <tr>
-                    <td class="compcol2">{{ form_row(ficheForm.Animaux) }}</td>
-                    <td class="compcol2">{{ form_row(ficheForm.Commandement) }}</td>
-                    <td class="compcol2">{{ form_row(ficheForm.Empathie) }}</td>
-                    <td class="compcol2">{{ form_row(ficheForm.Etiquette) }}</td>
-                    <td class="compcol2">{{ form_row(ficheForm.Experience_de_la_rue) }}</td>
-                    <td class="compcol2">{{ form_row(ficheForm.Intimidation) }}</td>
-                    <td class="compcol2">{{ form_row(ficheForm.Persuasion) }}</td>
-                    <td class="compcol2">{{ form_row(ficheForm.Representation) }}</td>
-                    <td class="compcol2">{{ form_row(ficheForm.Subterfuge) }}</td>
-                </tr>
-                <tr>
-                    <td class="compcol3">{{ form_row(ficheForm.Erudition) }}</td>
-                    <td class="compcol3">{{ form_row(ficheForm.Finance) }}</td>
-                    <td class="compcol3">{{ form_row(ficheForm.Investigation) }}</td>
-                    <td class="compcol3">{{ form_row(ficheForm.Medecine) }}</td>
-                    <td class="compcol3">{{ form_row(ficheForm.Occultisme) }}</td>
-                    <td class="compcol3">{{ form_row(ficheForm.Politique) }}</td>
-                    <td class="compcol3">{{ form_row(ficheForm.Sciences) }}</td>
-                    <td class="compcol3">{{ form_row(ficheForm.Technologie) }}</td>
-                    <td class="compcol3">{{ form_row(ficheForm.Vigilance) }}</td>
-                </tr>
+                <tbody>
+                    <tr>
+                        <td class="compcol1">
+                            <div class="label"><p class="label">{{constant('ARMEFEU', contexte)}}</p></div>
+                            <div class="widget">
+                                <figure><div id="Armes_a_feu"></div></figure>
+                                {{ form_widget(ficheForm.Armes_a_feu) }}
+                            </div>
+                        </td>
+                        <td class="compcol2">
+                            <div class="label"><p class="label">{{constant('ANIMAUX', contexte)}}</p></div>
+                            <div class="widget">
+                                <figure><div id="Animaux"></div></figure>
+                                {{ form_widget(ficheForm.Animaux) }}
+                            </div>
+                        </td>
+                        <td class="compcol3">
+                            <div class="label"><p class="label">{{constant('ERUDITION', contexte)}}</p></div>
+                            <div class="widget">
+                                <figure><div id="Erudition"></div></figure>
+                                {{ form_widget(ficheForm.Erudition) }}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="compcol1">
+                            <div class="label"><p class="label">{{constant('ARTISANAT', contexte)}}</p></div>
+                            <div class="widget">
+                                <figure><div id="Artisanat"></div></figure>
+                                {{ form_widget(ficheForm.Artisanat) }}</div>
+                        </td>
+                        <td class="compcol2">
+                            <div class="label"><p class="label">{{constant('COMMANDEMENT', contexte)}}</p></div>
+                            <div class="widget">
+                                <figure><div id="Commandement"></div></figure>
+                                {{ form_widget(ficheForm.Commandement) }}</div>
+                        </td>
+                        <td class="compcol3">
+                            <div class="label"><p class="label">{{constant('FINANCE', contexte)}}</p></div>
+                            <div class="widget">
+                                <figure><div id="Finance"></div></figure>
+                                {{ form_widget(ficheForm.Finance) }}</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="compcol1">
+                            <div class="label"><p class="label">{{constant('ATHLETISME', contexte)}}</p></div>
+                            <div class="widget">
+                                <figure><div id="Athletisme"></div></figure>
+                                {{ form_widget(ficheForm.Athletisme) }}
+                            </div>
+                        </td>
+                        <td class="compcol2">
+                            <div class="label"><p class="label">{{constant('EMPATHIE', contexte)}}</p></div>
+                            <div class="widget">
+                                <figure><div id="Empathie"></div></figure>
+                                {{ form_widget(ficheForm.Empathie) }}
+                            </div>
+                        </td>
+                        <td class="compcol3">
+                            <div class="label"><p class="label">{{constant('INVESTIGATION', contexte)}}</p></div>
+                            <div class="widget">
+                                <figure><div id="Investigation"></div></figure>
+                                {{ form_widget(ficheForm.Investigation) }}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="compcol1">
+                            <div class="label"><p class="label">{{constant('BAGARRE', contexte)}}</p></div>
+                            <div class="widget">
+                                <figure><div id="Bagarre"></div></figure>
+                                {{ form_widget(ficheForm.Bagarre) }}
+                            </div>
+                        </td>
+                        <td class="compcol2">
+                            <div class="label"><p class="label">{{constant('ETIQUETTE', contexte)}}</p></div>
+                            <div class="widget">
+                                <figure><div id="Etiquette"></div></figure>
+                                {{ form_widget(ficheForm.Etiquette) }}
+                            </div>
+                        </td>
+                        <td class="compcol3">
+                            <div class="label"><p class="label">{{constant('MEDECINE', contexte)}}</p>
+                            </div>
+                            <div class="widget">
+                                <figure><div id="Medecine"></div></figure>
+                                {{ form_widget(ficheForm.Medecine) }}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="compcol1">
+                            <div class="label"><p class="label">{{constant('CONDUITE', contexte)}}</p></div>
+                            <div class="widget">
+                                <figure><div id="Conduite"></div></figure>
+                                {{ form_widget(ficheForm.Conduite) }}
+                            </div>
+                        </td>
+                        <td class="compcol2">
+                            <div class="label"><p class="label">{{constant('EXPRUE', contexte)}}</p></div>
+                            <div class="widget">
+                                <figure><div id="Experience_de_la_rue"></div></figure>
+                                {{ form_widget(ficheForm.Experience_de_la_rue) }}
+                            </div>
+                        </td>
+                        <td class="compcol3">
+                            <div class="label"><p class="label">{{constant('OCCULTISME', contexte)}}</p></div>
+                            <div class="widget">
+                                <figure><div id="Occultisme"></div></figure>
+                                {{ form_widget(ficheForm.Occultisme) }}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="compcol1">
+                            <div class="label"><p class="label">{{constant('FURTIVITE', contexte)}}</p></div>
+                            <div class="widget">
+                                <figure><div id="Furtivite"></div></figure>
+                                {{ form_widget(ficheForm.Furtivite) }}
+                            </div>
+                        </td>
+                        <td class="compcol2">
+                            <div class="label"><p class="label">{{constant('INTIMIDATION', contexte)}}</p></div>
+                            <div class="widget">
+                                <figure><div id="Intimidation"></div></figure>
+                                {{ form_widget(ficheForm.Intimidation) }}
+                            </div>
+                        </td>
+                        <td class="compcol3">
+                            <div class="label"><p class="label">{{constant('POLITIQUE', contexte)}}</p></div>
+                            <div class="widget">
+                                <figure><div id="Politique"></div></figure>
+                                {{ form_widget(ficheForm.Politique) }}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="compcol1">
+                            <div class="label"><p class="label">{{constant('LARCIN', contexte)}}</p></div>
+                            <div class="widget">
+                                <figure><div id="Larcin"></div></figure>
+                                {{ form_widget(ficheForm.Larcin) }}
+                            </div>
+                        </td>
+                        <td class="compcol2">
+                            <div class="label"><p class="label">{{constant('PERSUASION', contexte)}}</p></div>
+                            <div class="widget">
+                                <figure><div id="Persuasion"></div></figure>
+                                {{ form_widget(ficheForm.Persuasion) }}
+                            </div>
+                        </td>
+                        <td class="compcol3">
+                            <div class="label"><p class="label">{{constant('SCIENCES', contexte)}}</p></div>
+                            <div class="widget">
+                                <figure><div id="Sciences"></div></figure>
+                                {{ form_widget(ficheForm.Sciences) }}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="compcol1">
+                            <div class="label"><p class="label">{{constant('MELEE', contexte)}}</p></div>
+                            <div class="widget">
+                                <figure><div id="Melee"></div></figure>
+                                {{ form_widget(ficheForm.Melee) }}
+                            </div>
+                        </td>
+                        <td class="compcol2">
+                            <div class="label"><p class="label">{{constant('REPRESENTATION', contexte)}}</p></div>
+                            <div class="widget">
+                                <figure><div id="Representation"></div></figure>
+                                {{ form_widget(ficheForm.Representation) }}
+                            </div>
+                        </td>
+                        <td class="compcol3">
+                            <div class="label"><p class="label">{{constant('TECHNOLOGIE', contexte)}}</p></div>
+                            <div class="widget">
+                                <figure><div id="Technologie"></div></figure>
+                                {{ form_widget(ficheForm.Technologie) }}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="compcol1">
+                            <div class="label"><p class="label">{{constant('SURVIE', contexte)}}</p></div>
+                            <div class="widget">
+                                <figure><div id="Survie"></div></figure>
+                                {{ form_widget(ficheForm.Survie) }}
+                            </div>
+                        </td>
+                        <td class="compcol2">
+                            <div class="label"><p class="label">{{constant('SUBTERFUGE', contexte)}}</p></div>
+                            <div class="widget">
+                                <figure><div id="Subterfuge"></div></figure>
+                                {{ form_widget(ficheForm.Subterfuge) }}
+                            </div>
+                        </td>
+                        <td class="compcol3">
+                            <div class="label"><p class="label">{{constant('VIGILANCE', contexte)}}</p></div>
+                            <div class="widget">
+                                <figure><div id="Vigilance"></div></figure>
+                                {{ form_widget(ficheForm.Vigilance) }}
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
             </table>
-        </div>
+
+        <h2>{{constant('POUVOIRS', contexte)}}</h2>
+
         <table class="pouvoir">
-            <tr>
-                <td class="disc">{{ form_row(ficheForm.discipline1) }}</td>
-                <td class="disc">{{ form_row(ficheForm.discipline2) }}</td>
-                <td class="disc">{{ form_row(ficheForm.discipline3) }}</td>
-            </tr>
-            <tr>
-                <td class="pouv">{{ form_row(ficheForm.pouvoir11) }}</td>
-                <td class="pouv">{{ form_row(ficheForm.pouvoir21) }}</td>
-                <td class="pouv">{{ form_row(ficheForm.pouvoir31) }}</td>
-            </tr>
-            <tr>
-                <td class="pouv">{{ form_row(ficheForm.pouvoir12) }}</td>
-                <td class="pouv">{{ form_row(ficheForm.pouvoir22) }}</td>
-                <td class="pouv">{{ form_row(ficheForm.pouvoir32) }}</td>
-            </tr>
-            <tr>
-                <td class="pouv">{{ form_row(ficheForm.pouvoir13) }}</td>
-                <td class="pouv">{{ form_row(ficheForm.pouvoir23) }}</td>
-                <td class="pouv">{{ form_row(ficheForm.pouvoir33) }}</td>
-            </tr>
-            <tr>
-                <td class="pouv">{{ form_row(ficheForm.pouvoir14) }}</td>
-                <td class="pouv">{{ form_row(ficheForm.pouvoir24) }}</td>
-                <td class="pouv">{{ form_row(ficheForm.pouvoir34) }}</td>
-            </tr>
-            <tr>
-                <td class="pouv">{{ form_row(ficheForm.pouvoir15) }}</td>
-                <td class="pouv">{{ form_row(ficheForm.pouvoir25) }}</td>
-                <td class="pouv">{{ form_row(ficheForm.pouvoir35) }}</td>
-            </tr>
-            <tr>
-                <td class="disc">{{ form_row(ficheForm.discipline4) }}</td>
-                <td class="disc">{{ form_row(ficheForm.discipline5) }}</td>
-                <td class="disc">{{ form_row(ficheForm.discipline6) }}</td>
-            </tr>
-            <tr>
-                <td class="pouv">{{ form_row(ficheForm.pouvoir41) }}</td>
-                <td class="pouv">{{ form_row(ficheForm.pouvoir51) }}</td>
-                <td class="pouv">{{ form_row(ficheForm.pouvoir61) }}</td>
-            </tr>
-            <tr>
-                <td class="pouv">{{ form_row(ficheForm.pouvoir42) }}</td>
-                <td class="pouv">{{ form_row(ficheForm.pouvoir52) }}</td>
-                <td class="pouv">{{ form_row(ficheForm.pouvoir62) }}</td>
-            </tr>
-            <tr>
-                <td class="pouv">{{ form_row(ficheForm.pouvoir43) }}</td>
-                <td class="pouv">{{ form_row(ficheForm.pouvoir53) }}</td>
-                <td class="pouv">{{ form_row(ficheForm.pouvoir63) }}</td>
-            </tr>
-            <tr>
-                <td class="pouv">{{ form_row(ficheForm.pouvoir44) }}</td>
-                <td class="pouv">{{ form_row(ficheForm.pouvoir54) }}</td>
-                <td class="pouv">{{ form_row(ficheForm.pouvoir64) }}</td>
-            </tr>
-            <tr>
-                <td class="pouv">{{ form_row(ficheForm.pouvoir45) }}</td>
-                <td class="pouv">{{ form_row(ficheForm.pouvoir55) }}</td>
-                <td class="pouv">{{ form_row(ficheForm.pouvoir65) }}</td>
-            </tr>
-        </table>
-        <table>
-            <tr>
-                <td class="histo">{{ form_row(ficheForm.historique1) }}</td>
-                <td class="histopt">{{ form_row(ficheForm.historique1pts)}} </td>
-                <td class="histo">{{ form_row(ficheForm.historique2) }}</td>
-                <td class="histopt">{{ form_row(ficheForm.historique2pts)}} </td>
-                <td class="histo">{{ form_row(ficheForm.historique3) }}</td>
-                <td class="histopt">{{ form_row(ficheForm.historique3pts)}} </td>
-            </tr>
-            <tr>
-                <td class="histo">{{ form_row(ficheForm.historique4) }}</td>
-                <td class="histopt">{{ form_row(ficheForm.historique4pts)}} </td>
-                <td class="histo">{{ form_row(ficheForm.historique5) }}</td>
-                <td class="histopt">{{ form_row(ficheForm.historique5pts)}} </td>
-                <td class="histo">{{ form_row(ficheForm.historique6) }}</td>
-                <td class="histopt">{{ form_row(ficheForm.historique6pts)}} </td>
-            </tr>
-            <tr>
-                <td class="histo">{{ form_row(ficheForm.historique7) }}</td>
-                <td class="histopt">{{ form_row(ficheForm.historique7pts)}} </td>
-                <td class="histo">{{ form_row(ficheForm.historique8) }}</td>
-                <td class="histopt">{{ form_row(ficheForm.historique8pts)}} </td>
-                <td class="histo">{{ form_row(ficheForm.historique9) }}</td>
-                <td class="histopt">{{ form_row(ficheForm.historique9pts)}} </td>
-            </tr>
+            <tbody>
+                <tr>
+                    <td class="disc">{{ form_row(ficheForm.discipline1) }}</td>
+                    <td class="disc">{{ form_row(ficheForm.discipline2) }}</td>
+                    <td class="disc">{{ form_row(ficheForm.discipline3) }}</td>
+                </tr>
+                <tr>
+                    <td class="pouv">{{ form_row(ficheForm.pouvoir11) }}</td>
+                    <td class="pouv">{{ form_row(ficheForm.pouvoir21) }}</td>
+                    <td class="pouv">{{ form_row(ficheForm.pouvoir31) }}</td>
+                </tr>
+                <tr>
+                    <td class="pouv">{{ form_row(ficheForm.pouvoir12) }}</td>
+                    <td class="pouv">{{ form_row(ficheForm.pouvoir22) }}</td>
+                    <td class="pouv">{{ form_row(ficheForm.pouvoir32) }}</td>
+                </tr>
+                <tr>
+                    <td class="pouv">{{ form_row(ficheForm.pouvoir13) }}</td>
+                    <td class="pouv">{{ form_row(ficheForm.pouvoir23) }}</td>
+                    <td class="pouv">{{ form_row(ficheForm.pouvoir33) }}</td>
+                </tr>
+                <tr>
+                    <td class="pouv">{{ form_row(ficheForm.pouvoir14) }}</td>
+                    <td class="pouv">{{ form_row(ficheForm.pouvoir24) }}</td>
+                    <td class="pouv">{{ form_row(ficheForm.pouvoir34) }}</td>
+                </tr>
+                <tr>
+                    <td class="pouv">{{ form_row(ficheForm.pouvoir15) }}</td>
+                    <td class="pouv">{{ form_row(ficheForm.pouvoir25) }}</td>
+                    <td class="pouv">{{ form_row(ficheForm.pouvoir35) }}</td>
+                </tr>
+                <tr>
+                    <td class="disc">{{ form_row(ficheForm.discipline4) }}</td>
+                    <td class="disc">{{ form_row(ficheForm.discipline5) }}</td>
+                    <td class="disc">{{ form_row(ficheForm.discipline6) }}</td>
+                </tr>
+                <tr>
+                    <td class="pouv">{{ form_row(ficheForm.pouvoir41) }}</td>
+                    <td class="pouv">{{ form_row(ficheForm.pouvoir51) }}</td>
+                    <td class="pouv">{{ form_row(ficheForm.pouvoir61) }}</td>
+                </tr>
+                <tr>
+                    <td class="pouv">{{ form_row(ficheForm.pouvoir42) }}</td>
+                    <td class="pouv">{{ form_row(ficheForm.pouvoir52) }}</td>
+                    <td class="pouv">{{ form_row(ficheForm.pouvoir62) }}</td>
+                </tr>
+                <tr>
+                    <td class="pouv">{{ form_row(ficheForm.pouvoir43) }}</td>
+                    <td class="pouv">{{ form_row(ficheForm.pouvoir53) }}</td>
+                    <td class="pouv">{{ form_row(ficheForm.pouvoir63) }}</td>
+                </tr>
+                <tr>
+                    <td class="pouv">{{ form_row(ficheForm.pouvoir44) }}</td>
+                    <td class="pouv">{{ form_row(ficheForm.pouvoir54) }}</td>
+                    <td class="pouv">{{ form_row(ficheForm.pouvoir64) }}</td>
+                </tr>
+                <tr>
+                    <td class="pouv">{{ form_row(ficheForm.pouvoir45) }}</td>
+                    <td class="pouv">{{ form_row(ficheForm.pouvoir55) }}</td>
+                    <td class="pouv">{{ form_row(ficheForm.pouvoir65) }}</td>
+                </tr>
+            </tbody>
         </table>
 
-        <button>{{constant('MODIFIER', contexte)}}</button>
+        <h2>{{constant('AVANTAGE_HANDICAPS', contexte)}}</h2>
+        <footer>
+            <table class="tablhisto">
+                <tbody>
+                    <tr>
+                        <td class="histo">{{ form_row(ficheForm.historique1) }}
+                        <div>{{ form_widget(ficheForm.historique1pts)}} </div></td>
+                    </tr>
+                    <tr>
+                        <td class="histo">{{ form_row(ficheForm.historique2) }}
+                        <div>{{ form_widget(ficheForm.historique2pts)}} </div></td>
+                    </tr>
+                    <tr>
+                        <td class="histo">{{ form_row(ficheForm.historique3) }}
+                        <div>{{ form_widget(ficheForm.historique3pts)}} </div></td>
+                    </tr>
+                    <tr>
+                        <td class="histo">{{ form_row(ficheForm.historique4) }}
+                        <div>{{ form_widget(ficheForm.historique4pts)}} </div></td>
+                    </tr>
+                    <tr>
+                        <td class="histo">{{ form_row(ficheForm.historique5) }}
+                        <div>{{ form_widget(ficheForm.historique5pts)}} </div></td>
+                    </tr>
+                    <tr>
+                        <td class="histo">{{ form_row(ficheForm.historique6) }}
+                        <div>{{ form_widget(ficheForm.historique6pts)}} </div></td>
+                    </tr>
+                    <tr>
+                        <td class="histo">{{ form_row(ficheForm.historique7) }}
+                        <div>{{ form_widget(ficheForm.historique7pts)}} </div></td>
+                    </tr>
+                    <tr>
+                        <td class="histo">{{ form_row(ficheForm.historique8) }}
+                        <div>{{ form_widget(ficheForm.historique8pts)}} </div></td>
+                    </tr>
+                    <tr>
+                        <td class="histo">{{ form_row(ficheForm.historique9) }}
+                        <div>{{ form_widget(ficheForm.historique9pts)}} </div></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="tablefooter">
+                <tr class="trhumanite">
+                    <td class="humanite"><p class="labelh">{{constant('HUMANITE', contexte)}}</p>
+                    {{ form_widget(ficheForm.humanite) }}</td>
+                </tr>
+                <tr class="description">
+                    <td><p>{{constant('DESCRIPTION', contexte)}}</p>
+                    <td class="champ_description">{{ form_widget(ficheForm.description) }}</td>
+                </tr>
+            </table>
+
+        </footer>
+
+        <div class="modifier"><button>{{constant('VALIDER', contexte)}}</button></div>
         {{ form_end(ficheForm) }}
+        <script>
+            function moveDivisor(e){
+                let divisor = document.getElementById(e);
+                let slider = document.getElementById('form_' + e);
+                divisor.style.width = slider.value*20+"%";
+            }
+            function initialisation(){
+                let sliders = document.getElementsByClassName('slider')
+                for (let element of sliders){
+                    moveDivisor(element.name.slice(5, -1));
+                }
+            }
+        </script>
     </body>
+
+
+    {#<script>
+        var divisor = document.getElementById("divisor"),
+            sliders = document.getElementsByClassName("sliderArmes_a_feu");
+        slider = sliders.item(0);
+        function moveDivisor() {
+            divisor.style.width = slider.value*20+"%";
+        }
+    </script>#}
 
 {% endblock %}

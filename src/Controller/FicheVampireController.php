@@ -3,28 +3,25 @@
 namespace App\Controller;
 
 use App\Entity\AttributPersonnage;
+use App\Entity\AvantageInconvenient;
+use App\Entity\Discipline;
 use App\Entity\FicheVampire;
-use App\Entity\Membre;
+use App\Entity\PointCreation;
 use App\Entity\Progression;
 use App\Entity\SkillPersonnage;
 use App\Form\FicheVampireType;
-use App\Form\ProgressionType;
 use App\Repository\AttributRepository;
 use App\Repository\FicheVampireRepository;
 use App\Repository\PredateurRepository;
 use App\Repository\SkillRepository;
-use App\Service\InitialisateurProgression;
 use App\Service\ModifierFicheFormBuilder;
 use App\Service\RecuperateurContexte;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use function PHPUnit\Framework\isNull;
-use function Sodium\add;
 
 class FicheVampireController extends AbstractController
 {
@@ -99,7 +96,6 @@ class FicheVampireController extends AbstractController
     public function progression(Request $request, $id, ModifierFicheFormBuilder $formBuilder, EntityManagerInterface $entityManager): Response{
         $vampire = 0;
         $membre = $this->getUser();
-        assert($membre instanceof Membre);
         $fiches = $membre->getFiches();
         foreach ($fiches as $fiche){
             if ($fiche->getId()==$id){
@@ -110,21 +106,19 @@ class FicheVampireController extends AbstractController
         if($vampire === 0){
             return $this->redirectToRoute('app_profil');
         }
+
         $builder = $this->createFormBuilder($vampire);
-        $ficheType = $formBuilder->buildVampireForm($fiche, $builder);
+        $ficheType = $formBuilder->buildVampireForm($vampire, $builder);
         $ficheForm = $ficheType->getForm();
 
         $ficheForm->handleRequest($request);
         if($ficheForm->isSubmitted() && $ficheForm->isValid()){
-            dd($ficheForm);
 
-            $progression = $this->hydratVampire($vampire->getProgression(), $ficheForm);
+            $this->hydratVampire($vampire->getProgression(), $ficheForm, $entityManager);
 
-            $entityManager->persist($progression);
-            $entityManager->flush();
+
             return $this->redirectToRoute('app_fiche_vampire_modifier_id', ['id'=>$id]);
         }
-        dump($fiche->getProgression()->getPredateur());
         $ismobile = $this->recuperateurContexte->isMobile($request);
         $contexte = $this->recuperateurContexte->recupContexte($request);
         return $this->render('fiche_vampire/modifier.html.twig', [
@@ -143,11 +137,10 @@ class FicheVampireController extends AbstractController
 
         return $this->redirectToRoute('app_profil');
     }
-    public function hydratVampire(Progression $progression, $ficheForm) : Progression  {
-        $array = array();
+    public function hydratVampire(Progression $progression, $ficheForm, EntityManagerInterface $entityManager){
 
         foreach ($progression->getAttributs() as $attribut){
-            $nomAttribut = str_replace(array(' '), '_',str_replace(array('à','â'), 'a',str_replace(array('é','è','ê'), 'e',$attribut->getAttribut()->getNom())));
+            $nomAttribut = str_replace(array('-'),'_',str_replace(array(' '), '_',str_replace(array('à','â'), 'a',str_replace(array('é','è','ê'), 'e',$attribut->getAttribut()->getNom()))));
             $niveau = $ficheForm->get($nomAttribut)->getData();
             $attribut->setNiveau($niveau);
             }
@@ -157,9 +150,43 @@ class FicheVampireController extends AbstractController
             $niveau = $ficheForm->get($nomSkill)->getData();
             $skill->setNiveau($niveau);
         }
+        $pouvoirPerso = $progression->getPouvoirPerso();
+        $pouvoirPerso->resetDiscPouv();
+
+        for ($i=1; $i<7 ;$i++){
+            $discipline = $ficheForm->get('discipline'.$i)->getData();
+            if ($discipline instanceof Discipline){
+                $pouvoirPerso->addDiscipline($discipline);
+            }
+            for($j=1;$j<6;$j++){
+                $pouvoir = $ficheForm->get('pouvoir'.$i.$j)->getData();
+                if(!isNull($pouvoir)){
+                    $pouvoirPerso->addPouvoir($pouvoir);
+                }
+            }
+        }
+        $pouvoirPerso->setProgression($progression);
+        $entityManager->persist($pouvoirPerso);
+        $progression->setPouvoirPerso($pouvoirPerso);
+        $progression->resetptsCra();
+
+        for ($i = 1;$i<10;$i++){
+            $avantage = $ficheForm->get('historique'.$i)->getData();
+            $niveau = $ficheForm->get('historique'.$i.'pts')->getData();
+            if ($avantage instanceof AvantageInconvenient && $niveau !== null){
+                $ptcrea = new PointCreation();
+                $ptcrea->setAvantageInconvenient($avantage);
+                $ptcrea->setNiveau($niveau);
+                $ptcrea->setProgression($progression);
+                $entityManager->persist($ptcrea);
+                $progression->addPointsCreation($ptcrea);
+
+            }
+        }
         $progression->setPredateur($ficheForm->get('predateur')->getData());
 
-        return $progression;
+        $entityManager->persist($progression);
+        $entityManager->flush();
     }
 
 }

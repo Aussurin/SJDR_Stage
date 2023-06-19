@@ -6,25 +6,22 @@ use App\Entity\AvantageInconvenient;
 use App\Entity\Clan;
 use App\Entity\Discipline;
 use App\Entity\FicheVampire;
-use App\Entity\PointCreation;
 use App\Entity\Pouvoir;
 use App\Entity\Predateur;
-use App\Repository\AvantageInconvenientRepository;
-use App\Repository\DisciplineRepository;
-use App\Repository\PouvoirPersoRepository;
 use App\Repository\PouvoirRepository;
 use App\Repository\PredateurRepository;
-use Doctrine\DBAL\Types\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\RangeType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use function PHPUnit\Framework\isNull;
 
 class ModifierFicheFormBuilder extends AbstractType
 {
-    public function __construct(private readonly PredateurRepository $predateurRepository,private PouvoirRepository $pouvoirRepository, private PouvoirPersoRepository $pouvoirPersoRepository)
+    public function __construct(private readonly PredateurRepository $predateurRepository,private PouvoirRepository $pouvoirRepository)
     {
     }
 
@@ -35,51 +32,96 @@ class ModifierFicheFormBuilder extends AbstractType
             $predateurs[] = [$predateur->getNom()=>$predateur->getId()];
         }
         $builder
-            ->add('nom')
-            ->add('concept')
-            ->add('ambition')
-            ->add('desire')
-            ->add('generation')
-            ->add('sire')
+            ->add('nom', TextType::class,[
+                'label'=>false,
+                'attr'=>[
+                    'class'=>'txthead'
+                ]
+            ])
+            ->add('concept', TextType::class,[
+                'label'=>false,
+                'attr'=>[
+                    'class'=>'txthead'
+                ]
+            ])
+            ->add('ambition', TextType::class,[
+                'label'=>false,
+                'attr'=>[
+                    'class'=>'txthead'
+                ]
+            ])
+            ->add('desire', TextType::class,[
+                'label'=>false,
+                'attr'=>[
+                    'class'=>'txthead'
+                ]
+            ])
+            ->add('generation', IntegerType::class,[
+                'label'=>false,
+                'attr'=>[
+                    'class'=>'txthead'
+                ]
+            ])
+            ->add('sire', TextType::class,[
+                'label'=>false,
+                'attr'=>[
+                    'class'=>'txthead'
+                ]
+            ])
             ->add('humanite', IntegerType::class,[
                 'attr'=>[
+                    'class'=>'humanitepts',
                     'min'=>0,
                     'max'=>10
                 ]
             ])
             ->add('clan', EntityType::class,[
                 'class'=>Clan::class,
-                'choice_label'=>'nom'
+                'choice_label'=>'nom',
+                'label'=>false,
+                'attr'=>[
+                    'class'=>'txthead'
+                ]
             ])
             ->add('predateur',EntityType::class,[
                 'class'=>Predateur::class,
                 'mapped'=>false,
                 'choice_label'=>'nom',
+                'label'=>false,
+                'attr'=>[
+                    'class'=>'txthead'
+                ],
                 'data' => $fiche->getProgression()->getPredateur()
 
             ]);
 
         foreach ($fiche->getProgression()->getAttributs() as $attribut){
+            $txtattr = str_replace(array('-'), '_',str_replace(array('é','è','ê'), 'e',$attribut->getAttribut()->getNom()));
             $builder
-                ->add(str_replace(array('-'), '_',str_replace(array('é','è','ê'), 'e',$attribut->getAttribut()->getNom())), IntegerType::class,[
-                    'label'=>$attribut->getAttribut()->getNom(),
+                ->add($txtattr, RangeType::class,[
+                    'label'=>false,
                     'mapped'=>false,
                     'attr'=>[
                         'min'=>0,
+                        'class'=>'slider',
                         'max'=>5,
-                        'value'=>$attribut->getNiveau()
+                        'value'=>$attribut->getNiveau(),
+                        'oninput'=>"moveDivisor('".$txtattr."')"
                     ]
                 ]);
         }
         foreach ($fiche->getProgression()->getSkills() as $skill){
+            $txtskill = (str_replace(array(' '), '_',str_replace(array('à','â'), 'a',str_replace(array('é','è','ê'), 'e',$skill->getSkill()->getNom()))));
             $builder
-                ->add((str_replace(array(' '), '_',str_replace(array('à','â'), 'a',str_replace(array('é','è','ê'), 'e',$skill->getSkill()->getNom())))), IntegerType::class,[
-                    'label'=>$skill->getSkill()->getNom(),
+                ->add($txtskill, RangeType::class,[
                     'mapped'=>false,
+                    'label'=>false,
                     'attr'=>[
                         'min'=>0,
                         'max'=>5,
-                        'value'=>$skill->getNiveau()
+                        'value'=>$skill->getNiveau(),
+                        'class'=>'slider',
+                        'oninput'=>"moveDivisor('".$txtskill."')",
                     ]
                 ]);
         }
@@ -87,7 +129,6 @@ class ModifierFicheFormBuilder extends AbstractType
             $appris = $fiche->getProgression()->getPouvoirPerso()->getPouvoirs();
             for ($i=1; $i < 7; $i++ ){
                 foreach ($fiche->getProgression()->getPouvoirPerso()->getDiscipline() as $discipline){
-                    $pouvoirs[] = ['nom'=>''];
                     $pouvoirs[] = $this->pouvoirRepository->findBy(['discipline_id'=>$discipline->getId()]);
                     $builder->add('discipline'.$i, EntityType::class,[
                         'class'=>Discipline::class,
@@ -97,7 +138,6 @@ class ModifierFicheFormBuilder extends AbstractType
                         'choice_label'=>'nom',
                         ]);
                     for ($p=1; $p<6; $p++){
-
                         foreach ($appris as $appri){
                             if ($appri->getDiscipline() === $discipline){
                                 $builder
@@ -112,7 +152,6 @@ class ModifierFicheFormBuilder extends AbstractType
                                 $p++;
                             }
                         }
-
                         $builder
                             ->add('pouvoir'.$i.$p, EntityType::class,[
                                 'class'=>Pouvoir::class,
@@ -120,26 +159,23 @@ class ModifierFicheFormBuilder extends AbstractType
                                 'choice'=>$pouvoirs,
                                 'required'=>false,
                                 'mapped'=>false,
-                                'attr'=>[
-                                    ''
-                                ]
                             ]);
                     }
-
                     $i++;
                 }
             }
             $builder
                 ->add('discipline'.$i, EntityType::class,[
                     'class'=>Discipline::class,
+                    'choices'=>[''=>null],
                     'mapped'=>false,
                 ]);
-            dd($builder);
         }else{
             for($i=1; $i<7; $i++){
                 $builder
                     ->add('discipline'.$i, EntityType::class,[
                         'class'=>Discipline::class,
+                        'required' => false,
                         'choice_label'=>'nom',
                         'label'=>false,
                         'mapped'=>false,
@@ -147,49 +183,49 @@ class ModifierFicheFormBuilder extends AbstractType
                 for ($p=1; $p<6; $p++){
                     $builder
                         ->add('pouvoir'.$i.$p, ChoiceType::class,[
-                            'choices'=>[
-                                ''=>null
-                            ],
                             'required'=>false,
                             'mapped'=>false,
                             'label'=>false,
+                            'attr'=>[
+                                'style'=>'display: none'
+                            ]
                         ]);
                 }
             }
         }
-
-        for ($i=1; $i < 10; $i++ ) {
-
-            foreach ($fiche->getProgression()->getPointsCreation() as $creapoint){
-                $builder
-                    ->add('historique'.$i, EntityType::class,[
-                        'class'=>AvantageInconvenient::class,
-                        'label'=>false,
-                        'label_name'=>'nom',
-                        'mapped'=>false,
-                        'data'=>$creapoint->getAvantageInconvenient()
-                    ])
-                    ->add('historique'.$i.'pts', IntegerType::class,[
-                        'label'=>false,
-                        'mapped'=>false,
-                        'data'=>$creapoint->getNiveau(),
-                    ]);
-                $i++;
-            }
+        $i=1;
+        foreach ($fiche->getProgression()->getPointsCreation() as $creapoint) {
             $builder
-                ->add('historique'.$i, EntityType::class,[
-                    'class'=>AvantageInconvenient::class,
-                    'label_name'=>'nom',
-                    'label'=>false,
-                    'mapped'=>false,
-                    'required'=>false,
+                ->add('historique' . $i, EntityType::class, [
+                    'class' => AvantageInconvenient::class,
+                    'label' => false,
+                    'choice_label' => 'nom',
+                    'required' => false,
+                    'mapped' => false,
+                    'group_by' => function ($choice, $key, $value) {
+                        return match ($choice->getType()) {
+                            -1 => 'Inconvénients',
+                            1 => 'Avantage',
+                            0 => 'Mix',
+                            default => 'Autre',
+                        };
+                    },
+                    'data' => $creapoint->getAvantageInconvenient()
                 ])
-                ->add('historique'.$i.'pts', IntegerType::class,[
-                    'label'=>false,
-                    'mapped'=>false,
-                ]);;
+                ->add('historique' . $i . 'pts', IntegerType::class, [
+                    'label' => false,
+                    'required' => false,
+                    'mapped' => false,
+                    'data' => $creapoint->getNiveau(),
+                    'attr'=>[
+                        'class'=>'histopt'
+                    ]
+                ]);
+            $i++;
+        }
+        while ($i < 10) {
 
-            $builder->add('historique' . $i, EntityType::class, [
+            $builder->add('historique'.$i, EntityType::class, [
                 'class' => AvantageInconvenient::class,
                 'choice_label' => 'nom',
                 'mapped' => false,
@@ -206,13 +242,28 @@ class ModifierFicheFormBuilder extends AbstractType
             ])
             ->add('historique'.$i.'pts', IntegerType::class,[
                 'label'=>false,
+                'required'=>false,
                 'mapped'=>false,
+                'attr'=>[
+                    'class'=>'histopt'
+                ]
             ]);
+            $i++;
         }
 
         $builder
-            ->add('experience')
-            ->add('description');
+            ->add('experience', IntegerType::class,[
+                'label'=>false,
+                'attr'=>[
+                    'class'=>'txthead'
+                ]
+            ])
+            ->add('description', TextType::class,[
+                'label'=>false,
+                'attr'=>[
+                    'class'=>'champ_description',
+                ]
+            ]);
 
 
         return $builder;

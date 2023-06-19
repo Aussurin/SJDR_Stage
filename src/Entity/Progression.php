@@ -124,6 +124,10 @@ class Progression
 
         return $this;
     }
+    public function resetptsCra(): self{
+        $this->pointsCreation->clear();
+        return $this;
+    }
 
     public function removePointsCreation(PointCreation $pointsCreation): self
     {
