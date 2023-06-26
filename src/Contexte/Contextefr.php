@@ -87,4 +87,5 @@ class Contextefr
     const DESIRE = 'Désir';
     const GENERATION = 'Génération';
     const VALIDER = 'Valider';
+    const CREERVAMPIRE = 'Créer un vampire';
 }

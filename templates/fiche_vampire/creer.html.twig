@@ -1,17 +1,61 @@
 {% extends 'base.html.twig' %}
 
 
-{% block title %}{% endblock %}
+{% block title %}{{constant('CREERVAMPIRE', contexte)}}{% endblock %}
+
 
 {% block stylesheets %}
-
+    {% if ismobile %}
+        <link rel="stylesheet" href="{{ asset('css/enregistrerMobile.css') }}">
+    {% else %}
+        <link rel="stylesheet" href="{{ asset('css/creerFiche.css') }}">
+    {% endif %}
 {% endblock %}
 
 {% block body %}
-    <body>
+<body>
+    <header class="selectionjeu">
+        <a href="{{ path('app_accueil') }}"><img class="navlien" src="{{ asset('assets/SJDRlogo.png') }}" width="100px" alt="Logo SJDR"></a>
+    </header>
+
+    <div class="form">
         {{ form_start(ficheform) }}
-        {{ form_widget(ficheform) }}
-        <button>valider</button>
-        {{ form_end(ficheform) }}
-    </body>
+        <table>
+            <tr>
+                <td class="td1"><label for="">{{constant('NOM', contexte)}}</label></td>
+                <td class="td2">{{ form_row(ficheform.nom) }}</td>
+                <td class="td1"><label for="">{{constant('AMBITION', contexte)}}</label></td>
+                <td class="td2">{{ form_row(ficheform.ambition) }}</td>
+            </tr>
+            <tr>
+                <td class="td1"><label for="">{{constant('CONCEPT', contexte)}}</label></td>
+                <td class="td2">{{ form_row(ficheform.concept) }}</td>
+                <td class="td1"><label for="">{{constant('DESIRE', contexte)}}</label></td>
+                <td class="td2">{{ form_row(ficheform.desire) }}</td>
+            </tr>
+            <tr>
+                <td class="td1"><label for="">{{constant('SIRE', contexte)}}</label></td>
+                <td class="td2">{{ form_row(ficheform.sire) }}</td>
+                <td class="td1"><label for="">{{constant('GENERATION', contexte)}}</label></td>
+                <td class="td2">{{ form_row(ficheform.generation) }}</td>
+            </tr>
+            <tr>
+                <td class="td1"><label for="">{{constant('HUMANITE', contexte)}}</label></td>
+                <td class="td2">{{ form_row(ficheform.humanite)}}</td>
+                <td class="td1"><label for="">{{constant('CLAN', contexte)}}</label></td>
+                <td class="td2">{{ form_row(ficheform.clan)}}</td>
+            </tr>
+            <tr>
+                <td class="td1"><label for="">{{constant('EXPERIENCE', contexte)}}</label></td>
+                <td class="td2">{{ form_row(ficheform.experience)}}</td>
+                <td class="td1"><label for="">{{constant('DESCRIPTION', contexte)}}</label></td>
+                <td class="td2">{{ form_row(ficheform.description)}}</td>
+            </tr>
+            <tr class="endformbuttons"><td class="tdbuttonleft" ><button type="submit">{{constant('CREERVAMPIRE', contexte)}}</button></td>
+                {{ form_end(ficheform) }}
+
+        </table>
+    </div>
+</body>
+
 {% endblock %}

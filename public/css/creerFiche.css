@@ -6,7 +6,7 @@
     padding: 0;
     margin: 0;
     font-family: "DreamOrphans";
-    font-size: 40px;
+    font-size: 32px;
 }
 body{
     background: linear-gradient(0.25turn,#343292,#650000);
@@ -23,20 +23,41 @@ header{
     justify-content: center;
 }
 table{
-    display: block;
-    height: auto;
+    display: flex;
     width: 100%;
     padding: 10px 20px 10px 20px;
     border: solid black;
     border-radius: 10px;
     background: #b9b9b9;
+    height: 750px;
 }
-
-td{
+tr{
     display: flex;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    justify-content: space-between;
+}
+.semi{
+    border: solid blue;
+
+    width: 50%;
+}
+td{
     text-align: left;
     margin-bottom: 10px;
-    align-items: flex-start;
+}
+.td1{
+    width: 200px;
+    margin-left: 10px;
+}
+.td2{
+    width: 400px;
+}
+#fiche_vampire_description{
+    position: absolute;
+    text-align: start;
+    height: 300px;
 }
 .endformbuttons{
     display: flex;
@@ -54,30 +75,4 @@ button{
     padding-right: 5px;
     padding-left: 5px;
     border-radius: 10px;
-}
-a{
-    text-decoration: none;
-    color: black;
-}
-.souvenir{
-    display: flex;
-    padding-top: 30px;
-    padding-bottom: 0;
-}
-.souvenirlabel{
-    display: flex;
-    justify-content: end;
-    font-size: 24px;
-    align-items: center;
-}
-.checkbox{
-    width: 20px;
-    height: 20px;
-}
-.oublimdp{
-    font-size: 24px;
-}
-#fiche_vampire_description{
-    text-align: start;
-    height: 300px;
 }
