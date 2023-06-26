@@ -14,7 +14,7 @@
 <body class="{{ jeuchoisi }}">
     <header class="{{ jeuchoisi }}">
         <div class="selectionjeu">
-            <a class="lien_image {% if jeuchoisi != 'anima' %}inactifanima{% endif %}" title="Anima beyond fantasy" href="{{ path('app_accueil_jeu', {'jeu': 'anima'}) }}" id="anima"> <img alt="Anima beyond fantasy" src="{{ asset('assets/nomStyleAnima.webp') }}" width="300"> </a>
+            <a class="lien_image {% if jeuchoisi != 'anima' %}inactifanima{% endif %}" title="Anima beyond fantasy" href="#" id="anima"> <img alt="Anima beyond fantasy" src="{{ asset('assets/nomStyleAnima.webp') }}" width="300"> </a>
             <a class="lien_image {% if jeuchoisi != 'vampire' %}inactifvampire{% endif %}" title="Vampire la mascarade" href="{{ path('app_accueil_jeu', {'jeu': 'vampire'}) }}" id="vampire"> <img alt="Vampire la mascarade" src="{{ asset('assets/nomStyleVampire.webp') }}" width="300"> </a>
         </div>
         {% if jeuchoisi != 'aucun' %}
