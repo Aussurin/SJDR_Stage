@@ -20,10 +20,8 @@ class PartieController extends AbstractController
     public function rejoindre(Request $request): Response
     {
         //récupération du code demandé dans la page d'accueil pour rejoindre une partie
-        dump($request->request->get('rejoindre_link'));
-        return $this->render('accueil/index.html.twig', [
-            'controller_name' => 'PartieController',
-        ]);
+
+        return $this->redirectToRoute('app_accueil');
     }
 
 }

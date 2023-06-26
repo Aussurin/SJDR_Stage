@@ -954,7 +954,7 @@ class AppFixtures extends Fixture
         $manager->persist($prouesse);
 
         $ingurgmorbide = new Pouvoir();
-        $ingurgmorbide->setNom('');
+        $ingurgmorbide->setNom('Ingurgitation brutale');
         $ingurgmorbide->setDescription('Draine le sang d\'un humain en un tour. Inflige 1 dégât par point de soif étanché.');
         $ingurgmorbide->setDiscipline($puissance);
         $ingurgmorbide->setNiveau(3);

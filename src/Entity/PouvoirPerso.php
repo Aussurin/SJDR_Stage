@@ -19,9 +19,15 @@ class PouvoirPerso
     #[ORM\JoinColumn(nullable: false)]
     private ?Progression $progression = null;
 
+    #[JoinTable(name: 'pouvoir_perso_discipline')]
+    #[JoinColumn(name: 'pouvoir_perso_id', referencedColumnName: 'id')]
+    #[InverseJoinColumn(name: 'discipline_id', referencedColumnName: 'id')]
     #[ORM\ManyToMany(targetEntity: Discipline::class)]
     private Collection $Discipline;
 
+    #[JoinTable(name: 'pouvoir_perso_pouvoir')]
+    #[JoinColumn(name: 'pouvoir_perso_id', referencedColumnName: 'id')]
+    #[InverseJoinColumn(name: 'pouvoir_id', referencedColumnName: 'id')]
     #[ORM\ManyToMany(targetEntity: Pouvoir::class)]
     private Collection $pouvoirs;
 

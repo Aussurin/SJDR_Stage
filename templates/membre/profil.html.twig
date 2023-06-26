@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
     {% if ismobile %}
-        <link rel="stylesheet" href="{{ asset('css/profilBureau.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/profilMobile.css') }}">
     {% else %}
         <link rel="stylesheet" href="{{ asset('css/profilBureau.css') }}">
     {% endif %}
@@ -15,7 +15,7 @@
     <header>
         <div class="selectionjeu">
             <a href="{{ path('app_accueil') }}"><img class="navlien" src="{{ asset('assets/SJDRlogo.png') }}" width="100px" alt="Logo SJDR"></a>
-            <a class="lien_image inactifanima" title="Anima beyond fantasy" href="{{ path('app_profil_jeu', {'jeu': 'anima'}) }}" id="anima"> <img alt="Anima beyond fantasy" src="{{ asset('assets/nomStyleAnima.webp') }}" width="300"> </a>
+            <a class="lien_image inactifanima" title="Anima beyond fantasy" href="#" id="anima"> <img alt="Anima beyond fantasy" src="{{ asset('assets/nomStyleAnima.webp') }}" width="300"> </a>
             <a class="lien_image inactifvampire" title="Vampire la mascarade" href="{{ path('app_profil_jeu', {'jeu': 'vampire'}) }}" id="vampire"> <img alt="Vampire la mascarade" src="{{ asset('assets/nomStyleVampire.webp') }}" width="300"> </a>
         </div>
     </header>
@@ -23,16 +23,16 @@
         <aside class="infoperso">
             <h1>{{constant('PROFIL', contexte)}}</h1>
             <div class="imgprofil">
-                <div>{{ form_start(imgform) }}{{ form_widget(imgform) }}
+                <div class="imgprofil">{{ form_start(imgform) }}{{ form_row(imgform.imageFile) }}
                     {% if app.user.imageName %}
-                        <img src="{{ asset('images/image_profil/'~app.user.imageName) }}" width="100px" height="100px" alt="Image de profil">
+                        <div class="avatar"><img src="{{ asset('images/image_profil/'~app.user.imageName) }}" width="100px" height="100px" alt="Image de profil"></div>
                     {% endif %}
-                    <button>{{constant('MODIFIER', contexte)}}</button>{{ form_end(imgform) }}
+                    <div class="button"><button>{{constant('MODIFIER', contexte)}}</button>{{ form_end(imgform) }}</div>
                 </div>
 
             </div>
 
-                <table>
+                <table class="infoprofil">
                     {{ form_start(modifierMembreForm) }}
                     <tr>
                         <td>{{constant('EMAIL', contexte)}}</td>
@@ -62,10 +62,10 @@
                 <h1>{{constant('GERERFICHES', contexte)}}</h1>
                 <table>
                     {% for fiche in app.user.fiches %}
-                        <tr>
+                        <tr class="cardligne">
                             <td class="perso card">
-                                {% if fiche.nom %}{{ fiche.nom }}{% endif %}<br>
-                                {% if fiche.concept %}{{ fiche.concept }}{% endif %}
+                                {% if fiche.nom %}<p class="nom">{{ fiche.nom }}</p> {% endif %}<br>
+                                {% if fiche.concept %}<p class="concept">{{ fiche.concept }}</p> {% endif %}
                             </td>
                             <td class="cardlink">
                                 <a href="{{ path('app_fiche_vampire_suppression_id', {'id': fiche.id}) }}" >{{constant('SUPPRIMER', contexte)}}</a><br>

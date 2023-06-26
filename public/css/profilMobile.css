@@ -6,13 +6,18 @@
     padding: 0;
     margin: 0;
     font-family: "DreamOrphans";
-    font-size: 16px;
+    font-size: 24px;
 }
 a{
     color: black;
     text-decoration: none;
 }
 body{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 header{
     border-bottom: solid black;
@@ -21,51 +26,41 @@ header{
 }
 .contenu{
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
+    width: 100%;
 }
 .selectionjeu{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
+    width: 100%;
     align-items: center;
-    padding-left: 20px;
-    padding-right: 20px;
 }
 aside{
     display: flex;
     flex-direction: column;
-    justify-content: left;
-    width: 38%;
+    width: 100%;
     margin: 5px;
     padding: 5px;
     border: solid black;
     border-radius: 10px;
     max-width: content-box;
-    justify-self: right;
-
-
 }
 .imgprofil{
     display: flex;
     justify-content: left;
-    flex-direction: column;
-    padding-left: 5px;
+    padding-right: 20px;
+    padding-left: 20px;
     margin-right: 5px;
 }
 .avatar{
     display: flex;
     justify-content: right;
+    width: 85%;
     position: absolute;
-    width: 30%;
-}
-.avatar{
-    justify-self: right;
-
 }
 .btnimg{
     margin-left: 5px;
-}
-.infoprofil{
-    margin-top: 50px;
 }
 tr{
     display: flex;
@@ -73,22 +68,19 @@ tr{
 
     margin: 10px;
 }
-td{
+.infoprofil{
+    margin-top: 100px;
 }
 .trbutton{
     justify-content: center;
 }
 main{
-    width: 65%;
+    width: 100%;
     background-color: #d9d6d6;
     margin: 5px;
     padding: 5px;
     border: solid black;
     border-radius: 10px;
-}
-.button{
-    padding-top: 20px;
-    padding-bottom: 20px;
 }
 button{
     height: 35px;
@@ -133,8 +125,4 @@ a.card{
 }
 .concept{
     height: 75%;
-}
-#img_profil_imageFile_file{
-    display: flex;
-    flex-direction: column;
 }
