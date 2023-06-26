@@ -125,74 +125,74 @@ class ModifierFicheFormBuilder extends AbstractType
                     ]
                 ]);
         }
-        if(!isNull($fiche->getProgression()->getPouvoirPerso())){
-            $appris = $fiche->getProgression()->getPouvoirPerso()->getPouvoirs();
-            for ($i=1; $i < 7; $i++ ){
-                foreach ($fiche->getProgression()->getPouvoirPerso()->getDiscipline() as $discipline){
-                    $pouvoirs[] = $this->pouvoirRepository->findBy(['discipline_id'=>$discipline->getId()]);
-                    $builder->add('discipline'.$i, EntityType::class,[
-                        'class'=>Discipline::class,
-                        'mapped'=>false,
-                        'required'=>false,
-                        'data'=>$discipline,
-                        'choice_label'=>'nom',
-                        ]);
-                    for ($p=1; $p<6; $p++){
-                        foreach ($appris as $appri){
-                            if ($appri->getDiscipline() === $discipline){
-                                $builder
-                                    ->add('pouvoir'.$i.$p, EntityType::class,[
-                                        'class'=>Pouvoir::class,
-                                        'choice_label'=>'nom',
-                                        'choice'=>$pouvoirs,
-                                        'required'=>false,
-                                        'mapped'=>false,
-                                        'data'=>$appri
-                                    ]);
-                                $p++;
-                            }
-                        }
-                        $builder
-                            ->add('pouvoir'.$i.$p, EntityType::class,[
-                                'class'=>Pouvoir::class,
-                                'choice_label'=>'nom',
-                                'choice'=>$pouvoirs,
-                                'required'=>false,
-                                'mapped'=>false,
-                            ]);
-                    }
-                    $i++;
-                }
-            }
-            $builder
-                ->add('discipline'.$i, EntityType::class,[
-                    'class'=>Discipline::class,
-                    'choices'=>[''=>null],
-                    'mapped'=>false,
-                ]);
-        }else{
-            for($i=1; $i<7; $i++){
-                $builder
-                    ->add('discipline'.$i, EntityType::class,[
-                        'class'=>Discipline::class,
-                        'required' => false,
-                        'choice_label'=>'nom',
-                        'label'=>false,
-                        'mapped'=>false,
-                    ]);
-                for ($p=1; $p<6; $p++){
+        $appris = $fiche->getProgression()->getPouvoirPerso()->getPouvoirs();
+        $i = 1;
+        foreach ($fiche->getProgression()->getPouvoirPerso()->getDiscipline() as $discipline){
+            $pouvoirs = $this->pouvoirRepository->findBy(['discipline'=>$discipline]);
+            $builder->add('discipline'.$i, EntityType::class,[
+                'class'=>Discipline::class,
+                'label'=>false,
+                'mapped'=>false,
+                'required'=>false,
+                'data'=>$discipline,
+                'choice_label'=>'nom',
+            ]);
+            $p = 1;
+            foreach ($appris as $appri){
+                if ($appri->getDiscipline() === $discipline){
                     $builder
-                        ->add('pouvoir'.$i.$p, ChoiceType::class,[
+                        ->add('pouvoir'.$i.$p, EntityType::class,[
+                            'class'=>Pouvoir::class,
+                            'label'=>false,
+                            'choice_label'=>'nom',
+                            'choices'=>$pouvoirs,
                             'required'=>false,
                             'mapped'=>false,
-                            'label'=>false,
-                            'attr'=>[
-                                'style'=>'display: none'
-                            ]
+                            'data'=>$appri
                         ]);
+                    $p++;
                 }
             }
+            for ($j=$p; $j<6; $j++){
+
+                $builder
+                    ->add('pouvoir'.$i.$j, EntityType::class,[
+                        'class'=>Pouvoir::class,
+                        'label'=>false,
+                        'choice_label'=>'nom',
+                        'choices'=>$pouvoirs,
+                        'required'=>false,
+                        'mapped'=>false,
+
+                    ]);
+            }
+            $i++;
         }
+
+        for ($j = $i; $j < 7; $j++) {
+            $builder
+                ->add('discipline' . $j, EntityType::class, [
+                    'class' => Discipline::class,
+                    'required' => false,
+                    'choice_label' => 'nom',
+                    'label' => false,
+                    'mapped' => false,
+                ]);
+            for ($p = 1; $p < 6; $p++) {
+                $builder
+                    ->add('pouvoir' . $j . $p, ChoiceType::class, [
+                        'required' => false,
+                        'mapped' => false,
+                        'label' => false,
+                        'attr' => [
+                            'style' => 'display: none'
+                        ]
+                    ]);
+            }
+        }
+
+
+
         $i=1;
         foreach ($fiche->getProgression()->getPointsCreation() as $creapoint) {
             $builder

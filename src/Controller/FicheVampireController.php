@@ -7,11 +7,14 @@ use App\Entity\AvantageInconvenient;
 use App\Entity\Discipline;
 use App\Entity\FicheVampire;
 use App\Entity\PointCreation;
+use App\Entity\Pouvoir;
+use App\Entity\PouvoirPerso;
 use App\Entity\Progression;
 use App\Entity\SkillPersonnage;
 use App\Form\FicheVampireType;
 use App\Repository\AttributRepository;
 use App\Repository\FicheVampireRepository;
+use App\Repository\PouvoirPersoRepository;
 use App\Repository\PredateurRepository;
 use App\Repository\SkillRepository;
 use App\Service\ModifierFicheFormBuilder;
@@ -84,6 +87,9 @@ class FicheVampireController extends AbstractController
 
             $progression->addSkill($skillperso);
         }
+        $pouvoirPerso = new PouvoirPerso();
+        $pouvoirPerso->setProgression($progression);
+        $progression->setPouvoirPerso($pouvoirPerso);
         $progression->setPredateur($predateur);
 
         $entityManager->persist($progression);
@@ -93,19 +99,32 @@ class FicheVampireController extends AbstractController
     }
 
     #[Route('/fiche/vampire/modifier/{id}', name: 'app_fiche_vampire_modifier_id')]
-    public function progression(Request $request, $id, ModifierFicheFormBuilder $formBuilder, EntityManagerInterface $entityManager): Response{
+    public function progression(Request $request, $id, ModifierFicheFormBuilder $formBuilder, EntityManagerInterface $entityManager, FicheVampireRepository $ficheVampireRepository, PouvoirPersoRepository $pouvoirPersoRepository): Response{
+        //dd($test->getProgression()->getPredateur());
+
         $vampire = 0;
         $membre = $this->getUser();
         $fiches = $membre->getFiches();
+
         foreach ($fiches as $fiche){
             if ($fiche->getId()==$id){
                 $vampire = $fiche;
                 break;
             }
         }
+
         if($vampire === 0){
             return $this->redirectToRoute('app_profil');
         }
+
+        foreach ($vampire->getProgression()->getPouvoirPerso()->getDiscipline() as $discipline){
+            $i = $discipline;
+        }
+
+        foreach ($vampire->getProgression()->getPouvoirPerso()->getPouvoirs() as $pouvoir){
+            $i = $pouvoir;
+        }
+
 
         $builder = $this->createFormBuilder($vampire);
         $ficheType = $formBuilder->buildVampireForm($vampire, $builder);
@@ -160,14 +179,15 @@ class FicheVampireController extends AbstractController
             }
             for($j=1;$j<6;$j++){
                 $pouvoir = $ficheForm->get('pouvoir'.$i.$j)->getData();
-                if(!isNull($pouvoir)){
-                    $pouvoirPerso->addPouvoir($pouvoir);
+
+                if($pouvoir instanceof Pouvoir){
+                   $pouvoirPerso->addPouvoir($pouvoir);
                 }
             }
         }
-        $pouvoirPerso->setProgression($progression);
         $entityManager->persist($pouvoirPerso);
         $progression->setPouvoirPerso($pouvoirPerso);
+
         $progression->resetptsCra();
 
         for ($i = 1;$i<10;$i++){
@@ -184,7 +204,6 @@ class FicheVampireController extends AbstractController
             }
         }
         $progression->setPredateur($ficheForm->get('predateur')->getData());
-
         $entityManager->persist($progression);
         $entityManager->flush();
     }
