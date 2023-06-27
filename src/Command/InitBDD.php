@@ -1677,7 +1677,7 @@ class InitBDD extends Command
 
         $marchandsable = new Predateur();
         $marchandsable->setNom('Marchand de sable');
-        $marchandsable->setDescription('Le personnage utilise sa discrétion ou sur ses disciplines pour se nourrir sur des victimes endormies');
+        $marchandsable->setDescription('Le personnage utilise sa discrétion ou sur ses disciplines pour se nourrir sur une victime endormie');
         $marchandsable->setSpecialisation('Médecine (anesthésiants) Furtivité (effraction)');
         $marchandsable->addDiscipline($auspex);
         $marchandsable->addDiscipline($occultation);
