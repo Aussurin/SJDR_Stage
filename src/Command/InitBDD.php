@@ -1677,7 +1677,7 @@ class InitBDD extends Command
 
         $marchandsable = new Predateur();
         $marchandsable->setNom('Marchand de sable');
-        $marchandsable->setDescription('Le personnage compte sur sa discrétion ou sur ses disciplines pour se nourrir sur des victimes endormies');
+        $marchandsable->setDescription('Le personnage utilise sa discrétion ou sur ses disciplines pour se nourrir sur des victimes endormies');
         $marchandsable->setSpecialisation('Médecine (anesthésiants) Furtivité (effraction)');
         $marchandsable->addDiscipline($auspex);
         $marchandsable->addDiscipline($occultation);
@@ -1705,7 +1705,7 @@ class InitBDD extends Command
 
         $reinenuit = new Predateur();
         $reinenuit->setNom('Reine de la nuit');
-        $reinenuit->setDescription('Le personnage compte sur sa connaissance intime d’une sous-culture en particulier et sur une posture soigneusement travaillée pour se nourrir sur les membres de cette sousculture exclusive.');
+        $reinenuit->setDescription('Compte sur sa connaissance d’une sous-culture et sur sa posture pour se nourrir sur ses membres.');
         $reinenuit->setSpecialisation('Etiquette/Commandement/Expérience de la rue (une sous culture spécifique).');
         $reinenuit->addDiscipline($domination);
         $reinenuit->addDiscipline($puissance);
@@ -1717,7 +1717,7 @@ class InitBDD extends Command
 
         $succube = new Predateur();
         $succube->setNom('Succube');
-        $succube->setDescription('Le personnage se nourrit presque exclusivement pendant les relations sexuelles ou en feignant d’en avoir');
+        $succube->setDescription('Se nourrit presque exclusivement pendant les relations sexuelles ou en feignant d’en avoir');
         $succube->setSpecialisation('Persuasion (séduction) ou Subterfuge (séduction).');
         $succube->addDiscipline($forcea);
         $succube->addDiscipline($presence);
