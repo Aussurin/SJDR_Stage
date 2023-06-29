@@ -20,8 +20,8 @@
         {% if jeuchoisi != 'aucun' %}
             <div class="navigation_bar">
                    <img class="navlien" src="{{ asset('assets/SJDRlogo.png') }}" width="100px" alt="Logo SJDR">
-                   <a class="navlien {{ jeuchoisi }}" href="{{ path('app_fiche_vampire_creer') }}">{{constant('CREERFICHE', contexte)}}</a>
                    {% if app.user %}
+                       <a class="navlien {{ jeuchoisi }}" href="{{ path('app_fiche_vampire_creer') }}">{{constant('CREERFICHE', contexte)}}</a>
                        <a class="navlien {{ jeuchoisi }}" href="{{ path('app_profil') }}">{{constant('PROFIL', contexte)}}</a>
                        <a class="navlien {{ jeuchoisi }}" href="{{ path('app_deconnecter') }}">{{constant('DECONNECTER', contexte)}}</a>
                    {% else %}
@@ -39,7 +39,7 @@
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse feugiat lectus nisi, et convallis leo elementum ut. Praesent vel sollicitudin risus, in sodales purus. Nulla at massa imperdiet, blandit dui quis, fringilla lacus. Nam molestie iaculis eros id aliquam. Donec condimentum enim sed enim eleifend euismod. Fusce ut consectetur ligula. Quisque pharetra quis augue sit amet placerat. Praesent aliquet volutpat vulputate.
     </article>
     <section class="partie">
-        <div class="btn btn-secondary cont {{ jeuchoisi }}" id="linkCreer"><a href="#" class="{{ jeuchoisi }}">{{constant('CREERCAMPAGNE', contexte)}}</a> </div>
+        <div class="btn btn-secondary cont {{ jeuchoisi }}" id="linkCreer"><a href="{{ path('campagne_creer') }}" class="{{ jeuchoisi }}">{{constant('CREERCAMPAGNE', contexte)}}</a> </div>
         <div class="btn btn-secondary cont {{ jeuchoisi }}" id="linkRejoindre">
             <form action="{{ path('rejoindre_partie') }}"  method="post" >
                 <input type="text" name="rejoindre_link">

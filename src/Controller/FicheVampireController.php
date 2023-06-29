@@ -35,6 +35,7 @@ class FicheVampireController extends AbstractController
     #[Route('/fiche/vampire/creer', name: 'app_fiche_vampire_creer')]
     public function creer(Request $request, EntityManagerInterface $entityManager,AttributRepository $attributRepository,  SkillRepository $skillRepository,  PredateurRepository $predateurRepository): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED');
         $fiche = new FicheVampire();
 
         $ficheform = $this->createForm(FicheVampireType::class,$fiche);
@@ -114,6 +115,10 @@ class FicheVampireController extends AbstractController
         }
 
         if($vampire === 0){
+            $this->addFlash(
+                'alert',
+                'Cette fiche ne vous appartient pas.',
+            );
             return $this->redirectToRoute('app_profil');
         }
 
@@ -135,7 +140,10 @@ class FicheVampireController extends AbstractController
 
             $this->hydratVampire($vampire->getProgression(), $ficheForm, $entityManager);
 
-
+            $this->addFlash(
+                'success',
+                'Fiche modifiée.',
+            );
             return $this->redirectToRoute('app_fiche_vampire_modifier_id', ['id'=>$id]);
         }
         $ismobile = $this->recuperateurContexte->isMobile($request);
@@ -153,7 +161,10 @@ class FicheVampireController extends AbstractController
         $fiche = $ficheVampireRepository->findOneBy(['id'=>$id]);
         $entityManager->remove($fiche);
         $entityManager->flush();
-
+        $this->addFlash(
+            'success',
+            'Fiche supprimée',
+        );
         return $this->redirectToRoute('app_profil');
     }
     public function hydratVampire(Progression $progression, $ficheForm, EntityManagerInterface $entityManager){
