@@ -77,3 +77,22 @@ a{
 .oublimdp{
     font-size: 16px;
 }
+#campagne_joueurs{
+}
+#ajouterpseudo{
+    border-radius: 0 10px 10px 0;
+    padding-left: 0;
+}
+#pseudo{
+    border-radius: 10px 0 0 10px;
+    padding-right: 0;
+    z-index: 2;
+}
+#listeSelected{
+    position: absolute;
+    padding-top: 120px;
+
+}
+#tablecampagne{
+    height: 670px;
+}

@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{constant('CREERCAMPAGNE', contexte)}}
+{% endblock %}
+{% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/enregistrer.css') }}">
+{% endblock %}
+{% block body %}
+<body>
+    <header id="selectionjeu">
+        <a href="{{ path('app_accueil') }}"><img class="navlien" src="{{ asset('assets/SJDRlogo.png') }}" width="100px" alt="Logo SJDR"></a>
+    </header>
+
+    <div class="form">
+        <table id="tablecampagne">
+            {{ form_start(campagneForm, {'attr': { 'id' : 'campagneForm'}}) }}
+            <tr>
+                <td>{{constant('NOMCAMPAGNE', contexte)}}</td>
+                <td>{{ form_widget(campagneForm.nom) }}</td>
+            </tr>
+            <tr>
+                <td>{{constant('DESCRIPTION', contexte)}}</td>
+                <td>{{ form_widget(campagneForm.description) }}</td>
+            </tr>
+                <tr id="listeSelected">
+                    <td>{{constant('JOUEUR', contexte)}}</td>
+                    <td>{{ form_widget(campagneForm.joueurs) }}</td>
+                    <td><button type="submit">{{constant('CREERCAMPAGNE', contexte)}}</button></td>
+                </tr>
+            {{ form_end(campagneForm) }}
+            <form id="formAjout">
+                <tr>
+                    <td><label for="pseudo">{{constant('AJOUTJOUEUR', contexte)}}</label></td>
+                    <td><input type="text" name="pseudo" id="pseudo" placeholder="PSEUDONYME"><button type="submit" value="valider" id="ajouterpseudo">{{constant('AJOUTER', contexte)}}</button></td>
+                </tr>
+            </form>
+        </table>
+    </div>
+</body>
+
+    <script>
+        const disponibles = {{ pseudos|json_encode()|raw }};
+        const formAjout = document.getElementById('formAjout');
+        const pseudoInexistant = {{constant('PSEUDOINEXISTANT', contexte)|json_encode|raw}};
+        const selection = document.getElementById('campagne_joueurs');
+        const campagneForm = document.getElementById('campagneForm');
+        let i = 0;
+
+        selection.disabled = true;
+
+        formAjout.addEventListener("submit", ajoutJoueur);
+        campagneForm.addEventListener('submit', envoieFormulaire);
+
+
+        function ajoutJoueur(formulaire){
+            let x = document.forms["formAjout"]["pseudo"].value;
+            formulaire.preventDefault()
+            i = 0;
+            let option;
+            for (let disponible of disponibles) {
+                if (x === disponible) {
+                    i++;
+                    let index = selection.options.length;
+                    option =new Option(x, x, true, true)
+                    selection.options[index] = option;
+                    break;
+                }
+            }
+            if (i === 0){
+                alert(pseudoInexistant);
+            }
+            document.forms["formAjout"]["pseudo"].value = '';
+        }
+
+        function envoieFormulaire(){
+            let participants = [];
+            let j = 0;
+            selection.disabled = false;
+            for (let option of selection.options){
+                participants[j] = option.value;
+                j++;
+            }
+        }
+    </script>
+{% endblock %}
+

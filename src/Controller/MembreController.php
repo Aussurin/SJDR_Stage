@@ -44,7 +44,11 @@ class MembreController extends AbstractController
 
             $this->entityManager->persist($membre);
             $this->entityManager->flush();
-            return $this->redirectToRoute('app_accueil');
+            $this->addFlash(
+                'success',
+                'Compte créé, vous pouvez maintenant vous y connecter.',
+            );
+            return $this->redirectToRoute('app_connecter');
         }
 
         $ismobile = $this->recuperateurContexte->isMobile($request);

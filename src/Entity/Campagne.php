@@ -28,6 +28,9 @@ class Campagne
     #[ORM\ManyToOne(inversedBy: 'campagnesMJ')]
     private ?Membre $maitreDeJeu = null;
 
+    #[ORM\Column(length: 10)]
+    private ?string $random = null;
+
     public function __construct()
     {
         $this->joueurs = new ArrayCollection();
@@ -94,6 +97,18 @@ class Campagne
     public function setMaitreDeJeu(?Membre $maitreDeJeu): self
     {
         $this->maitreDeJeu = $maitreDeJeu;
+
+        return $this;
+    }
+
+    public function getRandom(): ?string
+    {
+        return $this->random;
+    }
+
+    public function setRandom(string $random): self
+    {
+        $this->random = $random;
 
         return $this;
     }
