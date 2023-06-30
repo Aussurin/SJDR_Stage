@@ -88,4 +88,10 @@ class Contextefr
     const GENERATION = 'Génération';
     const VALIDER = 'Valider';
     const CREERVAMPIRE = 'Créer un vampire';
+    const NOMCAMPAGNE = 'Nom de la campagne';
+    const AJOUTJOUEUR = 'Ajouter un joueur';
+    const AJOUTER = 'Ajouter';
+    const PSEUDOINEXISTANT = 'Le pseudo non retrouvé';
+    const JOUEUR = 'Joueurs';
+    const PSEUDONYME = 'Pseudonyme';
 }
