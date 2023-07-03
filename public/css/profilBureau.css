@@ -66,6 +66,7 @@ aside{
 }
 .infoprofil{
     margin-top: 50px;
+    width: 45%;
 }
 tr{
     display: flex;
@@ -104,21 +105,37 @@ button{
     border: solid black 2px;
     background-color: #444443;
     height: 150px;
-    width: 300px;
 }
 .perso{
     color: #d9d6d6;
     padding: 5px 10px 5px 10px;
+    width: 80%;
+}
+.cardtab{
+    width: 50%;
 }
 .cardlink{
     padding-left: 10px;
 }
+.cardcrea{
+    display: flex;
+    justify-content: left;
+}.cardcrea div{
+    width: 50%;
+}
 .cardligne{
     align-items: center;
 }
-td>a{
+.createcard{
+    width: 76%;
+    font-weight: bold;
+    text-decoration: underline;
+;
+}
+td a{
     display: block;
     height: 20px;
+    text-align: center;
 }
 a.card{
     margin-left: 10px;
@@ -127,7 +144,7 @@ a.card{
 }
 .nom{
     font-weight: bold;
-    height: 15%;
+    height: 50%;
     margin: 0;
     padding: 0;
 }
@@ -137,4 +154,7 @@ a.card{
 #img_profil_imageFile_file{
     display: flex;
     flex-direction: column;
+}
+.tableaux{
+    display: flex;
 }

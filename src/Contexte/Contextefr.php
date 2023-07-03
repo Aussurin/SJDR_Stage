@@ -94,4 +94,8 @@ class Contextefr
     const PSEUDOINEXISTANT = 'Le pseudo non retrouvé';
     const JOUEUR = 'Joueurs';
     const PSEUDONYME = 'Pseudonyme';
+    const LIENDINVIT = 'Lien d\'invitation : ';
+    const MAITREJEU ='Maitre du jeu';
+    const PROCHAINESCEANCE = 'Prochaine séance : ';
+    const LIENINVIT = 'Lien d\'invitation';
 }

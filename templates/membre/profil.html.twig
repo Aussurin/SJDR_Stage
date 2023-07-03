@@ -31,7 +31,6 @@
                 </div>
 
             </div>
-
                 <table class="infoprofil">
                     {{ form_start(modifierMembreForm) }}
                     <tr>
@@ -60,24 +59,55 @@
         <main class="infosjdr">
             <div class="fiche_campagne">
                 <h1>{{constant('GERERFICHES', contexte)}}</h1>
-                <table>
-                    {% for fiche in app.user.fiches %}
-                        <tr class="cardligne">
-                            <td class="perso card">
-                                {% if fiche.nom %}<p class="nom">{{ fiche.nom }}</p> {% endif %}<br>
-                                {% if fiche.concept %}<p class="concept">{{ fiche.concept }}</p> {% endif %}
-                            </td>
-                            <td class="cardlink">
-                                <a href="{{ path('app_fiche_vampire_suppression_id', {'id': fiche.id}) }}" >{{constant('SUPPRIMER', contexte)}}</a><br>
-                                <a href="{{ path('app_fiche_vampire_modifier_id', {'id': fiche.id}) }}">{{constant('MODIFIER', contexte)}}</a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </table>
+                <div class="tableaux">
+                    <table class="cardtab">
+                        {% for fiche in app.user.fiches %}
+                            <tr class="cardligne">
+                                <td class="perso card">
+                                    {% if fiche.nom %}<p class="nom">{{ fiche.nom }}</p> {% endif %}<br>
+                                    {% if fiche.concept %}<p class="concept">{{ fiche.concept }}</p> {% endif %}
+                                </td>
+                                <td class="cardlink">
+                                    <a href="{{ path('app_fiche_vampire_suppression_id', {'id': fiche.id}) }}" >{{constant('SUPPRIMER', contexte)}}</a><br>
+                                    <a href="{{ path('app_fiche_vampire_modifier_id', {'id': fiche.id}) }}">{{constant('MODIFIER', contexte)}}</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    <table class="cardtab">
+                        {% for campagne in app.user.campagnes %}
+                            <tr class="cardligne">
+                                <td class="perso card">
+                                    {% if campagne.nom %}<p class="nom">{{ campagne.nom }}</p> {% endif %}
+                                </td>
+                                <td class="cardlink">
+                                    <a href="{{ path('campagne_supprimer', {'id': campagne.id}) }}" >{{constant('QUITTER', contexte)}}</a><br>
+                                    <a href="{{ path('campagne_consulter', {'random': campagne.random}) }}">{{constant('MODIFIER', contexte)}}</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        {% for campagne in app.user.campagnesMJ %}
+                            <tr class="cardligne">
+                                <td class="perso card">
+                                    {% if campagne.nom %}<p class="nom">{{ campagne.nom }}</p> {% endif %}
+                                    {% if campagne.random %}<p class="nom">{{constant('LIENDINVIT', contexte)}}<br>https://www.s-jdr.fr/campagne/{{ campagne.random }}</p> {% endif %}
+                                </td>
+                                <td class="cardlink">
+                                    <a href="{{ path('campagne_supprimer', {'id': campagne.id}) }}" >{{constant('SUPPRIMER', contexte)}}</a><br>
+                                    <a href="{{ path('campagne_consulter', {'random': campagne.random}) }}">{{constant('MODIFIER', contexte)}}</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
             </div>
-            <div class="fiche_campagne"></div>
-            <div>
-                <a class="card" href="{{ path('app_fiche_vampire_creer') }}">{{constant('CREERFICHE', contexte)}}</a>
+            <div class="cardcrea">
+                <div>
+                    <a class="card createcard" href="{{ path('app_fiche_vampire_creer') }}">{{constant('CREERFICHE', contexte)}}</a>
+                </div>
+                <div>
+                    <a class="card createcard" href="{{ path('campagne_creer') }}" >{{constant('CREERCAMPAGNE', contexte)}}</a>
+                </div>
             </div>
         </main>
     </div>

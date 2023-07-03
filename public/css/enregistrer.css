@@ -94,5 +94,10 @@ a{
 
 }
 #tablecampagne{
-    height: 670px;
+    height: 830px;
+}
+#campagne_description{
+    width: 400px;
+    height: 200px;
+    font-size: 16px;
 }

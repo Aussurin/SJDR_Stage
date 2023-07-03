@@ -7,6 +7,7 @@ use App\Entity\FicheVampire;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,7 +23,7 @@ class FicheVampireType extends AbstractType
             ->add('concept', TextType::class,[
                 'label'=>false,
             ])
-            ->add('description', TextType::class,[
+            ->add('description', TextareaType::class,[
                 'label'=>false
             ])
             ->add('experience', IntegerType::class,[
