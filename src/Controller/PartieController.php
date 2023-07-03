@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Campagne;
+use App\Entity\Membre;
 use App\Form\CampagneType;
+use App\Form\ModifCampagneType;
+use App\Repository\CampagneRepository;
 use App\Repository\MembreRepository;
 use App\Service\RecuperateurContexte;
 use Doctrine\ORM\EntityManagerInterface;
@@ -36,7 +39,7 @@ class PartieController extends AbstractController
     }
 
     #[Route('/campagne/creer', name: 'campagne_creer')]
-    public function creerCampagne(Request $request, MembreRepository $membreRepository, EntityManagerInterface $entityManager): Response
+    public function creerCampagne(Request $request, MembreRepository $membreRepository, EntityManagerInterface $entityManager,CampagneRepository $campagneRepository): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED');
         $campagne = new Campagne();
@@ -44,8 +47,13 @@ class PartieController extends AbstractController
         $campagneForm->handleRequest($request);
 
         if($campagneForm->isSubmitted()){
+            $test = 1;
+            $rand = null;
+            while($test != null){
+                $rand = $this->generateRandomString();
+                $test = $campagneRepository->findOneBy(['random'=>$rand]);
+            }
 
-            $rand = $this->generateRandomString();
             $campagne->setRandom($rand);
             $campagne->setMaitreDeJeu($this->getUser());
 
@@ -70,8 +78,12 @@ class PartieController extends AbstractController
         $membres = $membreRepository->findAll();
         $pseudos = [];
         foreach ($membres as $membre){
+            $pseudo = $membre->getPseudo();
+            if ($pseudo != $this->getUser()->getPseudo()){
+                $pseudos[] = $pseudo;
+            }
 
-            $pseudos[] = $membre->getPseudo();
+
         }
 
 
@@ -85,6 +97,78 @@ class PartieController extends AbstractController
         ]);
     }
 
+    #[Route('/campagne/{random}', name: 'campagne_consulter')]
+    public function consulterCampagne(Request $request, CampagneRepository $campagneRepository, EntityManagerInterface $entityManager, $random): Response{
+
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED');
+
+        $campagne = $campagneRepository->findOneBy(['random'=>$random]);
+        if(!$campagne){
+            return $this->redirectToRoute('app_accueil');
+        }
+
+
+        $participants[] = $campagne->getMaitreDeJeu()->getPseudo();
+        foreach ($campagne->getJoueurs() as $joueur){
+            $participants[] = $joueur->getPseudo();
+        }
+        $user = $this->getUser();
+        assert($user instanceof Membre);
+        if (!in_array($user->getPseudo(), $participants)){
+            $campagne->addJoueur($user);
+            $entityManager->persist($campagne);
+            $entityManager->flush();
+            $this->addFlash(
+                'success',
+                'Vous avez rejoids la campagne.',
+            );
+        }
+
+
+        $campagneForm = $this->createForm(ModifCampagneType::class,$campagne);
+        $campagneForm->handleRequest($request);
+
+        if ($campagneForm->isSubmitted() && $campagneForm->isValid()){
+
+            $entityManager->persist($campagne);
+            $entityManager->flush();
+            $this->addFlash(
+                'success',
+                'Campagne modifiée',
+            );
+
+        }
+
+        $contexte = $this->recuperateurContexte->recupContexte($request);
+        return $this->render('campagne/modifier.html.twig', [
+            'controller_name' => 'MembreController',
+            'contexte' => $contexte,
+            'campagneForm'=>$campagneForm->createView(),
+        ]);
+    }
+
+    #[Route('/campagne/supprimer/{id}', name: 'campagne_supprimer')]
+    public function supprimerCampagne(Request $request, CampagneRepository $campagneRepository, EntityManagerInterface $entityManager, $id): Response{
+        $campagne = $campagneRepository->findOneBy(['id'=>$id]);
+        $user = $this->getUser();
+        assert($user instanceof Membre);
+        if ($campagne->getMaitreDeJeu()->getPseudo() == $user->getPseudo()){
+            $entityManager->remove($campagne);
+            $entityManager->flush();
+        }else{
+            foreach ($user->getCampagnes() as $campagne){
+                if ($campagne->getId() == $id){
+                    $user->removeCampagne($campagne);
+                    $entityManager->persist($user);
+                    $entityManager->flush();
+                }
+            }
+        }
+
+        return $this->redirectToRoute('app_profil');
+    }
+
+
     public function generateRandomString() : string
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -96,5 +180,7 @@ class PartieController extends AbstractController
         }
         return $randomString;
     }
+
+
 
 }

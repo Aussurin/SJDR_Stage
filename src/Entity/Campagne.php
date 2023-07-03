@@ -31,6 +31,9 @@ class Campagne
     #[ORM\Column(length: 10)]
     private ?string $random = null;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $seance = null;
+
     public function __construct()
     {
         $this->joueurs = new ArrayCollection();
@@ -109,6 +112,18 @@ class Campagne
     public function setRandom(string $random): self
     {
         $this->random = $random;
+
+        return $this;
+    }
+
+    public function getSeance(): ?\DateTimeInterface
+    {
+        return $this->seance;
+    }
+
+    public function setSeance(?\DateTimeInterface $sceance): self
+    {
+        $this->seance = $sceance;
 
         return $this;
     }

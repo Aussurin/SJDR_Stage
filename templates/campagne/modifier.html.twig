@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/gerercampagne.css') }}">
+{% endblock %}
+
+{% block body %}
+    <body>
+        <header id="selectionjeu">
+            <a href="{{ path('app_accueil') }}"><img class="navlien" src="{{ asset('assets/SJDRlogo.png') }}" width="100px" alt="Logo SJDR"></a>
+        </header>
+
+        <div class="form">
+            <table id="tablecampagne">
+                {{ form_start(campagneForm)}}
+                <tr>
+                    <td>{{constant('NOMCAMPAGNE', contexte)}}</td>
+                    <td>{{ form_widget(campagneForm.nom) }}</td>
+                </tr>
+                <tr>
+                    <td>{{constant('DESCRIPTION', contexte)}}</td>
+                    <td>{{ form_widget(campagneForm.description) }}</td>
+                </tr>
+                <tr id="listeSelected">
+                    <td>{{constant('JOUEUR', contexte)}}</td>
+                    <td>{{ form_widget(campagneForm.joueurs) }}</td>
+                </tr>
+                <tr id="listeSelected">
+                    <td>{{constant('MAITREJEU', contexte)}}</td>
+                    <td>{{ form_widget(campagneForm.maitreDeJeu) }}</td>
+                </tr>
+                <tr id="listeSelected">
+                    <td>{{constant('PROCHAINESCEANCE', contexte)}}</td>
+                    <td>{{ form_widget(campagneForm.seance) }}</td>
+                </tr>
+                <tr id="listeSelected">
+                    <td>{{constant('LIENINVIT', contexte)}}</td>
+                    <td>{{ app.request.uri }}</td>
+
+                </tr>
+                <tr>
+                    <td><button type="submit">{{constant('VALIDER', contexte)}}</button></td>
+                </tr>
+                {{ form_end(campagneForm) }}
+            </table>
+        </div>
+    </body>
+{% endblock %}
+
+{% block title %}
+    {{constant('CAMPAGNE', contexte)}}
+{% endblock %}
+

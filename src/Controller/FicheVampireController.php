@@ -50,6 +50,10 @@ class FicheVampireController extends AbstractController
 
             $entityManager->persist($fiche);
             $entityManager->flush();
+            $this->addFlash(
+                'success',
+                'Fiche créé.',
+            );
             return $this->redirectToRoute('app_fiche_vampire_modifier_id', array('id'=>$fiche->getId()));
         }
 
