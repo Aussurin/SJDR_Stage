@@ -151,5 +151,10 @@ button{
     border: 8px double #D6B5B3;
     font-weight: bold;
 }
+.slider{
+    position: relative;
+    top: -20px;
+    opacity: 0;
+}
 
 

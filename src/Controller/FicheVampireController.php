@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Class\AffichageVampire;
 use App\Entity\AttributPersonnage;
 use App\Entity\AvantageInconvenient;
 use App\Entity\Discipline;
@@ -24,11 +25,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use function PHPUnit\Framework\isNull;
 
 class FicheVampireController extends AbstractController
 {
-    public function __construct(private RecuperateurContexte $recuperateurContexte)
+    public function __construct(private readonly RecuperateurContexte $recuperateurContexte)
     {
     }
 
@@ -221,6 +221,45 @@ class FicheVampireController extends AbstractController
         $progression->setPredateur($ficheForm->get('predateur')->getData());
         $entityManager->persist($progression);
         $entityManager->flush();
+    }
+
+    #[Route('/fiche/affichage/{id}', name: 'app_fiche_affichage_id')]
+    public function affichageFiche(FicheVampireRepository $ficheVampireRepository, AttributRepository $attributRepository,  SkillRepository $skillRepository,  PredateurRepository $predateurRepository, EntityManagerInterface $entityManager, $id, Request $request): Response{
+
+        $fiche = $ficheVampireRepository->findOneBy(['id'=>$id]);
+        $affiche = new AffichageVampire();
+
+        if (!is_null($fiche)){
+            $affiche->convertir($fiche);
+            $fiche = $affiche;
+        }else{
+            $fiche = new FicheVampire();
+            $fiche = $this->fichevierge($fiche);
+            $fiche->setProgression($this->initialisationVampire($attributRepository,$skillRepository,$predateurRepository,$entityManager));
+            $affiche->convertir($fiche);
+            $fiche = $affiche;
+
+        }
+        assert($fiche instanceof AffichageVampire);
+
+        $contexte = $this->recuperateurContexte->recupContexte($request);
+        return $this->render('fiche/affichage.html.twig',[
+            'controller_name' => 'MembreController',
+            'contexte' => $contexte,
+            'fiche'=>$fiche,
+        ]);
+
+    }
+
+    protected function fichevierge(FicheVampire $fiche): FicheVampire{
+        $fiche->setNom('Nom');
+        $fiche->setConcept('Concept');
+        $fiche->setAmbition('Ambition');
+        $fiche->setHumanite(8);
+        $fiche->setDesire('Désir');
+        $fiche->setExperience(0);
+        $fiche->setGeneration(15);
+        return $fiche;
     }
 
 }

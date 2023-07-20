@@ -1,0 +1,187 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {% if ismobile %}
+        <link rel="stylesheet" href="{{ asset('css/partieMobile.css') }}">
+    {% else %}
+        <link rel="stylesheet" href="{{ asset('css/partie.css') }}">
+    {% endif %}
+{% endblock %}
+
+{% block title %}
+    {{constant('PARTIEENCOURS', contexte)}}
+{% endblock %}
+
+{% block body %}
+    <body onload="join('e')">
+        <div class="header">
+            <div class="allbtn">
+                <div class="buttons">
+                    <button class="btndes" onclick="envoyerMessage('/r 1d10')">{{constant('LANCER', contexte)}}1D10</button>
+                    <button class="btndes" onclick="envoyerMessage('/r 2d10')">2D10</button>
+                    <button class="btndes" onclick="envoyerMessage('/r 3d10')">3D10</button>
+                    <button class="btndes" onclick="envoyerMessage('/r 4d10')">4D10</button>
+                    <button class="btndes" onclick="envoyerMessage('/r 5d10')">5D10</button>
+                    <button class="btndes" onclick="envoyerMessage('/r 6d10')">6D10</button>
+                    <button class="btndes" onclick="envoyerMessage('/r 7d10')">7D10</button>
+                    <button class="btndes" onclick="envoyerMessage('/r 8d10')">8D10</button>
+                    <button class="btndes" onclick="envoyerMessage('/r 9d10')">9D10</button>
+                    <button class="btndes" onclick="envoyerMessage('/r 10d10')">10D10</button>
+                </div>
+                <div id="joueurs">
+
+                </div>
+                </div>
+            <div class="lien_image"><a href="{{ path('app_accueil') }}"><img class="navlien" src="{{ asset('assets/SJDRlogo.png') }}" width="100px" height="100px" alt="Logo SJDR"></a></div>
+
+        </div>
+    <div class="main">
+
+        <iframe src="{{ path('app_fiche_affichage_id', {'id': fiche}) }}" id="iframeFiche">
+        </iframe>
+
+        <aside id='asidechat' class="asidechat">
+            <div>
+                </div>
+                    <form id="forminput">
+                        <table id="tablechat">
+                            <tbody id="chat">
+
+                            </tbody>
+
+                        </table>
+                        <textarea id="inputchat" name="chat"></textarea>
+                </form>
+        </aside>
+    </div>
+
+    </body>
+
+
+
+
+    <script>
+
+        const xhttp = new XMLHttpRequest();
+        const forminput = document.getElementById("forminput");
+        const inputchat = document.getElementById("inputchat")
+        const discussion = document.getElementById('chat')
+        const iframeFiche = document.getElementById('iframeFiche')
+        const joueurs = document.getElementById('joueurs')
+        const tablechat = document.getElementById('asidechat')
+        let joueurspresent = [];
+
+        forminput.addEventListener("submit", chat)
+        inputchat.addEventListener("keydown", submitOnEnter);
+
+        function submitOnEnter(e){
+            if (e.which === 13) {
+                if (!e.repeat) {
+                    const newEvent = new Event("submit", {cancelable: true});
+                    e.target.form.dispatchEvent(newEvent);
+                }
+                e.preventDefault();
+                e.target.value = "";
+            }
+        }
+
+        const eventSource = new EventSource("{{ mercure('https://s-jdr/chat/'~id)|escape('js') }}");
+        eventSource.onmessage = event => {
+            // Lors de l'envoie une commande ou d'un message dans le chat
+            let start = event.data.search(':');
+            let message = event.data.slice(start+2, event.data.length-2);
+            let status = event.data.slice(2, start-1);
+
+            if (status === 'join'){
+                let str = message.search('[1-9]');
+                str = message.slice(str, 10)
+                let pseudo = message.slice(10, message.length);
+                if (!joueurspresent.includes(pseudo)){
+                    joueurspresent.push(pseudo)
+                    let btn = '';
+                    if (message.slice(0,1) === 'e'){
+                        btn = '<button class="boutonperso" onclick="affichageFiche('+str+')">'+pseudo+'</button>'
+                    }else {
+                        {% if mj %}
+                        btn = '<button class="boutonperso" onclick="affichageFiche('+str+')">'+pseudo+'</button>'
+                        {% else %}
+                        btn = '<button disabled="disabled" class="boutonperso" onclick="affichageFiche('+str+')">'+pseudo+'</button>'
+                        {% endif %}
+                    }
+                    joueurs.innerHTML+=(btn);
+                    }
+                if (message.slice(0,1) === 'e'){
+                    join('b')
+                }
+            }else {
+                let str = "<tr class='chatmessagetr'><td class='chatmessagetd'>"+status+' : '+message+"</td></tr>"
+                discussion.innerHTML+=(str);
+            }
+            {% if ismobile %}
+            {% else %}
+            tablechat.scrollTop = tablechat.scrollHeight;
+            {% endif %}
+
+        }
+
+        {% if app.user %}
+                const eventFiche =new EventSource("{{ mercure('https://s-jdr/fiche/'~app.user.id)|escape('js') }}");
+        {% else %}
+                const idperso = rand('Invité');
+            const eventFicheInvite =new EventSource("{{ mercure('https://s-jdr/fiche/invite/')|escape('js') }}"+idperso);
+        {% endif %}
+        eventFiche.onmessage = event => {
+                //Lors de l'attribution d'une fiche
+            console.log(event.data)
+        }
+
+        function chat(formulaire){
+            formulaire.preventDefault();
+            envoyerMessage(inputchat.value);
+            }
+
+        function envoyerMessage(e){
+            xhttp.open("POST", "{{ path('publish_id', {'id': id}) }}");
+            xhttp.setRequestHeader("message", e);
+            xhttp.send('message');
+        }
+        function rand(str) {
+            let result = '';
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            const charactersLength = characters.length;
+            let counter = 0;
+            while (counter < 6) {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+                counter += 1;
+            }
+            return str+result;
+        }
+        function join(e){
+            let str = "{{ fiche }}";
+            for (let i = str.length; i<10 ; i++){
+                str = e+str;
+            }
+            {% if app.user %}
+                str = str+"{{ app.user.pseudo }}";
+            {% else %}
+                str = str+idperso;
+            {% endif %}
+            str = '/j'+str;
+
+            xhttp.open("POST", "{{ path('publish_id', {'id': id}) }}");
+            xhttp.setRequestHeader("message", str);
+            xhttp.send('message');
+        }
+        function affichageFiche(e){
+            let idstart = iframeFiche.src.search('[0-9]');
+            let idactuel = iframeFiche.src.slice(idstart, iframeFiche.length);
+            iframeFiche.src = iframeFiche.src.replace(idactuel, e);
+        }
+
+
+
+    </script>
+{% endblock %}
+
+
+

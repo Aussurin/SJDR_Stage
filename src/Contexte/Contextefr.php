@@ -98,4 +98,20 @@ class Contextefr
     const MAITREJEU ='Maitre du jeu';
     const PROCHAINESCEANCE = 'Prochaine séance : ';
     const LIENINVIT = 'Lien d\'invitation';
+    const CHOISIRPERSONNAGE = 'Choisissez votre personnage';
+    const PHYSIQUE = 'Physique';
+    const SOCIAL = 'Social';
+    const MENTAL = 'Mental';
+    const SANTE = 'Santé';
+    const VOLONTE = 'Volonté';
+    const SOIF = 'Soif';
+    const PUISSANCEDESANG = 'Puissance de sang';
+    const FAIBLESSEDECLAN = 'Faiblesse de clan';
+    const DESIR = 'Désir';
+    const PAGE = 'Page';
+    const CARACTERISTIQUES = 'Caractéristiques';
+    const DISCIPLINERESSOURCES = 'Discipline & ressources';
+    const PERSONNAGEHISTORIQUE = 'Personnage et historique';
+    const PARTIEENCOURS = 'S-JDR en partie';
+    const LANCER = 'Lancer';
 }

@@ -7,37 +7,37 @@
         <link rel="stylesheet" href="{{ asset('css/enregistrer.css') }}">
 {% endblock %}
 {% block body %}
-<body>
-    <header id="selectionjeu">
-        <a href="{{ path('app_accueil') }}"><img class="navlien" src="{{ asset('assets/SJDRlogo.png') }}" width="100px" alt="Logo SJDR"></a>
-    </header>
+    <body>
+        <header id="selectionjeu">
+            <a href="{{ path('app_accueil') }}"><img class="navlien" src="{{ asset('assets/SJDRlogo.png') }}" width="100px" alt="Logo SJDR"></a>
+        </header>
 
-    <div class="form">
-        <table id="tablecampagne">
-            {{ form_start(campagneForm, {'attr': { 'id' : 'campagneForm'}}) }}
-            <tr>
-                <td>{{constant('NOMCAMPAGNE', contexte)}}</td>
-                <td>{{ form_widget(campagneForm.nom) }}</td>
-            </tr>
-            <tr>
-                <td>{{constant('DESCRIPTION', contexte)}}</td>
-                <td>{{ form_widget(campagneForm.description) }}</td>
-            </tr>
-                <tr id="listeSelected">
-                    <td>{{constant('JOUEUR', contexte)}}</td>
-                    <td>{{ form_widget(campagneForm.joueurs) }}</td>
-                    <td><button type="submit">{{constant('CREERCAMPAGNE', contexte)}}</button></td>
-                </tr>
-            {{ form_end(campagneForm) }}
-            <form id="formAjout">
+        <div class="form">
+            <table id="tablecampagne">
+                {{ form_start(campagneForm, {'attr': { 'id' : 'campagneForm'}}) }}
                 <tr>
-                    <td><label for="pseudo">{{constant('AJOUTJOUEUR', contexte)}}</label></td>
-                    <td><input type="text" name="pseudo" id="pseudo" placeholder="PSEUDONYME"><button type="submit" value="valider" id="ajouterpseudo">{{constant('AJOUTER', contexte)}}</button></td>
+                    <td>{{constant('NOMCAMPAGNE', contexte)}}</td>
+                    <td>{{ form_widget(campagneForm.nom) }}</td>
                 </tr>
-            </form>
-        </table>
-    </div>
-</body>
+                <tr>
+                    <td>{{constant('DESCRIPTION', contexte)}}</td>
+                    <td>{{ form_widget(campagneForm.description) }}</td>
+                </tr>
+                    <tr id="listeSelected">
+                        <td>{{constant('JOUEUR', contexte)}}</td>
+                        <td>{{ form_widget(campagneForm.joueurs) }}</td>
+                        <td><button type="submit">{{constant('CREERCAMPAGNE', contexte)}}</button></td>
+                    </tr>
+                {{ form_end(campagneForm) }}
+                <form id="formAjout">
+                    <tr>
+                        <td><label for="pseudo">{{constant('AJOUTJOUEUR', contexte)}}</label></td>
+                        <td><input type="text" name="pseudo" id="pseudo" placeholder="PSEUDONYME"><button type="submit" value="valider" id="ajouterpseudo">{{constant('AJOUTER', contexte)}}</button></td>
+                    </tr>
+                </form>
+            </table>
+        </div>
+    </body>
 
     <script>
         const disponibles = {{ pseudos|json_encode()|raw }};

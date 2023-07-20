@@ -39,7 +39,7 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/profil/*, roles: ROLE_USER }
-        - { path: ^/fiche/creer, roles: ROLE_USER }
+        # - { path: ^/fiche/*, roles: ROLE_USER }
 
 when@test:
     security:
