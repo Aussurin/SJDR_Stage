@@ -1,0 +1,173 @@
+@font-face {
+    font-family: "DreamOrphans";
+    src: local("DreamOrphans.otf");
+}
+*{
+    padding: 0;
+    margin: 0;
+    font-family: "DreamOrphans", serif;
+    font-size: 15px;
+}
+.titre{
+    font-size: 24px;
+    color: #770920;
+}
+.titre2{
+    font-size: 24px;
+    font-style: italic;
+}
+body{
+    width: 100%;
+    align-items: center;
+    background-image: url("../assets/fondFicheVampire.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    margin-top: 10px;
+}
+
+table{
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+tr{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+td{
+    display: flex;
+    justify-content: space-between;
+    width: 33%;
+
+}
+.label {
+    width: 50%;
+
+}
+.slider{
+}
+#page1{
+    height: 100%;
+}
+#page2{
+    display: none;
+
+}
+#page3{
+    display: none;
+}
+figcaption{
+    transition:all 0.5s;
+    opacity:0;
+    position: absolute;
+    text-align: center;
+}
+.tableclass{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border: solid black 1px;
+    padding: 0;
+    margin: 0;
+
+}
+
+.pouvoir:hover figcaption{
+    background-color: #fff4ec;
+    opacity: 1;
+}
+.tablespg2{
+    display: flex;
+    flex-direction: column;
+    padding: 0 5% 0 5%;
+    margin-bottom: 25px;
+}
+.avantagelvl{
+    display: block;
+    text-align: left;
+}
+.avantage{
+    width: 90%;
+    border-bottom: dotted black 1px;
+}
+.trpg2 {
+    margin: 10px 0 10px 10px;
+}
+.trtitre{
+    margin-bottom: 0;
+}
+.btncheckbox{
+    border: none;
+    background-color: #fff4ec;
+    margin: 2px;
+}
+.pg2tb{
+    justify-content: left;
+    flex-direction: column;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+.advress{
+    border: solid black 1px;
+    width: 100%;
+    margin: 0;
+}
+.barre{
+    justify-content: center;
+}
+.barre1{
+    margin-right: 4px;
+}
+.barre2{
+    margin-left: 4px;
+}
+.trpg2 .titre{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.tablespg3{
+    padding-right: 5%;
+    padding-left: 5%;
+}
+.type{
+    width: 30%;
+}
+.info{
+    padding-left: 25px;
+    width: 100%;
+}
+header{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.onglet{
+    display: block;
+    width: 30%;
+    height: 50px;
+    background-color: #f4eee4;
+    border: double 5px #c18e91;
+}
+.onglet:hover{
+    background-color: #aba7a0;
+    cursor: pointer;
+}
+.compcol1{
+    display: flex;
+    justify-content: left;
+    width: 31VW;
+}
+.compcol2{
+    display: flex;
+    justify-content: left;
+    width: 31VW;
+}
+.compcol3{
+    display: flex;
+    justify-content: left;
+    width: 31VW;
+}
+

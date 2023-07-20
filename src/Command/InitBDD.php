@@ -944,7 +944,7 @@ class InitBDD extends Command
 
         $bondsurhum = new Pouvoir();
         $bondsurhum->setNom('Bond surhumain');
-        $bondsurhum->setDescription('Peut sauter verticalement d’un nombre de mètres égal à trois fois son niveau bondsurhumde Puissance');
+        $bondsurhum->setDescription('Peut sauter verticalement d’un nombre de mètres égal à trois fois son niveau de Puissance');
         $bondsurhum->setDiscipline($puissance);
         $bondsurhum->setNiveau(1);
         $this->manager->persist($bondsurhum);

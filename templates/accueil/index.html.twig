@@ -41,8 +41,8 @@
     <section class="partie">
         <div class="btn btn-secondary cont {{ jeuchoisi }}" id="linkCreer"><a href="{{ path('campagne_creer') }}" class="{{ jeuchoisi }}">{{constant('CREERCAMPAGNE', contexte)}}</a> </div>
         <div class="btn btn-secondary cont {{ jeuchoisi }}" id="linkRejoindre">
-            <form action="{{ path('rejoindre_partie') }}"  method="post" >
-                <input type="text" name="rejoindre_link">
+            <form id="formpartie" method="post" >
+                <input id="partierand" required type="text" name="rejoindre_link">
                 <button class="btn btn-secondary rejoindre {{ jeuchoisi }}" type="submit">{{constant('REJOINDREPARTIE', contexte)}}</button>
             </form>
         </div>
@@ -55,4 +55,17 @@
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse feugiat lectus nisi, et convallis leo elementum ut. Praesent vel sollicitudin risus, in sodales purus. Nulla at massa imperdiet, blandit dui quis, fringilla lacus. Nam molestie iaculis eros id aliquam. Donec condimentum enim sed enim eleifend euismod. Fusce ut consectetur ligula. Quisque pharetra quis augue sit amet placerat. Praesent aliquet volutpat vulputate.
     </article>
 </body>
+
+    <script>
+        const formpartie = document.getElementById('formpartie')
+        formpartie.addEventListener("submit", redirection)
+        function redirection(e){
+            e.preventDefault();
+            let random = document.getElementById('partierand');
+            document.location.href="{{ path('rejoindre_fiche') }}/"+random.value;
+            console.log(random.value)
+
+
+        }
+    </script>
 {% endblock %}

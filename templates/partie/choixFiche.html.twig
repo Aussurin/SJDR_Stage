@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {% if ismobile %}
+        <link rel="stylesheet" href="{{ asset('css/enregistrermobile.css') }}">
+    {% else %}
+        <link rel="stylesheet" href="{{ asset('css/enregistrer.css') }}">
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <body>
+        <header class="selectionjeu">
+            <a href="{{ path('app_accueil') }}"><img class="navlien" src="{{ asset('assets/SJDRlogo.png') }}" width="100px" alt="Logo SJDR"></a>
+        </header>
+
+        <div class="form">
+            {{ form_start(choix, {'attr': { 'id' : 'ficheForm'}}) }}
+            <table>
+                <tr>
+                    <td><label for="fiche_choix">{{constant('CHOISIRPERSONNAGE', contexte)}}</label></td>
+                    <td>{{ form_row(choix.fiche) }} <button type="submit">{{constant('VALIDER', contexte)}}</button></td>
+                </tr>
+            </table>
+            {{ form_end(choix) }}
+        </div>
+    </body>
+
+    <script>
+        const form = document.getElementById('ficheForm')
+        const select = document.getElementById('form_fiche')
+
+
+    </script>
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+

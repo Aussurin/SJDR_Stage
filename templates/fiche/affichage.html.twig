@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Affichepage</title>
+    <link rel="stylesheet" href="{{ asset('css/AffichePage.css') }}">
+</head>
+<body onload="initialisation()">
+<header>
+    <button class="onglet" onclick="affiche(page1)">{{constant('CARACTERISTIQUES', contexte)}}</button>
+    <button class="onglet" onclick="affiche(page2)">{{constant('DISCIPLINERESSOURCES', contexte)}}</button>
+    <button class="onglet" onclick="affiche(page3)">{{constant('PERSONNAGEHISTORIQUE', contexte)}}</button>
+</header>
+    <div>
+
+        <div class="page" id="page1">
+            <table class="attribut">
+                <tbody>
+                <tr>
+                    <td></td>
+                    <td class="titre">{{constant('ATTRIBUTS', contexte)}}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="titre2">{{constant('PHYSIQUE', contexte)}}</td>
+                    <td class="titre2">{{constant('SOCIAL', contexte)}}</td>
+                    <td class="titre2">{{constant('MENTAL', contexte)}}</td>
+                </tr>
+                <tr>
+                    <td class="compcol1">
+                        <div class="label"><p>{{constant('FORCE', contexte)}}</p></div>
+                        <div><img class="slider" id="Force" alt="{{ fiche.attributs.Force }}" height="10px"></div>
+                    </td>
+                    <td class="compcol2">
+                        <div class="label"><p>{{constant('CHARISME', contexte)}}</p></div>
+                        <div><img class="slider" id="Charisme" alt="{{ fiche.attributs.Charisme }}" height="10px"></div>
+                    </td>
+                    <td class="compcol3">
+                        <div class="label"><p>{{constant('INTELLIGENCE', contexte)}}</p></div>
+                        <div><img class="slider" id="Intelligence" alt="{{ fiche.attributs.Intelligence }}" height="10px"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="compcol1">
+                        <div class="label"><p>{{constant('DEXTERITE', contexte)}}</p></div>
+                        <div><img class="slider" id="Dexterite" alt="{{ fiche.attributs.Dexterite }}" height="10px"></div>
+                    </td>
+                    <td class="compcol2">
+                        <div class="label"><p>{{constant('MANIPULATION', contexte)}}</p></div>
+                        <div><img class="slider" id="Manipulation" alt="{{ fiche.attributs.Manipulation }}" height="10px"></div>
+                    </td>
+                    <td class="compcol3">
+                        <div class="label"><p>{{constant('ASTUCE', contexte)}}</p></div>
+                        <div><img class="slider" id="Astuce" alt="{{ fiche.attributs.Astuce }}" height="10px"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="compcol1">
+                        <div class="label"><p>{{constant('VIGUEUR', contexte)}}</p></div>
+                        <div><img class="slider" id="Vigueur" alt="{{ fiche.attributs.Vigueur }}" height="10px"></div>
+                    </td>
+                    <td class="compcol2">
+                        <div class="label"><p>{{constant('SANG_FROID', contexte)}}</p></div>
+                        <div><img class="slider" id="Sang_froid" alt="{{ fiche.attributs.Sang_froid }}" height="10px"></div>
+                    </td>
+                    <td class="compcol3">
+                        <div class="label"><p>{{constant('RESOLUTION', contexte)}}</p></div>
+                        <div><img class="slider" id="Resolution" alt="{{ fiche.attributs.Resolution }}" height="10px"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="titre">{{constant('COMPETENCES', contexte)}}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="compcol1">
+                        <div class="label"><p>{{constant('ARMEFEU', contexte)}}</p></div>
+                        <div><img class="slider" id="Armes_a_feu" alt="{{ fiche.skills.Armes_a_feu }}" height="10px"></div>
+                    </td>
+                    <td class="compcol2">
+                        <div class="label"><p>{{constant('ANIMAUX', contexte)}}</p></div>
+                        <div><img class="slider" id="Animaux" alt="{{ fiche.skills.Animaux }}" height="10px"></div>
+                    </td>
+                    <td class="compcol3">
+                        <div class="label"><p>{{constant('ERUDITION', contexte)}}</p></div>
+                        <div><img class="slider" id="Erudition" alt="{{ fiche.skills.Erudition }}" height="10px"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="compcol1">
+                        <div class="label"><p>{{constant('ARTISANAT', contexte)}}</p></div>
+                        <div><img class="slider" id="Artisanat" alt="{{ fiche.skills.Artisanat }}" height="10px"></div>
+                    </td>
+                    <td class="compcol2">
+                        <div class="label"><p>{{constant('COMMANDEMENT', contexte)}}</p></div>
+                        <div><img class="slider" id="Commandement" alt="{{ fiche.skills.Commandement }}" height="10px"></div>
+                    </td>
+                    <td class="compcol3">
+                        <div class="label"><p>{{constant('FINANCE', contexte)}}</p></div>
+                        <div><img class="slider" id="Finance" alt="{{ fiche.skills.Finance }}" height="10px"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="compcol1">
+                        <div class="label"><p>{{constant('ATHLETISME', contexte)}}</p></div>
+                        <div><img class="slider" id="Athletisme" alt="{{ fiche.skills.Athletisme }}" height="10px"></div>
+                    </td>
+                    <td class="compcol2">
+                        <div class="label"><p>{{constant('EMPATHIE', contexte)}}</p></div>
+                        <div><img class="slider" id="Empathie" alt="{{ fiche.skills.Empathie }}" height="10px"></div>
+                    </td>
+                    <td class="compcol3">
+                        <div class="label"><p>{{constant('INVESTIGATION', contexte)}}</p></div>
+                        <div><img class="slider" id="Investigation" alt="{{ fiche.skills.Investigation }}" height="10px"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="compcol1">
+                        <div class="label"><p>{{constant('BAGARRE', contexte)}}</p></div>
+                        <div><img class="slider" id="Bagarre" alt="{{ fiche.skills.Bagarre }}" height="10px"></div>
+                    </td>
+                    <td class="compcol2">
+                        <div class="label"><p>{{constant('ETIQUETTE', contexte)}}</p></div>
+                        <div><img class="slider" id="Etiquette" alt="{{ fiche.skills.Etiquette }}" height="10px"></div>
+                    </td>
+                    <td class="compcol3">
+                        <div class="label"><p>{{constant('MEDECINE', contexte)}}</p>
+                        </div>
+                        <div><img class="slider" id="Medecine" alt="{{ fiche.skills.Medecine }}" height="10px"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="compcol1">
+                        <div class="label"><p>{{constant('CONDUITE', contexte)}}</p></div>
+                        <div><img class="slider" id="Conduite" alt="{{ fiche.skills.Conduite }}" height="10px"></div>
+                    </td>
+                    <td class="compcol2">
+                        <div class="label"><p>{{constant('EXPRUE', contexte)}}</p></div>
+                        <div><img class="slider" id="Experience_de_la_rue" alt="{{ fiche.skills.Experience_de_la_rue }}" height="10px"></div>
+                    </td>
+                    <td class="compcol3">
+                        <div class="label"><p>{{constant('OCCULTISME', contexte)}}</p></div>
+                        <div><img class="slider" id="Occultisme" alt="{{ fiche.skills.Occultisme }}" height="10px"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="compcol1">
+                        <div class="label"><p>{{constant('FURTIVITE', contexte)}}</p></div>
+                        <div><img class="slider" id="Furtivite" alt="{{ fiche.skills.Furtivite }}" height="10px"></div>
+                    </td>
+                    <td class="compcol2">
+                        <div class="label"><p>{{constant('INTIMIDATION', contexte)}}</p></div>
+                        <div><img class="slider" id="Intimidation" alt="{{ fiche.skills.Intimidation }}" height="10px"></div>
+                    </td>
+                    <td class="compcol3">
+                        <div class="label"><p>{{constant('POLITIQUE', contexte)}}</p></div>
+                        <div><img class="slider" id="Politique" alt="{{ fiche.skills.Politique }}" height="10px"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="compcol1">
+                        <div class="label"><p>{{constant('LARCIN', contexte)}}</p></div>
+                        <div><img class="slider" id="Larcin" alt="{{ fiche.skills.Larcin }}" height="10px"></div>
+                    </td>
+                    <td class="compcol2">
+                        <div class="label"><p>{{constant('PERSUASION', contexte)}}</p></div>
+                        <div><img class="slider" id="Persuasion" alt="{{ fiche.skills.Persuasion }}" height="10px"></div>
+                    </td>
+                    <td class="compcol3">
+                        <div class="label"><p>{{constant('SCIENCES', contexte)}}</p></div>
+                        <div><img class="slider" id="Sciences" alt="{{ fiche.skills.Sciences }}" height="10px"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="compcol1">
+                        <div class="label"><p>{{constant('MELEE', contexte)}}</p></div>
+                        <div><img class="slider" id="Melee" alt="{{ fiche.skills.Melee }}" height="10px"></div>
+                    </td>
+                    <td class="compcol2">
+                        <div class="label"><p>{{constant('REPRESENTATION', contexte)}}</p></div>
+                        <div><img class="slider" id="Representation" alt="{{ fiche.skills.Representation }}" height="10px"></div>
+                    </td>
+                    <td class="compcol3">
+                        <div class="label"><p>{{constant('TECHNOLOGIE', contexte)}}</p></div>
+                        <div><img class="slider" id="Technologie" alt="{{ fiche.skills.Technologie }}" height="10px"></div>
+                     </td>
+                </tr>
+                <tr>
+                    <td class="compcol1">
+                        <div class="label"><p>{{constant('SURVIE', contexte)}}</p></div>
+                        <div><img class="slider" id="Survie" alt="{{ fiche.skills.Survie }}" height="10px"></div>
+                    </td>
+                    <td class="compcol2">
+                        <div class="label"><p>{{constant('SUBTERFUGE', contexte)}}</p></div>
+                        <div><img class="slider" id="Subterfuge" alt="{{ fiche.skills.Subterfuge }}" height="10px"></div>
+                    </td>
+                    <td class="compcol3">
+                        <div class="label"><p>{{constant('VIGILANCE', contexte)}}</p></div>
+                        <div><img class="slider" id="Vigilance" alt="{{ fiche.skills.Vigilance }}" height="10px"></div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="page" id="page2">
+            <div class="tablespg2">
+            {% for discipline, pouvoirs in fiche.discs %}
+                <table class="tableclass">
+                    <th class="trtitre trpg2">{{ discipline }}</th>
+                    {% for pouvoir, description in pouvoirs %}
+                        <tr class="trpg2">
+                            <td class="pouvoir">{{ pouvoir }}<figcaption class="description" >{{ description }}</figcaption></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endfor %}
+            </div>
+            <div class="pg2tb">
+                <table class="advress">
+                    <tr class="trpg2"><td colspan="2" class="titre">{{constant('SANTE', contexte)}}</td></tr>
+                    <tr class="barre">
+                        <td class="barre1">
+                        {% for i in 1..5 %}
+                            <button class="btncheckbox" onclick="checkbox('s{{ i }}')"><img id="s{{ i }}" src="{{ asset('assets/checkbox0.png') }}" height="20px" width="20px"></button>
+                        {% endfor %}
+                        </td>
+                        <td class="barre2">
+                        {% for i in 6..10 %}
+                            <button class="btncheckbox" onclick="checkbox('s{{ i }}')"><img id="s{{ i }}" src="{{ asset('assets/checkbox0.png') }}" height="20px" width="20px"></button>
+                        {% endfor %}
+                        </td>
+                    </tr>
+                    <tr class="trpg2"><td colspan="2" class="titre">{{constant('VOLONTE', contexte)}}</td></tr>
+                    <tr class="barre">
+                        <td class="barre1">
+                            {% for i in 1..5 %}
+                                <button class="btncheckbox" onclick="checkbox('v{{ i }}')"><img id="v{{ i }}" src="{{ asset('assets/checkbox0.png') }}" height="20px" width="20px"></button>
+                            {% endfor %}
+                        </td>
+                        <td class="barre2">
+                            {% for i in 6..10 %}
+                                <button class="btncheckbox" onclick="checkbox('v{{ i }}')"><img id="v{{ i }}" src="{{ asset('assets/checkbox0.png') }}" height="20px" width="20px"></button>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr class="trpg2"><td colspan="2" class="titre">{{constant('HUMANITE', contexte)}}</td></tr>
+                    <tr class="barre">
+                        <td class="barre1">
+                            {% for i in 1..10 %}
+                            {% if i <= fiche.humanite %}
+                            <button class="btncheckbox" onclick="checkbox('h{{ i }}')"><img id="h{{ i }}" src="{{ asset('assets/checkbox0.png') }}" height="20px" width="20px"></button>
+                            {% else %}
+                            <button class="btncheckbox" onclick="checkbox('h{{ i }}')"><img id="h{{ i }}" src="{{ asset('assets/checkbox3.png') }}" height="20px" width="20px"></button>
+                            {% endif %}
+                            {% if i ==5 %}
+                                </td>
+                                <td class="barre2">
+                            {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr class="trpg2"><td colspan="2" class="titre">{{constant('PUISSANCEDESANG', contexte)}}</td></tr>
+                    <tr class="barre">
+                        <td class="barre1">
+                            {% for i in 1..5 %}
+                                <button class="btncheckbox" onclick="checkbox('p{{ i }}')"><img id="p{{ i }}" src="{{ asset('assets/checkbox0.png') }}" height="20px" width="20px"></button>
+                            {% endfor %}
+                        </td>
+                        <td class="barre2">
+                            {% for i in 6..10 %}
+                                <button class="btncheckbox" onclick="checkbox('p{{ i }}')"><img id="p{{ i }}" src="{{ asset('assets/checkbox0.png') }}" height="20px" width="20px"></button>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr class="trpg2"><td colspan="2" class="titre">{{constant('SOIF', contexte)}}</td></tr>
+                    <tr class="barre">
+                        <td class="barre1" colspan="2">
+                            {% for i in 1..5 %}
+                                <button class="btncheckbox" onclick="checkbox('f{{ i }}')"><img id="f{{ i }}" src="{{ asset('assets/checkbox0.png') }}" height="20px" width="20px"></button>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+        <div class="page" id="page3">
+            <div class="tablespg3">
+                <table class="advress">
+                    <tr class="trpg2"><td class="titre">{{constant('AVANTAGE_HANDICAPS', contexte)}}</td></tr>
+                    {% for avantage, lvl in fiche.avantages %}
+                        <tr class="trpg2">
+                            <td class="avantage"><div>{{ avantage }}</div><div class="avantagelvl">{{ lvl }}</div></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                <table class="advress">
+                    <thead>
+                    <tr class="trpg2"><td class="titre">{{ fiche.description.nom }}</td></tr>
+                    </thead>
+                    <tr class="trpg2">
+                        <td class="type avantage">{{constant('CLAN', contexte)}}</td>
+                        <td class="info avantage">{{ fiche.description.clan }}</td>
+                    </tr>
+                    <tr class="trpg2">
+                        <td class="type avantage">{{constant('FAIBLESSEDECLAN', contexte)}}</td>
+                        <td class="info avantage">{{ fiche.description.clanFaiblesse }}</td>
+                    </tr>
+                    <tr class="trpg2">
+                        <td class="type  avantage">{{constant('DESIR', contexte)}}</td>
+                        <td class="info  avantage">{{ fiche.description.desir }}</td>
+                    </tr>
+                    <tr class="trpg2">
+                        <td class="type  avantage">{{constant('AMBITION', contexte)}}</td>
+                        <td class="info  avantage">{{ fiche.description.ambition }}</td>
+                    </tr>
+                    <tr class="trpg2">
+                        <td class="type  avantage">{{constant('GENERATION', contexte)}}</td>
+                        <td class="info  avantage">{{ fiche.description.generation }}</td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    const page1 = document.getElementById('page1');
+    const page2 = document.getElementById('page2');
+    const page3 = document.getElementById('page3');
+    const imgurl = "{{ asset('assets/3cerclespleins.png') }}"
+    function initialisation(){
+        let sliders = document.getElementsByClassName('slider')
+        for (let element of sliders){
+                element.src = imgurl.replace("3", element.alt)
+        }
+    }
+    function checkbox(e){
+        let imgcheck = document.getElementById(e);
+        let index = imgcheck.src.search('[0-4]');
+        let etatc = imgcheck.src[index]
+        let etat = parseInt(etatc);
+        let srcupdate;
+        if (etat === 3) {
+            srcupdate = imgcheck.src
+            srcupdate = srcupdate.replace('3', '0')
+            imgcheck.src = srcupdate;
+        } else {
+            srcupdate = imgcheck.src
+            etat = etat+1
+            srcupdate = srcupdate.replace(etatc, etat.toString())
+            imgcheck.src = srcupdate;
+        }
+    }
+    function affiche(e){
+        page1.style.display='none'
+        page2.style.display='none'
+        page3.style.display='none'
+
+        e.style.display='block'
+
+    }
+</script>

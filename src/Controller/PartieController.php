@@ -2,16 +2,19 @@
 
 namespace App\Controller;
 
+use App\Class\AffichageVampire;
 use App\Entity\Campagne;
 use App\Entity\Membre;
 use App\Form\CampagneType;
 use App\Form\ModifCampagneType;
 use App\Repository\CampagneRepository;
+use App\Repository\FicheVampireRepository;
 use App\Repository\MembreRepository;
 use App\Service\RecuperateurContexte;
 use Doctrine\ORM\EntityManagerInterface;
 use phpDocumentor\Reflection\Types\Array_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,17 +33,96 @@ class PartieController extends AbstractController
             'controller_name' => 'PartieController',
         ]);
     }
-    #[Route('/partie/rejoindre', name: 'rejoindre_partie')]
-    public function rejoindre(Request $request): Response
-    {
-        //récupération du code demandé dans la page d'accueil pour rejoindre une partie
+    #[Route('/partie/fiche', name: 'rejoindre_fiche')]
+    #[Route('/partie/fiche/{random}', name: 'rejoindre_fiche_random')]
+    public function rejoindreFiche(FicheVampireRepository $ficheVampireRepository, Request $request,$random){
 
+
+        if (is_null($this->getUser())){
+            $ismobile = $this->recuperateurContexte->isMobile($request);
+            $contexte = $this->recuperateurContexte->recupContexte($request);
+            return $this->render('partie/main.html.twig', [
+                'controller_name' => 'MembreController',
+                'contexte' => $contexte,
+                'id'=> $random,
+                'fiche'=>0,
+                'ismobile' => $ismobile,
+                'mj'=>false,
+            ]);
+        }else{
+            $fiches = $ficheVampireRepository->findBy(['membre'=>$this->getUser()]);
+            $choix= [];
+            $choix += ['aucun'=>null];
+            foreach ($fiches as $fiche){
+                $nom = $fiche->getNom();
+                $id = $fiche->getId();
+                $choix += [$nom=>$id];
+
+            }
+            $form = $this->createFormBuilder()
+                ->add('fiche', ChoiceType::class,[
+                    'label'=>false,
+                    'choices'=>$choix,
+                ])->getForm();
+
+            $form->handleRequest($request);
+            if ($form->isSubmitted()){
+                $fiche = $form->getData()['fiche'];
+                return $this->redirectToRoute('rejoindre_partie_random',[
+                    'random' => $random,
+                    'fiche' => $fiche
+                ]);
+            }
+
+            $ismobile = $this->recuperateurContexte->isMobile($request);
+            $contexte = $this->recuperateurContexte->recupContexte($request);
+            return $this->render('partie/choixFiche.html.twig',[
+                'controller_name' => 'MembreController',
+                'contexte' => $contexte,
+                'ismobile' => $ismobile,
+                'choix'=>$form->createView(),
+                'random'=>$random,
+            ]);
+        }
+    }
+
+    #[Route('/partie/rejoindre/{random}', name: 'rejoindre_partie_random')]
+    public function rejoindre(CampagneRepository $campagneRepository,Request $request, $random): Response
+    {
+
+        $fiche = $request->query->get('fiche');
+        $campagne = $campagneRepository->findOneBy(['random'=>$random]);
+        $mj = false;
+        if (is_null($campagne)){
+            $this->addFlash(
+                'success',
+                'La campagne recherchée n\'existe pas',
+            );
+            return $this->redirectToRoute('app_accueil');
+        }else{
+            if ($campagne->getMaitreDeJeu() == $this->getUser()){
+                $mj =true;
+            }
+        }
+        //récupération du code demandé dans la page d'accueil pour rejoindre une partie
+        $ismobile = $this->recuperateurContexte->isMobile($request);
+        $contexte = $this->recuperateurContexte->recupContexte($request);
+        return $this->render('partie/main.html.twig', [
+            'controller_name' => 'MembreController',
+            'contexte' => $contexte,
+            'id'=> $random,
+            'fiche'=>$fiche,
+            'ismobile' => $ismobile,
+            'mj'=>$mj,
+
+        ]);
         return $this->redirectToRoute('app_accueil');
     }
 
     #[Route('/campagne/creer', name: 'campagne_creer')]
     public function creerCampagne(Request $request, MembreRepository $membreRepository, EntityManagerInterface $entityManager,CampagneRepository $campagneRepository): Response
     {
+
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED');
         $campagne = new Campagne();
         $campagneForm = $this->createForm(CampagneType::class,$campagne);
