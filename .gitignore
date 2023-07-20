@@ -19,3 +19,9 @@
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
 /public/images/image_profil/
+/mercure/Caddyfile
+/mercure/Caddyfile.dev
+/mercure/COPYRIGHT
+/mercure/LICENSE
+/mercure/mercure.exe
+/mercure/README.md
