@@ -126,3 +126,12 @@ a.card{
 .concept{
     height: 75%;
 }
+div.tableaux{
+    display: flex;
+}
+.cardcrea{
+    display: flex;
+}
+.cardcrea div{
+    width: 45%;
+}

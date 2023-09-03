@@ -32,14 +32,6 @@ class MercureController extends AbstractController
                         break;
                     }
                     $j = $i+2;
-                    /*if (ctype_digit($message[$j])){
-                        while (ctype_digit($message[$j+1])){
-                            $j++;
-                        }
-                    }else{
-                        $message = 'Commande non reconnu 1';
-                        break;
-                    }*/
                         $nbdes = intval(substr($message, 3, $i-2 ));
                         $valeurdes = intval(substr($message, $i+2, $j+1));
                         $jets = '';
@@ -66,7 +58,6 @@ class MercureController extends AbstractController
                     break;
             }
         }
-
 
         $update = new Update(
             'https://s-jdr/chat/'.$id,

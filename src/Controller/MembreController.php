@@ -33,7 +33,6 @@ class MembreController extends AbstractController
         $creerMembreForm = $this->createForm(MembreType::class, $membre);
         $creerMembreForm->handleRequest($request);
 
-
         if ($creerMembreForm->isSubmitted() && $creerMembreForm->isValid()){
             $membre->setPassword(
                 $this->userPasswordHasher->hashPassword(
@@ -41,7 +40,6 @@ class MembreController extends AbstractController
                     $creerMembreForm->get('password')->getData()
                 )
             );
-
             $this->entityManager->persist($membre);
             $this->entityManager->flush();
             $this->addFlash(

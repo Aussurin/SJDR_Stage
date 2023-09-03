@@ -192,8 +192,6 @@ class ModifierFicheFormBuilder extends AbstractType
             }
         }
 
-
-
         $i=1;
         foreach ($fiche->getProgression()->getPointsCreation() as $creapoint) {
             $builder

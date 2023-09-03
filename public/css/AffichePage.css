@@ -16,6 +16,9 @@
     font-size: 24px;
     font-style: italic;
 }
+html{
+    min-height: 100%;
+}
 body{
     width: 100%;
     align-items: center;

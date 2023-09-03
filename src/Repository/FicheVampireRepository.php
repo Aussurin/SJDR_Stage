@@ -2,8 +2,12 @@
 
 namespace App\Repository;
 
+use App\Entity\Attribut;
+use App\Entity\AttributPersonnage;
 use App\Entity\FicheVampire;
+use App\Entity\Progression;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -39,20 +43,28 @@ class FicheVampireRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return FicheVampire[] Returns an array of FicheVampire objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('f')
-//            ->andWhere('f.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('f.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+
+    public function trouverUneFicheId($value): array
+    {
+        return $this->createQueryBuilder('f')
+            ->Where('f.id = :val')
+            ->setParameter('val', $value)
+            ->leftJoin('f.progression', 'p')
+            ->leftJoin('p.attributs', 'at')
+            ->leftJoin('at.attribut', 'a')
+            ->leftJoin('p.skills', 'sk')
+            ->leftJoin('sk.skill', 's')
+            ->leftJoin('p.pointsCreation', 'pc')
+            ->leftJoin('pc.avantageInconvenient', 'av')
+            ->leftJoin('p.pouvoirPerso', 'pp')
+            ->leftJoin('pp.pouvoirs', 'po')
+            ->leftJoin('p.predateur', 'pr')
+            ->addSelect('p', 'at', 'a', 'sk', 's', 'pc', 'pp', 'po', 'pr')
+
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
 //    public function findOneBySomeField($value): ?FicheVampire
 //    {

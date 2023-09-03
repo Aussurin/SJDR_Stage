@@ -105,15 +105,13 @@ class FicheVampireController extends AbstractController
 
     #[Route('/fiche/vampire/modifier/{id}', name: 'app_fiche_vampire_modifier_id')]
     public function progression(Request $request, $id, ModifierFicheFormBuilder $formBuilder, EntityManagerInterface $entityManager, FicheVampireRepository $ficheVampireRepository, PouvoirPersoRepository $pouvoirPersoRepository): Response{
-        //dd($test->getProgression()->getPredateur());
-
         $vampire = 0;
         $membre = $this->getUser();
         $fiches = $membre->getFiches();
 
         foreach ($fiches as $fiche){
             if ($fiche->getId()==$id){
-                $vampire = $fiche;
+                $vampire = $ficheVampireRepository->trouverUneFicheId($id)[0];
                 break;
             }
         }
@@ -125,14 +123,13 @@ class FicheVampireController extends AbstractController
             );
             return $this->redirectToRoute('app_profil');
         }
-
-        foreach ($vampire->getProgression()->getPouvoirPerso()->getDiscipline() as $discipline){
+       /* foreach ($vampire->getProgression()->getPouvoirPerso()->getDiscipline() as $discipline){
             $i = $discipline;
         }
 
         foreach ($vampire->getProgression()->getPouvoirPerso()->getPouvoirs() as $pouvoir){
             $i = $pouvoir;
-        }
+        }*/
 
 
         $builder = $this->createFormBuilder($vampire);
@@ -240,7 +237,6 @@ class FicheVampireController extends AbstractController
             $fiche = $affiche;
 
         }
-        assert($fiche instanceof AffichageVampire);
 
         $contexte = $this->recuperateurContexte->recupContexte($request);
         return $this->render('fiche/affichage.html.twig',[

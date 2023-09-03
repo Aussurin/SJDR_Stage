@@ -114,4 +114,12 @@ class Contextefr
     const PERSONNAGEHISTORIQUE = 'Personnage et historique';
     const PARTIEENCOURS = 'S-JDR en partie';
     const LANCER = 'Lancer';
+    const ACCUEILGUIDE1 = "Bienvenue sur le site SJDR, lisez ce paragraphe pour apprendre à vous servir de cet outil.";
+    const ACCUEILGUIDE2 ='Vous retrouverez ce logo sur toutes les pages du site, il permet de revenir à la page d\'accueil d\'un simple clic gauche';
+    const ACCUEILGUIDE3 = "Les joueurs se retrouve au sein d\'une partie et chaque partie est assigné à une campagne. Avant de pouvoir vous rejoindre le MJ devra créer une campagne puis vous donner le lien qui y correspond.";
+    const ACCUEILGUIDE4 = 'Vous pouvez à tout moment retrouver ce lien depuis votre page de profil.';
+    const ACCUEILGUIDE5 = 'Toutes création ou modification d\'un personnage (telle que sa répartition d\'expérience) se fait via la page de modification de fiche disponible dans votre profil';
+    const FONCTIONALITEES = 'Ici se trouvera la liste des fonctionalitées à venir qui sera ajoutée sous peu.';
+
+
 }

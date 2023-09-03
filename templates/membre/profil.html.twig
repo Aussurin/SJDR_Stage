@@ -90,7 +90,7 @@
                             <tr class="cardligne">
                                 <td class="perso card">
                                     {% if campagne.nom %}<p class="nom">{{ campagne.nom }}</p> {% endif %}
-                                    {% if campagne.random %}<p class="nom">{{constant('LIENDINVIT', contexte)}}<br>https://www.s-jdr.fr/campagne/{{ campagne.random }}</p> {% endif %}
+                                    {% if campagne.random %}<p class="nom">{{constant('LIENDINVIT', contexte)}}<br><a class="lienpartie" href="{{ path('rejoindre_fiche_random', {'random': campagne.random}) }}">{{constant('REJOINDREPARTIE', contexte)}}</a></p> {% endif %}
                                 </td>
                                 <td class="cardlink">
                                     <a href="{{ path('campagne_supprimer', {'id': campagne.id}) }}" >{{constant('SUPPRIMER', contexte)}}</a><br>
