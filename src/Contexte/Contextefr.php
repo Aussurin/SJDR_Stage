@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Contexte;
-
 class Contextefr
 {
     const ACCUEIL = 'Accueil';

@@ -16,9 +16,7 @@ class MercureController extends AbstractController
     {
         $message = $request->headers->get('message');
         $status = $this->getUser()->getPseudo();
-
         //Definition des commandes disponibles
-
         if ($message[0] == '/'){
             switch ($message[1]){
                 case 'r'://Lancé de dés
@@ -58,7 +56,6 @@ class MercureController extends AbstractController
                     break;
             }
         }
-
         $update = new Update(
             'https://s-jdr/chat/'.$id,
             json_encode([$status => $message])

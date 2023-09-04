@@ -27,7 +27,7 @@
                     {% if app.user.imageName %}
                         <div class="avatar"><img src="{{ asset('images/image_profil/'~app.user.imageName) }}" width="100px" height="100px" alt="Image de profil"></div>
                     {% endif %}
-                    <div class="button"><button>{{constant('MODIFIER', contexte)}}</button>{{ form_end(imgform) }}</div>
+                    <div class="button"><button id="submitimg" type="submit">{{constant('MODIFIER', contexte)}}</button>{{ form_end(imgform) }}</div>
                 </div>
 
             </div>

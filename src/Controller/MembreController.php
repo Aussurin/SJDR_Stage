@@ -107,7 +107,7 @@ class MembreController extends AbstractController
             $this->entityManager->persist($membre);
             $this->entityManager->flush();
             // $imageOptimizer = new ImageOptimizer();
-           // $imageOptimizer->resize($membre->getImageName());
+            // $imageOptimizer->resize($membre->getImageName());
         }
         $membre->setImageFile(null);
 

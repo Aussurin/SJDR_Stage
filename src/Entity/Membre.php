@@ -47,15 +47,15 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(nullable: true)]
     private ?string $imageName = null;
-
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\ManyToMany(targetEntity: Campagne::class, mappedBy: 'joueurs')]
     private Collection $campagnes;
 
     #[ORM\OneToMany(mappedBy: 'maitreDeJeu', targetEntity: Campagne::class)]
     private Collection $campagnesMJ;
-    #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $updatedAt = null;
+
 
     #[ORM\OneToMany(mappedBy: 'membre', targetEntity: FicheVampire::class, orphanRemoval: true)]
     private Collection $fiches;

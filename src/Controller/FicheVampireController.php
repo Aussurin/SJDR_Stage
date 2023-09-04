@@ -41,7 +41,6 @@ class FicheVampireController extends AbstractController
         $ficheform = $this->createForm(FicheVampireType::class,$fiche);
         $ficheform->handleRequest($request);
 
-
         if ($ficheform->isSubmitted() && $ficheform->isValid()){
 
             $progression = $this->initialisationVampire($attributRepository,$skillRepository,$predateurRepository,$entityManager);
@@ -98,7 +97,6 @@ class FicheVampireController extends AbstractController
         $progression->setPredateur($predateur);
 
         $entityManager->persist($progression);
-
 
         return $progression;
     }
